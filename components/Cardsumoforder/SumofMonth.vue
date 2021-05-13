@@ -1,0 +1,153 @@
+<template>
+  <div>
+  <svg height="100%" width="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150 -mt-36"><defs><linearGradient id="gradient"><stop offset="5%" stop-color="#9900ef88"></stop><stop offset="95%" stop-color="#8ed1fc88"></stop></linearGradient></defs><path d="M 0,400 C 0,400 0,133 0,133 C 57.82009833725449,109.46300457321104 115.64019667450899,85.92600914642206 165,96 C 214.35980332549101,106.07399085357794 255.25931163921865,149.7589679875228 297,161 C 338.74068836078135,172.2410320124772 381.32255676861666,151.03811890348675 432,138 C 482.67744323138334,124.96188109651325 541.4504612863147,120.08855639853022 583,136 C 624.5495387136853,151.91144360146978 648.8755980861243,188.60765550239236 694,174 C 739.1244019138757,159.39234449760764 805.0471463691877,93.4808215919004 859,84 C 912.9528536308123,74.5191784080996 954.9358164371249,121.46905813000609 997,141 C 1039.064183562875,160.5309418699939 1081.2095878823125,152.64294588807527 1130,136 C 1178.7904121176875,119.35705411192473 1234.2258320336248,93.95915831769278 1287,92 C 1339.7741679663752,90.04084168230722 1389.8870839831875,111.52042084115361 1440,133 C 1440,133 1440,400 1440,400 Z" stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150" transform="rotate(-180 720 200)"></path><defs><linearGradient id="gradient"><stop offset="5%" stop-color="#9900efff"></stop><stop offset="95%" stop-color="#8ed1fcff"></stop></linearGradient></defs><path d="M 0,400 C 0,400 0,266 0,266 C 40.745314441301645,262.3340955351714 81.49062888260329,258.66819107034286 133,248 C 184.5093711173967,237.33180892965714 246.78279891088846,219.6613312538 295,234 C 343.21720108911154,248.3386687462 377.37817547384276,294.6864839144571 418,309 C 458.62182452615724,323.3135160855429 505.7044991937404,305.5927330883714 556,302 C 606.2955008062596,298.4072669116286 659.8038277511961,308.94258373205736 714,302 C 768.1961722488039,295.05741626794264 823.0801898014751,270.636931983399 878,262 C 932.9198101985249,253.36306801660098 987.8754130429036,260.5096883343466 1025,259 C 1062.1245869570964,257.4903116656534 1081.4181580269105,247.3243146792144 1131,258 C 1180.5818419730895,268.6756853207856 1260.451954849454,300.1930529487959 1317,305 C 1373.548045150546,309.8069470512041 1406.774022575273,287.90347352560207 1440,266 C 1440,266 1440,400 1440,400 Z" stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150" transform="rotate(-180 720 200)"></path></svg>
+    <div class="flex justify-end pr-5 -mt-96">
+           <v-col
+              cols="2"
+              sm="2"
+            >
+              <v-select
+                dark
+                :items="items"
+                label="Standard"
+                outlined
+              ></v-select>
+            </v-col>
+    </div>
+    <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4 ">
+      <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
+        <!-- <---Summary of Product ----> 
+         <div class="flex flex-col flex-wrap sm:flex-row ">
+           <div class="w-full sm:w-1/2 xl:w-1/4">
+            <div class="mb-4">
+              <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
+                 <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-md text-black dark:text-white ml-2">
+                              Order
+                            </span>
+                            <span class="text-sm text-gray-500 dark:text-white ml-2">
+                              Summary of order.
+                            </span>
+                        </div>
+                    </div>
+                      <div class="text-gray-200 ">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1088 1248v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68z">
+                        </path>
+                        </svg>
+                      </div>
+                    <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 150</p>
+                 </div>
+                 <div class="border-t-2 "></div>
+                 <br>
+                 <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-md text-black dark:text-white ml-2">
+                              Glass : 
+                            </span>
+                            <span class="text-sm text-gray-500 dark:text-white ml-2">
+                              Summary of glass.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-gray-200 ">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1088 1248v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68z">
+                        </path>
+                        </svg>
+                      </div>
+                    <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 64</p>
+                 </div>
+              </div>
+            </div>
+           </div>
+           <!-- <---Table Sum ----> 
+           <div class="w-full sm:w-1/2 xl:w-3/4 pl-8">
+            <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
+              <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
+                <p class="font-bold text-md p-4 text-black dark:text-white">
+                  Table Order
+                  <span class="text-sm text-gray-500 dark:text-gray-300 dark:text-white ml-2">
+                   (05)
+                  </span>
+                  <TableSumMonth />
+                </p>
+              </div>
+            </div>
+           </div>
+         </div>
+
+         <!-- <---Summary of Today ----> 
+         <div class="w-full sm:w-1/2 xl:w-1/4">
+            <div class="mb-4">
+              <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
+                 <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-md text-black dark:text-white ml-2">
+                              Product
+                            </span>
+                            <span class="text-sm text-gray-500 dark:text-white ml-2">
+                              Summary of Product
+                            </span>
+                        </div>
+                        <div class="flex items-center">
+                          <button class="text-gray-200">
+                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M1088 1248v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68z">
+                             </path>
+                             </svg>
+                          </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mb-4 space-x-12">
+                      <p class="pl-6 px-2 py-1 flex  font-semibold text-xs rounded-md text-blue-400 border border-blue-400  bg-white">
+                         Progress Product
+                      </p>
+                  </div>
+                 </div>
+                  <ul>
+                     <li class="flex items-center text-gray-600 dark:text-gray-200 justify-between py-3 border-b-2 border-gray-100 dark:border-gray-800">
+                       <div class="flex items-center justify-start text-sm">
+                          <span class="mx-4">
+                            01
+                          </span>
+                          <span>
+                            Coffee Amerigano
+                          </span>
+                        </div>
+                        <svg width="20" height="20" fill="currentColor" class="mx-4 text-gray-400 dark:text-gray-300" viewBox="0 0 1024 1024">
+                           <path d="M699 353h-46.9c-10.2 0-19.9 4.9-25.9 13.3L469 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H325c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8a31.8 31.8 0 0 0 51.7 0l210.6-292c3.9-5.3.1-12.7-6.4-12.7z" fill="currentColor">
+                           </path>
+                           <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372s372 166.6 372 372s-166.6 372-372 372z" fill="currentColor">
+                           </path>
+                        </svg>
+                      </li>
+                  </ul>
+              </div>
+            </div>
+           </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  watch: {
+  },
+  data: () => ({
+      items: ['January', 'February', 'March', 
+              'April','May','June','July',
+              'August','September','October',
+              'November','December'],
+    }),
+}
+</script>
+
+<style>
+
+</style>
