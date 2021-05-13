@@ -5,6 +5,11 @@
 ```bash
 # install dependencies
 $ npm install
+$ npm install axios
+$ npm inslall vuex-class-modules
+
+# Install Css
+$ npm install --save-dev @nuxtjs/tailwindcss postcss@latest
 
 # serve with hot reload at localhost:3000
 $ npm run dev
