@@ -8,7 +8,7 @@
             >
               <v-img
                 :aspect-ratio="16/9"
-                src="https://www.akerufeed.com/wp-content/uploads/2019/03/9-5.jpg"
+                src="https://www.tasteofhome.com/wp-content/uploads/2018/01/exps192208_SD163575C10_09_4b-2.jpg?w=1200"
               >
                 <v-expand-transition>
                   <div
@@ -16,7 +16,7 @@
                     class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-8"
                     style="height: 100%;"
                   >
-                    $ 35. Bath
+                    $ {{menu.price}}. Bath
                   </div>
                 </v-expand-transition>
               </v-img>
@@ -32,11 +32,12 @@
                   large
                   right
                   top
-                >
+                  @click="callbackMenu()"
+                  >
                   <v-icon>mdi-cart</v-icon>
                 </v-btn>
                 <h3 class="display-1 font-weight-light orange--text mb-2">
-                  Blue Hawaii Italian
+                  {{menu.name}}
                 </h3>
               </v-card-text>
             </v-card>
@@ -44,8 +45,22 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {Menu} from '@/vuexes/menu'
 export default {
+  props:{
+    menu:{
+      default:{
+        name:'bread',
+        price:0
+      }
+    }
+  },
+  methods: {
+    async callbackMenu() {
+      await Menu.setMenu(this.menu)
+    },
+  },
 
 }
 </script>

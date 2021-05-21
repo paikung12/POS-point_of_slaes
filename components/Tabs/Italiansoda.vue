@@ -3,11 +3,13 @@
       <div>
         <br>
           <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full">
-           <Cardmenu-Italiansodas-Italiansoda1  />
-           <Cardmenu-Italiansodas-Italiansoda2 />
+            <div v-for="(menu ,i) in menus" :key="i">
+              <Cardmenu-Italiansodas-MenuItaliansoda  @callback="MenuVal" :menu='menu'/>
+            </div>
+           <!-- <Cardmenu-Italiansodas-Italiansoda2 />
            <Cardmenu-Italiansodas-Italiansoda3 />
            <Cardmenu-Italiansodas-Italiansoda4 />
-           <Cardmenu-Italiansodas-Italiansoda5 />
+           <Cardmenu-Italiansodas-Italiansoda5 /> -->
           </div>
       </div>
   </v-app>
@@ -15,9 +17,43 @@
 
 <script>
 export default {
-  props: {
+  data(){
+    return{
+      menus:[
+        {
+          name:'Strawberry Iceland',
+          price: 35,
+          hr: 0.5,
+        },
+        {
+          name:'Aple Iceland',
+          price: 35,
+          hr: 0.5,
+        },
+        {
+          name:'Strawberry Iceland',
+          price: 35,
+          hr: 0.5
+        },
+        {
+          name:'Strawberry Iceland',
+          price: 35,
+          hr: 0.5,
+        },
+        {
+          name:'Strawberry Iceland',
+          price: 35,
+          hr: 0.5,
+        },
+      ]
+    }
   },
-
+  methods: {
+    MenuVal(val){
+      alert(JSON.stringify(val))
+    }
+  },
+  
 }
 </script>
 

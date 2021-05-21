@@ -5,11 +5,10 @@
               class="mx-auto"
               color="grey lighten-4"
               width="450"
-              
             >
               <v-img
                 :aspect-ratio="16/9"
-                src="https://site.listsothebysrealty.in.th/wp-content/uploads/2020/02/03-Mocca-1.jpg"
+                src="https://content.shopback.com/th/wp-content/uploads/2019/09/04135819/Pic-05.jpg"
               >
                 <v-expand-transition>
                   <div
@@ -17,7 +16,7 @@
                     class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-8"
                     style="height: 100%;"
                   >
-                    $ 45. Bath
+                    $ {{menu.price}}. Bath
                   </div>
                 </v-expand-transition>
               </v-img>
@@ -56,15 +55,15 @@
                             <v-checkbox
                             class="pl-5"
                               v-model="selected"
-                              label="Hot (25.B)"
-                              value="Hot"
+                              label="Cold (35.B)"
+                              value="Cold"
                             >
                             </v-checkbox>
                             <v-checkbox
                               class="pl-5"
                               v-model="selected"
-                              label="Cold (35.B)"
-                              value="Cold"
+                              label="Churn (40.B)"
+                              value="Churn"
                             >
                             </v-checkbox>
                           </v-row>
@@ -97,22 +96,22 @@
                             <v-checkbox
                                 class="pl-5"
                                 v-model="selected"
-                                label="1 Shot(+5.B)"
-                                value="1Shot"
+                                label="Kaimook (+5.B)"
+                                value="Kaimook"
                               >
                               </v-checkbox>
                               <v-checkbox
                                 class="pl-5"
                                 v-model="selected"
-                                label="2 Shot(+5.B)"
-                                value="2Shot"
+                                label="Buk Brown Sugar (+5.B)"
+                                value="BukBrownSugar"
                               >
                               </v-checkbox>
                               <v-checkbox
                                 class="pl-5"
                                 v-model="selected"
-                                label="3 Shot(+5.B)"
-                                value="3Shot"
+                                label="Rainbow jelly (+5.B)"
+                                value="Rainbowjelly"
                               >
                               </v-checkbox>
                           </v-row>
@@ -135,11 +134,7 @@
                       <v-divider></v-divider>
                       <v-card-actions>
                         <div class="flex justify-end">
-                            <v-btn
-                            color="green darken-1"
-                            text
-                            @click="dialog = false"
-                          >
+                          <v-btn color="green darken-1" text @click="callbackMenu()">
                             Submit
                           </v-btn>
                           <v-btn
@@ -154,7 +149,7 @@
                     </v-card>
                   </v-dialog>
                 <h3 class="display-1 font-weight-light orange--text mb-2">
-                  Mocca
+                  {{menu.name}}
                 </h3>
               </v-card-text>
             </v-card>
@@ -162,15 +157,32 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {Menu} from '@/vuexes/menu'
 export default {
+  props:{
+    menu:{
+      default:{
+        name: 'Tea',
+        price: 0.5
+      }
+    }
+  },
+  watch: {
+  },
 data () {
       return {
-        dialog: false,
+         dialog: false,
+         selected: [''],
+      }
+    },
+    methods: {
+        async callbackMenu(){
+        await Menu.setMenu(this.menu)
+        this.dialog=false;
       }
     },
 }
-
 </script>
 
 <style>

@@ -8,7 +8,7 @@
             >
               <v-img
                 :aspect-ratio="16/9"
-                src="https://www.pholfoodmafia.com/wp-content/uploads/2019/03/Berry-Smoothies-big.jpg"
+                src="https://www.krcfujisupply.biz/image/catalog/content/20.1.jpg"
               >
                 <v-expand-transition>
                   <div
@@ -16,7 +16,7 @@
                     class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-8"
                     style="height: 100%;"
                   >
-                    $ 35. Bath
+                    $ {{menu.price}}. Bath
                   </div>
                 </v-expand-transition>
               </v-img>
@@ -32,11 +32,12 @@
                   large
                   right
                   top
+                   @click="callbackMenu()"
                 >
                   <v-icon>mdi-cart</v-icon>
                 </v-btn>
                 <h3 class="display-1 font-weight-light orange--text mb-2">
-                  Berry Smoothies
+                 {{menu.name}}
                 </h3>
               </v-card-text>
             </v-card>
@@ -44,9 +45,27 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {Menu} from "@/vuexes/menu"
 export default {
-
+  props:{
+    menu:{
+      default:{
+        menu:'Smoothie',
+        price:0
+      }
+    }
+  },
+data () {
+      return {
+        dialog: false,
+      }
+    },
+    methods:{
+    async callbackMenu(){
+        await Menu.setMenu(this.menu)
+      }
+  }
 }
 </script>
 

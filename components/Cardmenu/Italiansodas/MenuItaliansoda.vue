@@ -16,7 +16,7 @@
                     class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-8"
                     style="height: 100%;"
                   >
-                    $ 35. Bath
+                    $ {{menu.price}}. Bath
                   </div>
                 </v-expand-transition>
               </v-img>
@@ -95,11 +95,7 @@
                       <v-divider></v-divider>
                       <v-card-actions>
                         <div class="flex justify-end">
-                            <v-btn
-                            color="green darken-1"
-                            text
-                            @click="dialog = false"
-                          >
+                            <v-btn color="green darken-1" text @click="callbackMenu()">
                             Submit
                           </v-btn>
                           <v-btn
@@ -115,7 +111,7 @@
                   </v-dialog>
 
                 <h3 class="display-1 font-weight-light orange--text mb-2">
-                  Strawberry Iceland 
+                  {{menu.name}}
                 </h3>
               </v-card-text>
             </v-card>
@@ -123,13 +119,28 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {Menu} from '@/vuexes/menu'
 export default {
+  props:{
+    menu:{
+      default:{
+        menu:'ItalianSoda',
+        price:0
+      }
+    }
+  },
 data () {
       return {
         dialog: false,
       }
     },
+  methods:{
+    async callbackMenu(){
+        await Menu.setMenu(this.menu)
+        this.dialog=false;
+      }
+  }
 }
 </script>
 

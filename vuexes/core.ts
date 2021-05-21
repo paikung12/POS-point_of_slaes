@@ -29,5 +29,5 @@ class CoreModule extends VuexModule{
     }
 }
 
-import store from "@/store"
+import store from "~/vuexes"
 export const Core = new CoreModule({store, name: "Core"})
