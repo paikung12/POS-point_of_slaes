@@ -57,6 +57,7 @@
                 <div class="font-bold text-5xl text-yellow-400">Main Order</div>
             </div>
             <br>
+            <pre>{{menuchoose}}</pre>
             <div class=" flex flex-row items-center justify-center ">
                 <v-col cols="12" sm="6">
                     <v-text-field label="Name" outlined></v-text-field>
@@ -64,18 +65,29 @@
             </div>
             <!-- end header -->
             <!-- order list -->
-            <div class="px-5 py-4 mt-5 overflow-y-auto h-64">
-                <div class="flex flex-row justify-between items-center mb-4">
+            <div class="px-5 py-4 mt-0.5 overflow-y-auto h-64">
+                <div class="flex flex-row justify-between items-center mb-4" v-for="(menuchoose,i) in menuchooses" :key="i">
                     <div class="flex flex-row items-center w-2/5">
-                        <img src=" " class="w-10 h-10 object-cover rounded-md" alt="">
-                        <span class="ml-4 font-semibold text-sm">Stuffed flank steak</span>
+                        <div class="border-4 border-yellow-400 border-opacity-75 w-10 text-center">{{i+1}}</div>
+                        <span class="ml-4 font-semibold text-sm">{{menuchoose.name}}</span>
                     </div>
-                    <div class="w-32 flex ">
-                        
+                    <div class="w-32 flex pt-3 ">
+                        <button @click="decreaseCounter(0)" class="bg-white text-yellow-400   hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-l cursor-pointer  shadow-lg">
+                            -
+                        </button>
+                        <p class="text-center w-10 bg-white font-sans text-md  shadow-lg text-yellow-400 ">{{counter}}</p>
+                        <button @click="increaseCounter(10)" class="bg-white text-yellow-400 hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-r cursor-pointer shadow-lg">
+                            +
+                        </button>
                     </div>
                     <div class="font-semibold text-lg w-16 text-center">
-                        $13.50
+                        {{menuchoose.price}}
                     </div>
+                    <button @click="del(i)" class="inline-block p-3 text-center text-white transition bg-red-500 rounded-full shadow ripple hover:shadow-lg hover:bg-red-600 focus:outline-none">
+                        <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
                 </div>
             </div>
             <!-- end order list -->
@@ -84,11 +96,11 @@
                 <div class="py-4 rounded-md shadow-lg">
                     <div class=" px-4 flex justify-between ">
                         <span class="font-semibold text-sm">Subtotal Hour</span>
-                        <span class="font-bold">4 hr</span>
+                        <span class="font-bold"> {{SumHr}} hr</span>
                     </div>
                     <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
                         <span class="font-semibold text-2xl">Total</span>
-                        <span class="font-bold text-2xl">$37.50</span>
+                        <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
                     </div>
                 </div>
             </div>
@@ -99,10 +111,9 @@
                     <div class="flex flex-row justify-between items-center">
                         <div class="flex flex-col">
                             <span class="uppercase text-xs font-semibold">cashless credit</span>
-                            <span class="text-xl font-bold text-yellow-500">$37.50</span>
-                            <span class=" text-xs text-gray-400 ">4 hour</span>
+                            <span class=" text-xs text-yellow-400 ">{{SumHr}} hour</span>
                         </div>
-                        <div class="px-4 py-3 bg-blue-200 text-blue-400 rounded-md font-bold"> Clear</div>
+                        <div class="px-4 py-3 bg-blue-200 text-blue-400 rounded-md font-bold"> $ {{Sumtotal}}</div>
                     </div>
                 </div>
             </div>
@@ -118,8 +129,49 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Menu } from '@/vuexes/menu'
+import { keys } from 'lodash';
 export default {
+    data: () => {
+        return ({
+            counter: 0,
+
+        });
+    },
+    methods: {
+        increaseCounter(menuchooses: any) {
+            if (this.counter < menuchooses) this.counter++;
+        },
+        decreaseCounter(menuchooses: any) {
+            if (this.counter > menuchooses) this.counter--;
+        },
+        total: function () {
+            let total = 0
+        },
+        del(i :any){
+            this.$delete(this.menuchooses , i)
+        }
+
+    },
+    computed: {
+        output() {
+            return this.counter >= 10
+        },
+        menuchooses() {
+            return Menu.chooseMenus
+        },
+        Sumtotal: function () {
+            var sum = 0
+            this.menuchooses.forEach((e: { price: number }) => { sum += e.price })
+            return sum
+        },
+        SumHr: function () {
+            var sumHr = 0
+            this.menuchooses.forEach((e: { hr: number }) => { sumHr += e.hr })
+            return sumHr
+        },
+    }
 
 }
 </script>
