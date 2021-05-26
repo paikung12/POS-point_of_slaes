@@ -115,21 +115,6 @@
                               >
                               </v-checkbox>
                           </v-row>
-                        <p class="text-l pt-2">Whipcream & Steam</p>
-                         <v-row>
-                           <v-checkbox
-                           class="pl-5"
-                           v-model="selected"
-                           label="Whipcream (+5.B)"
-                           value="Whipcream"
-                           ></v-checkbox>
-                           <v-checkbox
-                           class="pl-5"
-                           v-model="selected"
-                           label="Milk foam (+5.B)"
-                           value="Milkfoam"
-                           ></v-checkbox>
-                         </v-row>
                       </v-card-text>
                       <v-divider></v-divider>
                       <v-card-actions>
