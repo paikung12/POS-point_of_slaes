@@ -19,7 +19,7 @@
                     </template>
                     <!-- <---Card Dialog --->
                     <v-card shaped>
-                        <v-card-title>Select Topping</v-card-title>
+                        <v-card-title>Select Topping </v-card-title>
                         <v-divider></v-divider>
                         <v-card-text style="height: 300px;">
                             <p class="text-l pt-2">Select Hot & Cold</p>
@@ -94,7 +94,7 @@ export default {
     data() {
         return {
             dialog: false,
-            selected: [''],
+            selected: ['Hot'],
         }
     },
     methods: {

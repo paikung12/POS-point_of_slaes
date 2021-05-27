@@ -1,89 +1,63 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+<div>
+    <div class="min-w-screen min-h-screen bg-blue-100 flex items-center p-5 lg:p-20 overflow-hidden relative">
+        <div class="flex-1 min-h-full min-w-full rounded-3xl bg-white shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
+            <div class="w-full md:w-1/2">
+                <div class="mb-10 md:mb-20 text-gray-600 font-light">
+                    <h1 class="font-black uppercase text-3xl lg:text-5xl text-indigo-700 mb-10">We co-spaces
+                        <br>working & Coffee</h1>
+                    <p>We're big believers in talking it out.</p>
+                    <p>Give us a call and let's find a solution that works for you.</p>
+                </div>
+                <div class="mb-20 md:mb-0">
+                    <button class="text-lg font-light outline-none focus:outline-none transform transition-all hover:scale-110 text-blue-500 hover:text-blue-600">Spring Tower
+                        Coworking Spaces in Thailand
+                    </button>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 text-center">
+                <div class="container mx-auto">
+                    <div class="max-w-md mx-auto my-10">
+                        <div class="text-center">
+                            <h1 class="my-3 text-5xl font-semibold text-gray-700 dark:text-gray-200">Sign in</h1>
+                            <p class="text-gray-500 dark:text-gray-400 text-xl">Sign in to access your account</p>
+                        </div>
+                        <div class="m-7">
+                            <form action="">
+                                <div class="mb-6">
+                                    <div class="flex justify-between mb-2">
+                                        <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Email Address</label>
+                                    </div>
+                                    <v-text-field label="Filled" placeholder="you@hotmail.com" outlined></v-text-field>
+                                </div>
+                                <div class="mb-6">
+                                    <div class="flex justify-between mb-2">
+                                        <label for="password" class="text-sm text-gray-600 dark:text-gray-400">Password</label>
+                                    </div>
+                                    <v-text-field label="Filled" placeholder="Password" outlined></v-text-field>
+                                </div>
+                                <div class="mb-6">
+                                    <button type="button" class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none" @click="$router.push('Home')">Sign in</button>
+                                </div>
+                                <p class="text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a href="#!" class="text-indigo-400 focus:outline-none focus:underline focus:text-indigo-500 dark:focus:border-indigo-800">Sign up</a>.</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-64 md:w-96 h-96 md:h-full bg-blue-200 bg-opacity-30 absolute -top-64 md:-top-96 right-20 md:right-32 rounded-full pointer-events-none -rotate-45 transform"></div>
+        <div class="w-96 h-full bg-indigo-200 bg-opacity-20 absolute -bottom-96 right-64 rounded-full pointer-events-none -rotate-45 transform"></div>
+    </div>
+</div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  }
+
 }
 </script>
+
+<style>
+
+</style>

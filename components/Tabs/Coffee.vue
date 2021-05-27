@@ -24,24 +24,39 @@ export default {
       menus:[
         {
           name:'Espresso',
-          price:40,
+          price:25,
           hr:1,
         },
         {
           name:'Americano',
-          price:45,
+          price:25,
           hr:1
         },
         {
           name:'Late',
-          price:30,
+          price:25,
           hr:1
         },
         {
           name:'Mocca',
-          price:35,
+          price:25,
           hr:1
-        }
+        },
+        {
+          name:'Flat White',
+          price:25,
+          hr:1
+        },
+        {
+          name:'Cappuccino',
+          price:25,
+          hr:1
+        },
+        {
+          name:'Piccolo',
+          price:25,
+          hr:1
+        },
       ]
     }
   },
