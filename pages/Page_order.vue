@@ -61,7 +61,7 @@
                 <div class="font-bold text-5xl text-yellow-400">Main Order</div>
             </div>
             <br>
-            <pre>{{menuchoose}}</pre>
+         
             <div class=" flex flex-row items-center justify-center ">
                 <v-col cols="12" sm="6">
                     <v-text-field label="Name" outlined></v-text-field>
@@ -70,17 +70,17 @@
             <!-- end header -->
             <!-- order list -->
             <div class="px-5 py-4 mt-0.5 overflow-y-auto h-64">
-                <div class="flex flex-row justify-between items-center mb-4" v-for="(menuchoose,i) in menuchooses" :key="i">
+                <div  class="flex flex-row justify-between items-center mb-4" v-for="(menuchoose,i) in menuchooses" :key="i">
                     <div class="flex flex-row items-center w-2/5">
                         <div class="border-4 border-yellow-300 border-opacity-75 w-10 text-center">{{i+1}}</div>
                         <span class="ml-4 font-semibold text-sm">{{menuchoose.name}}</span>
                     </div>
                     <div class="w-32 flex pt-3 ">
-                        <button @click="decreaseCounter(1)" class="bg-white text-yellow-400   hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-l cursor-pointer  ">
+                        <button @click="menuchoose.counter = menuchoose.counter-1" class="bg-white text-yellow-400   hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-l cursor-pointer  ">
                             -
                         </button>
-                        <p class="text-center w-10 bg-white font-sans text-md  text-yellow-400 ">{{counter}}</p>
-                        <button @click="increaseCounter(10)" class="bg-white text-yellow-400 hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-r cursor-pointer ">
+                        <p class="text-center w-10 bg-white font-sans text-md  text-yellow-400 ">{{menuchoose}}</p>
+                        <button @click="menuchoose.counter = menuchoose.counter+1" class="bg-white text-yellow-400 hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-r cursor-pointer ">
                             +
                         </button>
                     </div>
