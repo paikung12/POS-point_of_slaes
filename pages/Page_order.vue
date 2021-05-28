@@ -27,6 +27,7 @@
                     <v-tabs color="#FFD352">
                         <v-tab>Coffee</v-tab>
                         <v-tab>Tea</v-tab>
+                        <v-tab>Milk</v-tab>
                         <v-tab>Italian Soda</v-tab>
                         <v-tab>Smoothies</v-tab>
                         <v-tab>Bread</v-tab>
@@ -35,6 +36,9 @@
                         </v-tab-item>
                         <v-tab-item>
                             <Tabs-Tea />
+                        </v-tab-item>
+                        <v-tab-item>
+                            <Tabs-Milk />
                         </v-tab-item>
                         <v-tab-item>
                             <Tabs-Italiansoda />
@@ -68,11 +72,11 @@
             <div class="px-5 py-4 mt-0.5 overflow-y-auto h-64">
                 <div class="flex flex-row justify-between items-center mb-4" v-for="(menuchoose,i) in menuchooses" :key="i">
                     <div class="flex flex-row items-center w-2/5">
-                        <div class="border-4 border-yellow-400 border-opacity-75 w-10 text-center">{{i+1}}</div>
+                        <div class="border-4 border-yellow-300 border-opacity-75 w-10 text-center">{{i+1}}</div>
                         <span class="ml-4 font-semibold text-sm">{{menuchoose.name}}</span>
                     </div>
                     <div class="w-32 flex pt-3 ">
-                        <button @click="decreaseCounter(0)" class="bg-white text-yellow-400   hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-l cursor-pointer  ">
+                        <button @click="decreaseCounter(1)" class="bg-white text-yellow-400   hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-l cursor-pointer  ">
                             -
                         </button>
                         <p class="text-center w-10 bg-white font-sans text-md  text-yellow-400 ">{{counter}}</p>
@@ -133,24 +137,19 @@ import { keys } from 'lodash';
 export default {
     data: () => {
         return ({
-            counter: 0,
-
+            counter: 1,
         });
     },
     methods: {
         increaseCounter(menuchooses: any) {
-            if (this.counter < menuchooses) this.counter++;
+            if (this.counter < menuchooses) this.counter++;      
         },
         decreaseCounter(menuchooses: any) {
             if (this.counter > menuchooses) this.counter--;
         },
-        total: function () {
-            let total = 0
-        },
         del(i: any) {
             this.$delete(this.menuchooses, i)
         }
-
     },
     computed: {
         output() {
@@ -163,6 +162,7 @@ export default {
             var sum = 0
             this.menuchooses.forEach((e: { price: number }) => { sum += e.price })
             return sum
+            
         },
         SumHr: function () {
             var sumHr = 0

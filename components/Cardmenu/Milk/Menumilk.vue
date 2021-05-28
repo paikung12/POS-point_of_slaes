@@ -8,7 +8,7 @@
             >
               <v-img
                 :aspect-ratio="16/9"
-                src="https://content.shopback.com/th/wp-content/uploads/2019/09/04135819/Pic-05.jpg"
+                src="https://pbs.twimg.com/media/DRk7SrTV4AA6LJ4?format=jpg&name=large"
               >
                 <v-expand-transition>
                   <div
@@ -115,27 +115,55 @@
                               >
                               </v-checkbox>
                           </v-row>
-                          <p class="text-l pt-2">Select Pudding</p>
+                          <p class="text-l pt-2">Select Topping</p>
                           <v-row>
                             <v-checkbox
                                 class="pl-5"
                                 v-model="selected"
-                                label="Pudding chocolate (+5.B)"
-                                value="Puddingchocolate"
+                                label="Cornflakes (+5.B)"
+                                value="Cornflakes"
                               >
                               </v-checkbox>
                               <v-checkbox
                                 class="pl-5"
                                 v-model="selected"
-                                label="Pudding egg (+5.B)"
-                                value="Puddingegg"
+                                label="Chocolate chip (+5.B)"
+                                value="Chocolatechip"
                               >
                               </v-checkbox>
                               <v-checkbox
                                 class="pl-5"
                                 v-model="selected"
-                                label="Pudding milk (+5.B)"
-                                value="Puddingmilk"
+                                label="Gummy Sweeties (+5.B)"
+                                value="Gummysweeties"
+                              >
+                              </v-checkbox>
+                              <v-checkbox
+                                class="pl-5"
+                                v-model="selected"
+                                label="Pipo (+5.B)"
+                                value="Pipo"
+                              >
+                              </v-checkbox>
+                              <v-checkbox
+                                class="pl-5"
+                                v-model="selected"
+                                label="Koko krunch (+5.B)"
+                                value="Kokokrunch"
+                              >
+                              </v-checkbox>
+                              <v-checkbox
+                                class="pl-5"
+                                v-model="selected"
+                                label="Rainbow (+5.B)"
+                                value="Rainbow"
+                              >
+                              </v-checkbox>
+                              <v-checkbox
+                                class="pl-5"
+                                v-model="selected"
+                                label="Whip cream (+5.B)"
+                                value="Whipcream"
                               >
                               </v-checkbox>
                           </v-row>

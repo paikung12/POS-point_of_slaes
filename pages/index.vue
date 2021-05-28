@@ -10,8 +10,8 @@
                     <p>Give us a call and let's find a solution that works for you.</p>
                 </div>
                 <div class="mb-20 md:mb-0">
-                    <button class="text-lg font-light outline-none focus:outline-none transform transition-all hover:scale-110 text-blue-500 hover:text-blue-600">Spring Tower
-                        Coworking Spaces in Thailand
+                    <button class="text-lg font-light outline-none focus:outline-none transform transition-all hover:scale-110 text-blue-500 hover:text-blue-600">
+                        Admin Point of Sales 
                     </button>
                 </div>
             </div>

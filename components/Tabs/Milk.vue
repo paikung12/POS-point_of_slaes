@@ -4,7 +4,7 @@
         <br>
           <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full" style=" ">
             <div v-for="(menu,i) in menus" :key="i">
-              <Cardmenu-Coffee-MenuCoffee @callback="MenuVal" :menu='menu'/>
+                <Cardmenu-Milk-Menumilk @callback="MenuVal" :menu='menu'/>
             </div>
           </div>
       </div>
@@ -17,37 +17,37 @@ export default {
     return {
       menus:[
         {
-          name:'Espresso',
-          price:25,
-          hr:1,
+          name:'Unicorn milk',
+          price:35,
+          hr:0.5,
         },
         {
-          name:'Americano',
-          price:25,
-          hr:1
-        },
-        {
-          name:'Late',
+          name:'Pink milk',
           price:25,
           hr:1
         },
         {
-          name:'Mocca',
+          name:'Green milk',
           price:25,
           hr:1
         },
         {
-          name:'Flat White',
+          name:'Choco milk',
           price:25,
           hr:1
         },
         {
-          name:'Cappuccino',
+          name:'Banana milk',
           price:25,
           hr:1
         },
         {
-          name:'Piccolo',
+          name:'Milk',
+          price:25,
+          hr:1
+        },
+        {
+          name:'mint milk',
           price:25,
           hr:1
         },

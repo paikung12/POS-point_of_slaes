@@ -6,10 +6,6 @@
             <div v-for="(menu ,i) in menus" :key="i">
               <Cardmenu-Italiansodas-MenuItaliansoda  @callback="MenuVal" :menu='menu'/>
             </div>
-           <!-- <Cardmenu-Italiansodas-Italiansoda2 />
-           <Cardmenu-Italiansodas-Italiansoda3 />
-           <Cardmenu-Italiansodas-Italiansoda4 />
-           <Cardmenu-Italiansodas-Italiansoda5 /> -->
           </div>
       </div>
   </v-app>
