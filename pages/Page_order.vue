@@ -93,7 +93,7 @@
             </div>
             <!-- end header -->
             <!-- order list -->
-            <div class="px-5 py-4 mt-0.5 overflow-y-auto h-64">
+            <div class="px-5 py-4 mt-0.5 overflow-y-auto h-80">
                 <div class="flex flex-row justify-between items-center mb-4" v-for="(menuchoose,i) in menuchooses" :key="i">
                     <div class="flex flex-row items-center w-2/5">
                         <div class="border-4 border-yellow-300 border-opacity-75 w-10 text-center">{{i+1}}</div>
@@ -118,16 +118,16 @@
             </div>
             <!-- end order list -->
             <!-- totalItems -->
-            <div class="px-5 mt-5">
-                <div class="py-4 rounded-md shadow-lg">
-                    <div class=" px-4 flex justify-between ">
-                        <span class="font-semibold text-sm">Subtotal Hour</span>
-                        <span class="font-bold"> {{SumHr}} hr</span>
-                    </div>
-                    <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
-                        <span class="font-semibold text-2xl">Total</span>
-                        <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
-                    </div>
+            <div class="px-5  mt-10 h-52">  
+                    <div class="py-4 rounded-md shadow-lg mt-10">
+                        <div class=" px-4 flex justify-between ">
+                            <span class="font-semibold text-sm">Subtotal Hour</span>
+                            <span class="font-bold"> {{SumHr}} hr</span>
+                        </div>
+                        <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
+                            <span class="font-semibold text-2xl">Total</span>
+                            <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
+                        </div>
                 </div>
             </div>
             <!-- end total -->
