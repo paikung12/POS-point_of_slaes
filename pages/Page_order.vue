@@ -1,8 +1,8 @@
 <template>
 <div>
-    <div class="flex lg:flex-row flex-col-reverse shadow-lg">
+    <div class="flex lg:flex-row flex-col-reverse">
         <!-- left section -->
-        <div class="w-full lg:w-3/4 min-h-screen shadow-lg ">
+        <div class="w-full lg:w-3/4 min-h-screen shadow-md">
             <!-- header -->
             <div class=" min-h-screen ">
                 <svg height="100%" width="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150">
@@ -23,8 +23,8 @@
                         </div>
                     </div>
                 </div>
-                <div class=" lg:pl-5 w-full pt-20 ">
-                    <v-tabs color="#FFD352">
+                <div class=" lg:pl-5 w-full pt-20 pr-2 ">
+                    <v-tabs color="#FFD352 ">
                         <v-tab>Coffee</v-tab>
                         <v-tab>Tea</v-tab>
                         <v-tab>Milk</v-tab>
@@ -32,22 +32,46 @@
                         <v-tab>Smoothies</v-tab>
                         <v-tab>Bread</v-tab>
                         <v-tab-item>
-                            <Tabs-Coffee />
+                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full" style=" ">
+                                <div v-for="(menu,i) in menus" :key="i">
+                                    <Cardmenu-MenuCoffee @callback="MenuVal" :menu='menu' />
+                                </div>
+                            </div>
                         </v-tab-item>
                         <v-tab-item>
-                            <Tabs-Tea />
+                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full">
+                                <div v-for="(menu,i) in menus" :key="i">
+                                    <Cardmenu-MenuTeas @callback="MenuVal" :menu='menu' />
+                                </div>
+                            </div>
                         </v-tab-item>
                         <v-tab-item>
-                            <Tabs-Milk />
+                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full" style=" ">
+                                <div v-for="(menu,i) in menus" :key="i">
+                                    <Cardmenu-Menumilk @callback="MenuVal" :menu='menu' />
+                                </div>
+                            </div>
                         </v-tab-item>
                         <v-tab-item>
-                            <Tabs-Italiansoda />
+                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full">
+                                <div v-for="(menu ,i) in menus" :key="i">
+                                    <Cardmenu-MenuItaliansoda @callback="MenuVal" :menu='menu' />
+                                </div>
+                            </div>
                         </v-tab-item>
                         <v-tab-item>
-                            <Tabs-Smoothies />
+                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full">
+                                <div v-for="(menu,i) in menus" :key="i">
+                                    <Cardmenu-MenuSmoothie @callback="MenuVla" :menu='menu' />
+                                </div>
+                            </div>
                         </v-tab-item>
                         <v-tab-item>
-                            <Tabs-Bread />
+                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full">
+                                <div v-for="(menu,i) in menus" :key="i">
+                                    <Cardmenu-MenuBread @callback="MenuVla" :menu='menu' />
+                                </div>
+                            </div>
                         </v-tab-item>
                     </v-tabs>
                 </div>
@@ -55,13 +79,13 @@
         </div>
         <!-- end left section -->
         <!-- right section -->
-        <div class="w-full lg:w-1/3">
+        <div class="w-full lg:w-1/3 min-h-screen">
             <!-- header -->
             <div class="flex flex-row items-center justify-center px-5 mt-5">
                 <div class="font-bold text-5xl text-yellow-400">Main Order</div>
             </div>
             <br>
-         
+
             <div class=" flex flex-row items-center justify-center ">
                 <v-col cols="12" sm="6">
                     <v-text-field label="Name" outlined></v-text-field>
@@ -70,7 +94,7 @@
             <!-- end header -->
             <!-- order list -->
             <div class="px-5 py-4 mt-0.5 overflow-y-auto h-64">
-                <div  class="flex flex-row justify-between items-center mb-4" v-for="(menuchoose,i) in menuchooses" :key="i">
+                <div class="flex flex-row justify-between items-center mb-4" v-for="(menuchoose,i) in menuchooses" :key="i">
                     <div class="flex flex-row items-center w-2/5">
                         <div class="border-4 border-yellow-300 border-opacity-75 w-10 text-center">{{i+1}}</div>
                         <span class="ml-4 font-semibold text-sm">{{menuchoose.name}}</span>
@@ -79,8 +103,8 @@
                         <button @click="menuchoose.counter = menuchoose.counter-1" class="bg-white text-yellow-400   hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-l cursor-pointer  ">
                             -
                         </button>
-                        <p class="text-center w-10 bg-white font-sans text-md  text-yellow-400 ">{{menuchoose}}</p>
-                        <button @click="menuchoose.counter = menuchoose.counter+1" class="bg-white text-yellow-400 hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-r cursor-pointer ">
+                        <p class="text-center w-10 bg-white font-sans text-md  text-yellow-400 ">{{menuchoose.counter}}</p>
+                        <button @click="testAdd(menuchoose.id)" class="bg-white text-yellow-400 hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-r cursor-pointer ">
                             +
                         </button>
                     </div>
@@ -133,22 +157,46 @@
 
 <script lang="ts">
 import { Menu } from '@/vuexes/menu'
-import { keys } from 'lodash';
 export default {
     data: () => {
         return ({
             counter: 1,
+            menus: [{
+                    id: 1,
+                    name: 'Espresso',
+                    price: 25,
+                    hr: 1,
+                },
+                {
+                    id: 2,
+                    name: 'Americano',
+                    price: 25,
+                    hr: 1
+                },
+                {
+                    id: 3,
+                    name: 'Late',
+                    price: 25,
+                    hr: 1
+                },
+                {
+                    id: 4,
+                    name: 'Late',
+                    price: 25,
+                    hr: 1
+                },
+            ]
         });
     },
     methods: {
-        increaseCounter(menuchooses: any) {
-            if (this.counter < menuchooses) this.counter++;      
-        },
-        decreaseCounter(menuchooses: any) {
-            if (this.counter > menuchooses) this.counter--;
+        async testAdd(id: number) {
+            await Menu.changeMenuCounter(id)
         },
         del(i: any) {
             this.$delete(this.menuchooses, i)
+        },
+        MenuVal(val: any) {
+            alert(JSON.stringify(val))
         }
     },
     computed: {
@@ -162,7 +210,6 @@ export default {
             var sum = 0
             this.menuchooses.forEach((e: { price: number }) => { sum += e.price })
             return sum
-            
         },
         SumHr: function () {
             var sumHr = 0

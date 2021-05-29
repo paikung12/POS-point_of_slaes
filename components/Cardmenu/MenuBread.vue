@@ -52,12 +52,14 @@ export default {
     menu:{
       default:{
         name:'bread',
-        price:0
+        price:0,
+        counter: 1
       }
     }
   },
   methods: {
     async callbackMenu() {
+      this.menu.counter = 1
       await Menu.setMenu(this.menu)
     },
   },

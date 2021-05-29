@@ -8,7 +8,7 @@
             >
               <v-img
                 :aspect-ratio="16/9"
-                src="https://www.krcfujisupply.biz/image/catalog/content/20.1.jpg"
+                src="https://www.akerufeed.com/wp-content/uploads/2019/03/10-5.jpg"
               >
                 <v-expand-transition>
                   <div
@@ -25,19 +25,21 @@
                 style="position: relative;"
               >
                 <v-btn
-                  absolute
-                  color="orange"
-                  class="white--text"
-                  fab
-                  large
-                  right
-                  top
-                   @click="callbackMenu()"
-                >
-                  <v-icon>mdi-cart</v-icon>
-                </v-btn>
+                      absolute
+                      color="orange"
+                      class="white--text"
+                      fab
+                      large
+                      right
+                      top
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="callbackMenu()"
+                    >
+                    <v-icon>mdi-cart</v-icon>
+                  </v-btn>
                 <h3 class="display-1 font-weight-light orange--text mb-2">
-                 {{menu.name}}
+                  {{menu.name}}
                 </h3>
               </v-card-text>
             </v-card>
@@ -46,13 +48,14 @@
 </template>
 
 <script lang="ts">
-import {Menu} from "@/vuexes/menu"
+import {Menu} from '@/vuexes/menu'
 export default {
   props:{
     menu:{
       default:{
-        menu:'Smoothie',
-        price:0
+        menu:'ItalianSoda',
+        price:0,
+        counter: 1,
       }
     }
   },
@@ -61,9 +64,11 @@ data () {
         dialog: false,
       }
     },
-    methods:{
+  methods:{
     async callbackMenu(){
+        this.menu.counter = 1
         await Menu.setMenu(this.menu)
+        this.dialog=false;
       }
   }
 }

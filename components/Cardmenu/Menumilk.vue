@@ -201,7 +201,8 @@ export default {
     menu:{
       default:{
         name: 'Tea',
-        price: 0.5
+        price: 0.5,
+        counter:1
       }
     }
   },
@@ -215,6 +216,7 @@ data () {
     },
     methods: {
         async callbackMenu(){
+        this.menu.counter = 1
         await Menu.setMenu(this.menu)
         this.dialog=false;
       }
