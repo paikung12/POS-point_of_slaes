@@ -100,16 +100,16 @@
                         <span class="ml-4 font-semibold text-sm">{{menuchoose.name}}</span>
                     </div>
                     <div class="w-32 flex pt-3 ">
-                        <button @click="menuchoose.counter = menuchoose.counter-1" class="bg-white text-yellow-400   hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-l cursor-pointer  ">
+                        <button @click="decrements(menuchoose.id)" class="bg-white text-yellow-400   hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-l cursor-pointer  ">
                             -
                         </button>
                         <p class="text-center w-10 bg-white font-sans text-md  text-yellow-400 ">{{menuchoose.counter}}</p>
-                        <button @click="testAdd(menuchoose.id)" class="bg-white text-yellow-400 hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-r cursor-pointer ">
+                        <button @click="increments(menuchoose.id)" class="bg-white text-yellow-400 hover:text-gray-700 hover:bg-gray-400 h-full w-8 rounded-r cursor-pointer ">
                             +
                         </button>
                     </div>
                     <div class="font-semibold text-lg w-16 text-center">
-                        {{menuchoose.price}}
+                        {{menuchoose.price * menuchoose.counter }}
                     </div>
                     <v-btn depressed fab icon outlined small color="red" @click="del(i)">
                         <v-icon>mdi-close</v-icon>
@@ -119,15 +119,15 @@
             <!-- end order list -->
             <!-- totalItems -->
             <div class="px-5  mt-10 h-52">  
-                    <div class="py-4 rounded-md shadow-lg mt-10">
-                        <div class=" px-4 flex justify-between ">
-                            <span class="font-semibold text-sm">Subtotal Hour</span>
-                            <span class="font-bold"> {{SumHr}} hr</span>
-                        </div>
-                        <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
-                            <span class="font-semibold text-2xl">Total</span>
-                            <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
-                        </div>
+                <div class="py-4 rounded-md shadow-lg mt-10">
+                    <div class=" px-4 flex justify-between ">
+                        <span class="font-semibold text-sm">Subtotal Hour</span>
+                        <span class="font-bold"> {{SumHr}} hr</span>
+                    </div>
+                    <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
+                        <span class="font-semibold text-2xl">Total</span>
+                        <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
+                    </div>
                 </div>
             </div>
             <!-- end total -->
@@ -189,8 +189,11 @@ export default {
         });
     },
     methods: {
-        async testAdd(id: number) {
-            await Menu.changeMenuCounter(id)
+        async increments(id: number) {
+            await Menu.Counterincrement(id)
+        },
+        async decrements(id: number) {
+            await Menu.Counterdecrement(id)
         },
         del(i: any) {
             this.$delete(this.menuchooses, i)
@@ -208,12 +211,13 @@ export default {
         },
         Sumtotal: function () {
             var sum = 0
-            this.menuchooses.forEach((e: { price: number }) => { sum += e.price })
+            this.menuchooses.forEach((e: { price: number , counter :number}) => { sum += e.price * e.counter })
+            
             return sum
         },
         SumHr: function () {
             var sumHr = 0
-            this.menuchooses.forEach((e: { hr: number }) => { sumHr += e.hr })
+            this.menuchooses.forEach((e: { hr: number ,counter :number }) => { sumHr += e.hr * e.counter})
             return sumHr
         },
     }
