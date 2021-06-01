@@ -30,12 +30,12 @@
     <div class="col-span-12  pl-16 pr-16">
         <div class="grid gap-2 grid-cols-1 lg:grid-cols-1">
             <div class="bg-white p-4  rounded-lg">
-                <div class="text-4xl text-center font-extrabold ...">
+                <div class="text-4xl text-center font-extrabold">
                     <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500 ">
                         Sessions
                     </span>
                 </div>
-                <div class="grid mt-8  gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+                <div class="flex flex-row grid mt-8  gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                     <div class="widget w-full p-4 rounded-xl bg-white border-l-8 border-green-400 shadow-md ">
                         <div class="flex items-center">
                             <div class=" h-full w-full lg:h-48 lg:w-48   lg:mb-0 mb-3 ">
@@ -46,7 +46,7 @@
                                     <div class="w-full flex-none text-xs text-blue-700 font-medium ">
                                         Working Space
                                     </div>
-                                    <h2 class="flex-auto text-lg font-medium text-xl ">Massive Dynamic</h2>
+                                    <h2 class="flex-auto text-lg font-medium ">Massive Dynamic</h2>
                                 </div>
                                 <p class="mt-13"></p>
                                 <div class="flex p-4 pb-2 border-t border-gray-200 "></div>

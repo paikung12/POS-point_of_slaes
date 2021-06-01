@@ -25,7 +25,6 @@
                         ></v-text-field>
                       </v-col>
                     </v-row>
-
                     <v-row>
                       <v-col cols="3">
                         <v-subheader>Phone: </v-subheader>
