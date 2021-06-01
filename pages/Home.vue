@@ -35,73 +35,45 @@
                         Sessions
                     </span>
                 </div>
-                <div class="mt-4">
-                    <div class="flex flex-col">
-                        <div class="-my-2 overflow-x-auto">
-                            <div class="py-2 align-middle inline-block min-w-full">
-                                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg bg-white">
-                                    <table class="min-w-full divide-y divide-gray-200">
-                                        <thead>
-                                            <tr>
-                                                <th class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                                    <div class="flex cursor-pointer">
-                                                        <span class="mr-2">No</span>
-                                                    </div>
-                                                </th>
-                                                <th class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                                    <div class="flex cursor-pointer">
-                                                        <span class="mr-2">NAME</span>
-                                                    </div>
-                                                </th>
-                                                <th lass="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider ">
-                                                    <div class="flex cursor-pointer justify-center">
-                                                        <span class="mr-2 text-green-500">STATUS</span>
-                                                    </div>
-                                                </th>
-                                                <th class="  px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                                    <div class="flex cursor-pointer ">
-                                                        <span class="mr-2 ">ACTION</span>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="bg-white divide-y divide-gray-200">
-                                            <tr>
-                                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
-                                                    <p>1</p>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
-                                                    <p>Pop</p>
-                                                    <p class="text-xs text-gray-400">Member
-                                                    </p>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
-                                                    <div class="flex text-green-500 justify-center">
-                                                        <BaseTimer />
-                                                    </div>
-                                                </td>
-                                                <td class="py-4 whitespace-no-wrap text-sm leading-5">
-                                                    <div class="flex justify-center items-center">
-                                                        <div>
-                                                            <v-btn depressed fab icon outlined small color="orange">
-                                                                <v-icon>mdi-cart-plus</v-icon>
-                                                            </v-btn>
-                                                        </div>
-                                                        <div class="pl-3">
-                                                            <v-btn depressed fab icon outlined small color="blue">
-                                                                <v-icon>mdi-clock-outline</v-icon>
-                                                            </v-btn>
-                                                        </div>
-                                                        <div class="pl-3">
-                                                            <v-btn depressed fab icon outlined small color="red">
-                                                                <v-icon>mdi-close</v-icon>
-                                                            </v-btn>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                <div class="grid mt-8  gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+                    <div class="widget w-full p-4 rounded-xl bg-white border-l-8 border-green-400 shadow-md ">
+                        <div class="flex items-center">
+                            <div class=" h-full w-full lg:h-48 lg:w-48   lg:mb-0 mb-3 ">
+                                <BaseTimer />
+                            </div>
+                            <div class="flex-auto ml-3 justify-evenly py-2">
+                                <div class="flex flex-wrap ">
+                                    <div class="w-full flex-none text-xs text-blue-700 font-medium ">
+                                        Working Space
+                                    </div>
+                                    <h2 class="flex-auto text-lg font-medium text-xl ">Massive Dynamic</h2>
+                                </div>
+                                <p class="mt-13"></p>
+                                <div class="flex p-4 pb-2 border-t border-gray-200 "></div>
+                                <div class="flex space-x-3 text-sm font-medium">
+                                    <div class="flex-auto flex space-x-3">
+                                        <div class="flex justify-center items-center">
+                                            <div class="flex justify-start">
+                                                <div>
+                                                    <v-btn class="ma-1 rounded-lg" outlined color="warning">
+                                                        <v-icon dense>mdi-cart-plus</v-icon>
+                                                        Add order
+                                                    </v-btn>
+                                                </div>
+                                                <div class="pl-3">
+                                                    <v-btn class="ma-1 rounded-lg" outlined color="primary">
+                                                        <v-icon dense>mdi-clock-outline</v-icon>
+                                                        Time
+                                                    </v-btn>
+                                                </div>
+                                                <div class="pl-3">
+                                                    <v-btn class="ma-1 " outlined color="error">
+                                                        <v-icon dense>mdi-close</v-icon>
+                                                    </v-btn>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +87,6 @@
 
 <script>
 export default {
-
 
 }
 </script>

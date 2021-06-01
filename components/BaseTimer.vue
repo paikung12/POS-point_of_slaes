@@ -41,6 +41,7 @@ const COLOR_CODES = {
 
 const TIME_LIMIT = 3600;
 
+
 export default {
   data() {
     return {
@@ -87,7 +88,6 @@ export default {
       }
     }
   },
-
   watch: {
     timeLeft(newValue) {
       if (newValue === 0) {
@@ -99,12 +99,10 @@ export default {
   mounted() {
     this.startTimer();
   },
-
   methods: {
     onTimesUp() {
       clearInterval(this.timerInterval);
     },
-
     startTimer() {
       this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
     }
@@ -115,8 +113,8 @@ export default {
 <style scoped lang="scss">
 .base-timer {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 300;
+  height: 300;
 
   &__svg {
     transform: scaleX(-1);
@@ -129,7 +127,7 @@ export default {
 
   &__path-elapsed {
     stroke-width: 7px;
-    stroke: grey;
+    stroke: white;
   }
 
   &__path-remaining {
@@ -156,13 +154,13 @@ export default {
 
   &__label {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 163px;
+    height: 165px;
     top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 30px;
     color: rgb(148, 147, 147);
   }
 }
