@@ -25,13 +25,14 @@
                 </div>
                 <div class=" lg:pl-5 w-full pt-20 pr-2 ">
                     <v-tabs color="#FFD352 ">
-                        <v-tab>Coffee</v-tab>
+                        <v-tab >Coffee</v-tab>
                         <v-tab>Tea</v-tab>
                         <v-tab>Milk</v-tab>
                         <v-tab>Italian Soda</v-tab>
                         <v-tab>Smoothies</v-tab>
                         <v-tab>Bread</v-tab>
                         <v-tab-item>
+                            <pre>{{type}}</pre>
                             <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full" style=" ">
                                 <div v-for="(menu,i) in menus" :key="i">
                                     <Cardmenu-MenuCoffee @callback="MenuVal" :menu='menu' />
@@ -157,36 +158,20 @@
 
 <script lang="ts">
 import { Menu } from '@/vuexes/menu'
+import { Product } from '@/vuexes/product'
+
 export default {
     data: () => {
         return ({
             counter: 1,
-            menus: [{
-                    id: 1,
-                    name: 'Espresso',
-                    price: 25,
-                    hr: 1,
-                },
-                {
-                    id: 2,
-                    name: 'Americano',
-                    price: 25,
-                    hr: 1
-                },
-                {
-                    id: 3,
-                    name: 'Late',
-                    price: 25,
-                    hr: 1
-                },
-                {
-                    id: 4,
-                    name: 'Late',
-                    price: 25,
-                    hr: 1
-                },
-            ]
+            menus: [],
+            type:[]
         });
+    },
+    async created(){
+        this.menus  = await Product.getProduct()
+        this.type = await Product.getProducttype()
+        
     },
     methods: {
         async increments(id: number) {
