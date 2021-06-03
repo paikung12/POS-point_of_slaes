@@ -10,7 +10,7 @@ class ProductModule extends VuexModule{
     }
     public async getProducttype(){
         return await Core.getHttp('/backend/producttype/')
-    }   
+    } 
 }
 
 import store from "~/vuexes"

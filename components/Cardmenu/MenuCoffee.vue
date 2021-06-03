@@ -79,7 +79,7 @@
 </template>
 
 <script lang="ts">
-import {Menu} from '@/vuexes/menu'
+import {Menu} from '~/vuexes/counter'
 export default {
   props:{ 
     menu:{

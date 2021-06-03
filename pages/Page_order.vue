@@ -24,56 +24,19 @@
                     </div>
                 </div>
                 <div class=" lg:pl-5 w-full pt-20 pr-2 ">
-                    <v-tabs color="#FFD352 ">
-                        <v-tab >Coffee</v-tab>
-                        <v-tab>Tea</v-tab>
-                        <v-tab>Milk</v-tab>
-                        <v-tab>Italian Soda</v-tab>
-                        <v-tab>Smoothies</v-tab>
-                        <v-tab>Bread</v-tab>
-                        <v-tab-item>
-                            <pre>{{type}}</pre>
+                    <v-tabs color="#FFD352" v-model="value"  slider-color="#FFD352">
+                        <v-tab  v-for="(val,i) in type" :key="i">
+                            {{val.title}}
+                        </v-tab>
+                        <v-tab-item v-for="(val,i) in type" :key="i">
                             <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full" style=" ">
-                                <div v-for="(menu,i) in menus" :key="i">
-                                    <Cardmenu-MenuCoffee @callback="MenuVal" :menu='menu' />
+                                <div v-for="(menu,i) in getMenu(val.id)" :key="i">
+                                    <Cardmenu-MenuCoffee v-if="val.id == 7" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuTeas v-if="val.id == 8" @callback="MenuVal" :menu='menu' />
                                 </div>
                             </div>
                         </v-tab-item>
-                        <v-tab-item>
-                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full">
-                                <div v-for="(menu,i) in menus" :key="i">
-                                    <Cardmenu-MenuTeas @callback="MenuVal" :menu='menu' />
-                                </div>
-                            </div>
-                        </v-tab-item>
-                        <v-tab-item>
-                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full" style=" ">
-                                <div v-for="(menu,i) in menus" :key="i">
-                                    <Cardmenu-Menumilk @callback="MenuVal" :menu='menu' />
-                                </div>
-                            </div>
-                        </v-tab-item>
-                        <v-tab-item>
-                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full">
-                                <div v-for="(menu ,i) in menus" :key="i">
-                                    <Cardmenu-MenuItaliansoda @callback="MenuVal" :menu='menu' />
-                                </div>
-                            </div>
-                        </v-tab-item>
-                        <v-tab-item>
-                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full">
-                                <div v-for="(menu,i) in menus" :key="i">
-                                    <Cardmenu-MenuSmoothie @callback="MenuVla" :menu='menu' />
-                                </div>
-                            </div>
-                        </v-tab-item>
-                        <v-tab-item>
-                            <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full">
-                                <div v-for="(menu,i) in menus" :key="i">
-                                    <Cardmenu-MenuBread @callback="MenuVla" :menu='menu' />
-                                </div>
-                            </div>
-                        </v-tab-item>
+                
                     </v-tabs>
                 </div>
             </div>
@@ -157,23 +120,30 @@
 </template>
 
 <script lang="ts">
-import { Menu } from '@/vuexes/menu'
+import { Menu } from '~/vuexes/counter'
 import { Product } from '@/vuexes/product'
-
+import _ from 'lodash'
 export default {
     data: () => {
         return ({
+            allMenus: [],
             counter: 1,
             menus: [],
-            type:[]
+            type: []
         });
     },
-    async created(){
-        this.menus  = await Product.getProduct()
+    async created() {
+        this.allMenus = await Product.getProduct()
         this.type = await Product.getProducttype()
-        
+        await this.changeType(this.type[0].id)
     },
     methods: {
+        getMenu(id: any) {
+            return _.filter(this.allMenus, { type: id })
+        },
+        async changeType(id: any) {
+            this.menus = _.filter(this.allMenus, { type: id })
+        },
         async increments(id: number) {
             await Menu.Counterincrement(id)
         },
@@ -185,7 +155,8 @@ export default {
         },
         MenuVal(val: any) {
             alert(JSON.stringify(val))
-        }
+        },
+
     },
     computed: {
         output() {
@@ -196,13 +167,13 @@ export default {
         },
         Sumtotal: function () {
             var sum = 0
-            this.menuchooses.forEach((e: { price: number , counter :number}) => { sum += e.price * e.counter })
-            
+            this.menuchooses.forEach((e: { price: number, counter: number }) => { sum += e.price * e.counter })
+
             return sum
         },
         SumHr: function () {
             var sumHr = 0
-            this.menuchooses.forEach((e: { hr: number ,counter :number }) => { sumHr += e.hr * e.counter})
+            this.menuchooses.forEach((e: { hr: number, counter: number }) => { sumHr += e.hr * e.counter })
             return sumHr
         },
     }
@@ -213,3 +184,6 @@ export default {
 <style>
 
 </style>
+
+
+
