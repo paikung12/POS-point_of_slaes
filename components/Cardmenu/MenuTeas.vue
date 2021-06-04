@@ -27,7 +27,7 @@
                 <v-dialog
                     v-model="dialog"
                     scrollable
-                    max-width="480px"
+                    width="480px"
                   >
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
@@ -55,6 +55,13 @@
                             <v-checkbox
                             class="pl-5"
                               v-model="selected"
+                              label="hot (25.B)"
+                              value="hot"
+                            >
+                            </v-checkbox>
+                            <v-checkbox
+                            class="pl-5"
+                              v-model="selected"
                               label="Cold (35.B)"
                               value="Cold"
                             >
@@ -62,8 +69,8 @@
                             <v-checkbox
                               class="pl-5"
                               v-model="selected"
-                              label="Churn (40.B)"
-                              value="Churn"
+                              label="Blened (40.B)"
+                              value="Blened"
                             >
                             </v-checkbox>
                           </v-row>
@@ -167,6 +174,7 @@
 </template>
 
 <script lang="ts">
+import { createHmac } from 'crypto'
 import {Menu} from '~/vuexes/counter'
 export default {
   props:{
@@ -185,6 +193,9 @@ data () {
          dialog: false,
          selected: [''],
       }
+    },
+    async created(){
+
     },
     methods: {
         async callbackMenu(){

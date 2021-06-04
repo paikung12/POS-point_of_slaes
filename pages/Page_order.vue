@@ -33,6 +33,10 @@
                                 <div v-for="(menu,i) in getMenu(val.id)" :key="i">
                                     <Cardmenu-MenuCoffee v-if="val.id == 7" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuTeas v-if="val.id == 8" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-Menumilk v-if="val.id == 9" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuItaliansoda v-if="val.id == 10" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuSmoothie v-if="val.id == 11" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuDessert v-if="val.id == 12" @callback="MenuVal" :menu='menu' />
                                 </div>
                             </div>
                         </v-tab-item>
@@ -156,7 +160,6 @@ export default {
         MenuVal(val: any) {
             alert(JSON.stringify(val))
         },
-
     },
     computed: {
         output() {

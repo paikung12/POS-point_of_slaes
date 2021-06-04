@@ -1,7 +1,7 @@
 <template>
 <div>
     <v-hover v-slot="{ hover }">
-        <v-card class="mx-auto" color="grey lighten-4" width="450">
+        <v-card class="mx-auto" color="grey lighten-4" width="450 ">
             <v-img :aspect-ratio="16/9" src="https://site.listsothebysrealty.in.th/wp-content/uploads/2020/02/01-Espresso-1.jpg">
                 <v-expand-transition>
                     <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-10 pl-8 " style="height: 100%;">
@@ -11,7 +11,7 @@
             </v-img>
             <v-card-text class="pt-6" style="position: relative;">
                 <!-- <---Dialog --->
-                <v-dialog v-model="dialog" scrollable max-width="480px">
+                <v-dialog v-model="dialog" scrollable max-width="500px">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn absolute color="orange" class="white--text" fab large right top v-bind="attrs" v-on="on">
                             <v-icon>mdi-cart</v-icon>
@@ -26,7 +26,7 @@
                             <v-row>
                                 <v-checkbox class="pl-5" v-model="selected" label="Hot (25.B)" value="Hot">
                                 </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="Cold (35.B)" value="Cold">
+                                <v-checkbox class="pl-5" v-model="selected" label="Cold (30.B)" value="Cold">
                                 </v-checkbox>
                             </v-row>
                             <p class="text-l pt-2">Choose Sweetness</p>
@@ -47,10 +47,11 @@
                                 <v-checkbox class="pl-5" v-model="selected" label="3 Shot(+5.B)" value="3Shot">
                                 </v-checkbox>
                             </v-row>
-                            <p class="text-l pt-2">Whipcream & Steam</p>
+                            <p class="text-l pt-2">Whipcream  Milk foam & Honey </p>
                             <v-row>
                                 <v-checkbox class="pl-5" v-model="selected" label="Whipcream (+5.B)" value="Whipcream"></v-checkbox>
                                 <v-checkbox class="pl-5" v-model="selected" label="Milk foam (+5.B)" value="Milkfoam"></v-checkbox>
+                                <v-checkbox class="pl-5" v-model="selected" label="Honey (+5.B)" value="Honey"></v-checkbox>
                             </v-row>
                         </v-card-text>
                         <v-divider></v-divider>
@@ -80,6 +81,7 @@
 
 <script lang="ts">
 import {Menu} from '~/vuexes/counter'
+import { Product } from '~/vuexes/product'
 export default {
   props:{ 
     menu:{
@@ -90,13 +92,19 @@ export default {
       }
     }
   },
-  watch: {
-  },
     data() {
         return {
             dialog: false,
             selected: [''],
+            price:[],
+            orderdetail:[],
+            productpriceviews:[]
         }
+    },
+    async created(){
+        this.price = await Product.getProductprices()
+        this.orderdetail = await Product.getOrderdetail()
+        this.productpriceviews = await Product.getProductpriceiew()
     },
     methods: {
         async callbackMenu(){
@@ -104,6 +112,7 @@ export default {
         await Menu.setMenu(this.menu)
         this.dialog=false;
       }
+
     },
 }
 </script>
