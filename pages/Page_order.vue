@@ -64,7 +64,7 @@
             <div class="px-5 py-4 mt-0.5 overflow-y-auto h-96">
                 <div class="flex flex-row justify-between items-center mb-4" v-for="(menuchoose,i) in menuchooses" :key="i">
                     <div class="flex flex-row items-center w-2/5">
-                        <div class="border-4 border-yellow-300 border-opacity-75 w-10 text-center">{{i+1}}</div>
+                        <div class="border-2 border-yellow-300 border-opacity-75 w-8 h-8 text-center rounded-full">{{i+1}}</div>
                         <span class="ml-4 font-semibold text-sm">{{menuchoose.name}}</span>
                     </div>
                     <div class="w-32 flex pt-3 ">

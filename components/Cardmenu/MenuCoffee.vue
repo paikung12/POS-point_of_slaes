@@ -31,20 +31,22 @@
                             </v-row>
                             <p class="text-l pt-2">Choose Sweetness</p>
                             <v-row>
-                                <v-checkbox class="pl-5" v-model="selected" label="Little" value="Little">
+                                 <v-checkbox class="pl-5" v-model="selected" label="No Sweet" value="No Sweet">
                                 </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="Normal" value="Normal">
+                                <v-checkbox class="pl-5" v-model="selected" label="Little Sweet" value="Little Sweet">
                                 </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="Very" value="Very">
+                                <v-checkbox class="pl-5" v-model="selected" label="Normal Sweet" value="Normal Sweet">
+                                </v-checkbox>
+                                <v-checkbox class="pl-5" v-model="selected" label="Very Sweet" value="Very Sweet">
                                 </v-checkbox>
                             </v-row>
                             <p class="text-l pt-2">Select Coffee Shot</p>
                             <v-row>
-                                <v-checkbox class="pl-5" v-model="selected" label="1 Shot(+5.B)" value="1Shot">
+                                <v-checkbox class="pl-5" v-model="selected" label="1 Shot(+5.B)" value="1 shot">
                                 </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="2 Shot(+5.B)" value="2Shot">
+                                <v-checkbox class="pl-5" v-model="selected" label="2 Shot(+5.B)" value="2 shot">
                                 </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="3 Shot(+5.B)" value="3Shot">
+                                <v-checkbox class="pl-5" v-model="selected" label="3 Shot(+5.B)" value="3 shot">
                                 </v-checkbox>
                             </v-row>
                             <p class="text-l pt-2">Whipcream  Milk foam & Honey </p>
