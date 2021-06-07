@@ -16,7 +16,7 @@
                     class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-8"
                     style="height: 100%;"
                   >
-                    $ {{menu.price}}. Bath
+                    $ 30. Bath
                   </div>
                 </v-expand-transition>
               </v-img>

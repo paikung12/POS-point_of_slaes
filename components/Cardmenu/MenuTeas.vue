@@ -5,6 +5,7 @@
               class="mx-auto"
               color="grey lighten-4"
               width="450"
+              
             >
               <v-img
                 :aspect-ratio="16/9"
@@ -16,7 +17,7 @@
                     class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-8"
                     style="height: 100%;"
                   >
-                    $ {{menu.price}}. Bath
+                    $ 30. Bath
                   </div>
                 </v-expand-transition>
               </v-img>
@@ -27,7 +28,7 @@
                 <v-dialog
                     v-model="dialog"
                     scrollable
-                    width="480px"
+                    width="500px"
                   >
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
@@ -46,6 +47,7 @@
                   </template>
                     <v-card
                       shaped
+                      height="500"
                     >
                       <v-card-title>Select Topping</v-card-title>
                       <v-divider></v-divider>

@@ -5,20 +5,20 @@
             <v-img :aspect-ratio="16/9" src="https://site.listsothebysrealty.in.th/wp-content/uploads/2020/02/01-Espresso-1.jpg">
                 <v-expand-transition>
                     <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-10 pl-8 " style="height: 100%;">
-                       $ {{menu.price}}. Bath
+                       $ 25 .Bath
                     </div>
                 </v-expand-transition>
             </v-img>
             <v-card-text class="pt-6" style="position: relative;">
                 <!-- <---Dialog --->
-                <v-dialog v-model="dialog" scrollable max-width="500px">
+                <v-dialog v-model="dialog" scrollable max-width="525px">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn absolute color="orange" class="white--text" fab large right top v-bind="attrs" v-on="on">
                             <v-icon>mdi-cart</v-icon>
                         </v-btn>
                     </template>
                     <!-- <---Card Dialog --->
-                    <v-card shaped>
+                    <v-card shaped height="525">
                         <v-card-title>Select Topping</v-card-title>
                         <v-divider></v-divider>
                         <v-card-text style="height: 300px;">

@@ -61,7 +61,7 @@
             </div>
             <!-- end header -->
             <!-- order list -->
-            <div class="px-5 py-4 mt-0.5 overflow-y-auto h-80">
+            <div class="px-5 py-4 mt-0.5 overflow-y-auto h-96">
                 <div class="flex flex-row justify-between items-center mb-4" v-for="(menuchoose,i) in menuchooses" :key="i">
                     <div class="flex flex-row items-center w-2/5">
                         <div class="border-4 border-yellow-300 border-opacity-75 w-10 text-center">{{i+1}}</div>
@@ -86,7 +86,10 @@
             </div>
             <!-- end order list -->
             <!-- totalItems -->
-            <div class="px-5  mt-10 h-52">  
+            
+            <!-- end total -->
+            <!-- cash -->
+            <div class="px-5  mt-20 h-52">
                 <div class="py-4 rounded-md shadow-lg mt-10">
                     <div class=" px-4 flex justify-between ">
                         <span class="font-semibold text-sm">Subtotal Hour</span>
@@ -95,19 +98,6 @@
                     <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
                         <span class="font-semibold text-2xl">Total</span>
                         <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
-                    </div>
-                </div>
-            </div>
-            <!-- end total -->
-            <!-- cash -->
-            <div class="px-5 mt-5">
-                <div class="rounded-md shadow-lg px-4 py-4">
-                    <div class="flex flex-row justify-between items-center">
-                        <div class="flex flex-col">
-                            <span class="uppercase text-xs font-semibold">cashless credit</span>
-                            <span class=" text-xs text-yellow-400 ">{{SumHr}} hour</span>
-                        </div>
-                        <div class="px-4 py-3 bg-blue-200 text-blue-400 rounded-md font-bold"> $ {{Sumtotal}}</div>
                     </div>
                 </div>
             </div>
