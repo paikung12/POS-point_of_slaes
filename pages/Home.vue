@@ -85,9 +85,17 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Session } from '~/vuexes/session'
 export default {
-
+    data () {
+        return{
+            session: []
+        }
+    },
+    async created (){
+        this.session = await Session.getSession()
+    },
 }
 </script>
 

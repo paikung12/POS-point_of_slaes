@@ -112,7 +112,6 @@ export default {
         await Menu.setMenu(this.menu)
         this.dialog=false;
       }
-
     },
 }
 </script>

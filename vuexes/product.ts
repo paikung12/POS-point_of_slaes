@@ -1,6 +1,6 @@
  
 import {VuexModule, Module, Mutation, Action} from "vuex-class-modules";
- import _ from "lodash"
+import _ from "lodash"
 import {Core} from './core'
 @Module
 class ProductModule extends VuexModule{
