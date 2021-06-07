@@ -91,7 +91,7 @@ import { Member } from '~/vuexes/member'
 export default {
     data() {
         return {
-            member: [],
+            member: [], 
             promotion: []
         }
     },
