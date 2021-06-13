@@ -24,23 +24,22 @@
                     </div>
                 </div>
                 <div class=" lg:pl-5 w-full pt-20 pr-2 ">
-                    <v-tabs color="#FFD352" v-model="value"  slider-color="#FFD352">
-                        <v-tab  v-for="(val,i) in type" :key="i">
-                            {{val.title}}
+                    <v-tabs color="#FFD352" v-model="value" slider-color="#FFD352">
+                        <v-tab v-for="(val,i) in type" :key="i">
+                            {{val.name}}
                         </v-tab>
                         <v-tab-item v-for="(val,i) in type" :key="i">
                             <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full" style=" ">
                                 <div v-for="(menu,i) in getMenu(val.id)" :key="i">
+                                    <Cardmenu-MenuCoffee v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuCoffee v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 7" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuTeas v-if="val.id == 8" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-Menumilk v-if="val.id == 9" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuItaliansoda v-if="val.id == 10" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuSmoothie v-if="val.id == 11" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuDessert v-if="val.id == 12" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuItaliansoda v-if="val.id == 8" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuSmoothie v-if="val.id == 9" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuDessert v-if="val.id == 10" @callback="MenuVal" :menu='menu' />
                                 </div>
                             </div>
                         </v-tab-item>
-                
                     </v-tabs>
                 </div>
             </div>
@@ -56,7 +55,7 @@
 
             <div class=" flex flex-row items-center justify-center ">
                 <v-col cols="12" sm="6">
-                    <v-text-field label="Name" outlined></v-text-field>
+                    <v-text-field label="Phone number" outlined></v-text-field>
                 </v-col>
             </div>
             <!-- end header -->
@@ -77,7 +76,7 @@
                         </button>
                     </div>
                     <div class="font-semibold text-lg w-16 text-center">
-                        {{menuchoose.price * menuchoose.counter }}
+                        {{menuchoose.detail.price * menuchoose.counter }}
                     </div>
                     <v-btn depressed fab icon outlined small color="red" @click="del(i)">
                         <v-icon>mdi-close</v-icon>
@@ -86,10 +85,10 @@
             </div>
             <!-- end order list -->
             <!-- totalItems -->
-            
+
             <!-- end total -->
             <!-- cash -->
-            <div class="px-5  mt-20 h-52">
+            <div class="px-5">
                 <div class="py-4 rounded-md shadow-lg mt-10">
                     <div class=" px-4 flex justify-between ">
                         <span class="font-semibold text-sm">Subtotal Hour</span>
@@ -98,6 +97,20 @@
                     <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
                         <span class="font-semibold text-2xl">Total</span>
                         <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="px-5 mt-5">
+                <div class="rounded-md shadow-lg px-4 py-4">
+                    <div class="flex flex-row justify-between items-center">
+                        <div class="flex flex-col">
+                            <span class="uppercase text-xs font-semibold">cashless credit</span>
+                            <span class="text-xl font-bold text-yellow-500">$ {{Sumtotal}}</span>
+                            <span class=" text-xs text-gray-400 ">Available</span>
+                        </div>
+                        <v-col class="d-flex" cols="6" sm="6">
+                            <v-select outlined :items="items" label="Which service to choose" dense></v-select>
+                        </v-col>
                     </div>
                 </div>
             </div>
@@ -120,10 +133,11 @@ import _ from 'lodash'
 export default {
     data: () => {
         return ({
+            items: ['Go Home', 'Session',],
             allMenus: [],
             counter: 1,
             menus: [],
-            type: []
+            type: [],
         });
     },
     async created() {
@@ -152,9 +166,6 @@ export default {
         },
     },
     computed: {
-        output() {
-            return this.counter >= 10
-        },
         menuchooses() {
             return Menu.chooseMenus
         },
@@ -170,13 +181,9 @@ export default {
             return sumHr
         },
     }
-
 }
 </script>
 
 <style>
 
 </style>
-
-
-

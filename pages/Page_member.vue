@@ -34,7 +34,7 @@
                                             <v-subheader>Name: </v-subheader>
                                         </v-col>
                                         <v-col cols="6">
-                                            <v-text-field outlined label="name"></v-text-field>
+                                            <v-text-field v-model="form.name " outlined label="name"></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -42,7 +42,7 @@
                                             <v-subheader>Phone: </v-subheader>
                                         </v-col>
                                         <v-col cols="6">
-                                            <v-text-field outlined label="phone"></v-text-field>
+                                            <v-text-field v-model="form.phone " outlined label="phone"></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <button class="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium">Submit</button>
@@ -63,15 +63,20 @@
                         <div class="text-center px-6 py-4">
                             <div class="py-8">
                                 <div class="mb-4">
-                                    <ul>
+                                    <ul v-for="(member,i) in member" :key="i" >
                                         <li class="flex items-center text-gray-600 dark:text-gray-200 justify-between py-3 border-b-2 border-gray-100 dark:border-gray-800">
                                             <div class="flex items-center justify-start text-sm">
-                                                <span class="mx-4">
-                                                    01
-                                                </span>
-                                                <span>
-                                                    Create wireframe
-                                                </span>
+                                                <div>
+                                                    <span class="mx-4">
+                                                        #{{member.id}}
+                                                    </span>
+                                                    <span>
+                                                        {{member.name}}
+                                                    </span>
+                                                    <span>
+                                                        {{member.phone}}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </li>
                                     </ul>
@@ -87,18 +92,26 @@
 </template>
 
 <script lang="ts">
+import { method } from 'lodash'
 import { Member } from '~/vuexes/member'
 export default {
     data() {
         return {
-            member: [], 
+            form: {
+                name: null,
+                phone: null,
+            },
+            member: [],
             promotion: []
         }
     },
     async created() {
         this.member = await Member.getMember()
         this.promotion = await Member.getPromotion()
-    }
+    },
+    methods: {
+
+    },
 }
 </script>
 

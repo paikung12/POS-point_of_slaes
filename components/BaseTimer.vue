@@ -39,7 +39,7 @@ const COLOR_CODES = {
   }
 };
 
-const TIME_LIMIT = 3600;
+const TIME_LIMIT = 420;
 
 
 export default {
@@ -154,8 +154,8 @@ export default {
 
   &__label {
     position: absolute;
-    width: 163px;
-    height: 165px;
+    width: 186px;
+    height: 180px;
     top: 0;
     display: flex;
     align-items: center;

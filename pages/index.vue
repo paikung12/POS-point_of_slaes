@@ -23,24 +23,37 @@
                             <p class="text-gray-500 dark:text-gray-400 text-xl">Sign in to access your account</p>
                         </div>
                         <div class="m-7">
-                            <form action="">
+                            <v-form>
                                 <div class="mb-6">
                                     <div class="flex justify-between mb-2">
-                                        <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Email Address</label>
+                                        <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">User Name</label>
                                     </div>
-                                    <v-text-field label="Filled" placeholder="you@hotmail.com" outlined></v-text-field>
+                                    <v-text-field 
+                                        label="Filled" 
+                                        placeholder="Username"  
+                                        v-model="form.username"
+                                        :rules="[rules.required]"
+                                        outlined>
+                                    </v-text-field>
                                 </div>
                                 <div class="mb-6">
                                     <div class="flex justify-between mb-2">
                                         <label for="password" class="text-sm text-gray-600 dark:text-gray-400">Password</label>
                                     </div>
-                                    <v-text-field label="Filled" placeholder="Password" outlined></v-text-field>
+                                    <v-text-field
+                                        type="password" 
+                                        label="Filled" 
+                                        placeholder="Password" 
+                                        v-model="form.password"
+                                        :rules="[rules.required]"
+                                        outlined>
+                                    </v-text-field>
                                 </div>
                                 <div class="mb-6">
                                     <button type="button" class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none" @click="$router.push('Home')">Sign in</button>
                                 </div>
                                 <p class="text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a href="#!" class="text-indigo-400 focus:outline-none focus:underline focus:text-indigo-500 dark:focus:border-indigo-800">Sign up</a>.</p>
-                            </form>
+                            </v-form>
                         </div>
                     </div>
                 </div>
@@ -53,8 +66,50 @@
 </template>
 
 <script>
+import { values } from 'lodash'
 export default {
-
+    data: () => ({
+        show_password: false,
+        rules:{
+            required: values => !!values || 'Required'
+        },
+        form:{
+            username:"",
+            password:"",
+            remember_me: false
+        },
+        user: {
+            username: null,
+            password: null,
+        }
+    }),
+    created(){
+        this.get_logInItem()
+    },
+    methods: {
+        remember_me(){
+            let item = JSON.stringify(this.form)
+            localStorage.setItem('login_item' ,item)
+        },
+        get_logInItem(){
+            // if (localStorage.getItem('login_item')) {
+            //         let item = localStorage.getItem('login_item')
+            //         localStorage.removeItem('login_item')
+            //         this.form = JSON.parse(item)
+            //     }
+        },
+        async getUserToken() {
+            let token = await this.$store.dispatch(' ', this.form)
+                if (token) {
+                    if (this.form.remember_me) {
+                        this.remember__me()
+                    }
+                    await this.$router.push({
+                        name: 'Home'
+                    })
+                }
+        }
+    },
 }
 </script>
 

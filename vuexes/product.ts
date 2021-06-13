@@ -5,6 +5,7 @@ import {Core} from './core'
 @Module
 class ProductModule extends VuexModule{
     //state 
+    
     public async getProduct(){
         return await Core.getHttp('/backend/product/')
     }
@@ -14,8 +15,14 @@ class ProductModule extends VuexModule{
     public async getProductprices(){
         return await Core.getHttp('/backend/productprice/')
     }
-    public async getOrderdetail(){
-        return await Core.getHttp('/backend/orderdetail/')
+    public async getOrderdetail(type:number){
+        return await Core.getHttp(`/backend/orderdetail/?type=${type}`)
+    }
+    public async getSweetlevel(){
+        return await Core.getHttp('/backend/sweetlevel/')
+    }
+    public async getHeatlevel(){
+        return await Core.getHttp('/backend/heatlevel/')
     }
     public async getProductpriceiew() {
         return await Core.getHttp('/backend/productpriceview/')

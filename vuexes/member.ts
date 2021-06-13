@@ -13,6 +13,12 @@ class MemberModule extends VuexModule{
    public async getPromotion(){
        return await Core.getHttp('/backend/promotion/')
    }
+   public async postMember(params :any){
+       var formData = new FormData();
+       formData.append("name" , params.name)
+       formData.append("phone" , params.phone)
+       return await Core.postHttp('/backend/member/', formData)
+   }
 }
 
 import store from "~/vuexes"

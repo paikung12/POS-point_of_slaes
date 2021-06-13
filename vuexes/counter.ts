@@ -7,9 +7,11 @@ class MenuModule extends VuexModule{
 
     public chooseMenus:any = []
 
-    public setMenu(menu:any){
+    public setMenu(menu:any,detail:any){
+        menu.detail = detail
         this.chooseMenus.push(menu)
     }
+    
     public async Counterincrement(id:number){
         let index = _.findIndex(this.chooseMenus,{id:id})
         let currentMenu = this.chooseMenus[index]

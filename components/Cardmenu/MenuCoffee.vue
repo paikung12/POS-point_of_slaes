@@ -5,7 +5,7 @@
             <v-img :aspect-ratio="16/9" src="https://site.listsothebysrealty.in.th/wp-content/uploads/2020/02/01-Espresso-1.jpg">
                 <v-expand-transition>
                     <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-10 pl-8 " style="height: 100%;">
-                       $ 25 .Bath
+                        $ 25 .Bath
                     </div>
                 </v-expand-transition>
             </v-img>
@@ -24,36 +24,24 @@
                         <v-card-text style="height: 300px;">
                             <p class="text-l pt-2">Select Hot & Cold</p>
                             <v-row>
-                                <v-checkbox class="pl-5" v-model="selected" label="Hot (25.B)" value="Hot">
-                                </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="Cold (30.B)" value="Cold">
-                                </v-checkbox>
+                                <div v-for="(heat,i) in heatlevel" :key="i">
+                                    <v-checkbox  class="pl-5" v-model="selected" :label="heat.name" value="Hot">
+                                    </v-checkbox>
+                                </div>
                             </v-row>
                             <p class="text-l pt-2">Choose Sweetness</p>
                             <v-row>
-                                 <v-checkbox class="pl-5" v-model="selected" label="No Sweet" value="No Sweet">
-                                </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="Little Sweet" value="Little Sweet">
-                                </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="Normal Sweet" value="Normal Sweet">
-                                </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="Very Sweet" value="Very Sweet">
-                                </v-checkbox>
+                                <div v-for="(sweet,i) in sweetlevel " :key="i">
+                                    <v-checkbox  class="pl-5" v-model="selected" :label="sweet.name">
+                                    </v-checkbox>
+                                </div>
                             </v-row>
-                            <p class="text-l pt-2">Select Coffee Shot</p>
+                            <p class="text-l pt-2">Whipcream Milk foam & Honey </p>
                             <v-row>
-                                <v-checkbox class="pl-5" v-model="selected" label="1 Shot(+5.B)" value="1 shot">
-                                </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="2 Shot(+5.B)" value="2 shot">
-                                </v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="3 Shot(+5.B)" value="3 shot">
-                                </v-checkbox>
-                            </v-row>
-                            <p class="text-l pt-2">Whipcream  Milk foam & Honey </p>
-                            <v-row>
-                                <v-checkbox class="pl-5" v-model="selected" label="Whipcream (+5.B)" value="Whipcream"></v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="Milk foam (+5.B)" value="Milkfoam"></v-checkbox>
-                                <v-checkbox class="pl-5" v-model="selected" label="Honey (+5.B)" value="Honey"></v-checkbox>
+                                <div v-for="(detail,i) in orderdetail" :key="i">
+                                    <v-checkbox   class="pl-5" v-model="selected" :label="detail.name" value="Whipcream">
+                                    </v-checkbox>
+                                </div>
                             </v-row>
                         </v-card-text>
                         <v-divider></v-divider>
@@ -82,38 +70,50 @@
 </template>
 
 <script lang="ts">
-import {Menu} from '~/vuexes/counter'
+import { Menu } from '~/vuexes/counter'
 import { Product } from '~/vuexes/product'
 export default {
-  props:{ 
-    menu:{
-      default:{
-        name:'coffee',
-        price:0,
-        counter:1
-      }
-    }
-  },
+    props: {
+        menu: {
+            default: {
+                name: 'coffee',
+                prices: 0,
+                counter: 1,
+                type:1,
+            }
+        },
+        detail: {
+            default: {
+                named: 'hot,cold',
+                prices: 0,
+                product: 0,
+                heat: 0,
+            }
+        }
+    },
     data() {
         return {
             dialog: false,
-            selected: [''],
-            price:[],
-            orderdetail:[],
-            productpriceviews:[]
+            selected: [],
+            price: [],
+            heatlevel: [],
+            sweetlevel: [],
+            orderdetail: [],
+
         }
     },
-    async created(){
+    async created() {
         this.price = await Product.getProductprices()
-        this.orderdetail = await Product.getOrderdetail()
-        this.productpriceviews = await Product.getProductpriceiew()
+        this.orderdetail = await Product.getOrderdetail(this.menu.type)
+        this.heatlevel = await Product.getHeatlevel()
+        this.sweetlevel = await Product.getSweetlevel()
     },
     methods: {
-        async callbackMenu(){
+        async callbackMenu() {
             this.menu.counter = 1
-        await Menu.setMenu(this.menu)
-        this.dialog=false;
-      }
+            await Menu.setMenu(this.menu, this.detail)
+            this.dialog = false;
+        }
     },
 }
 </script>
