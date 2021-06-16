@@ -85,11 +85,11 @@
             </div>
             <!-- end order list -->
             <!-- totalItems -->
-
+            
             <!-- end total -->
             <!-- cash -->
             <div class="px-5">
-                <div class="py-4 rounded-md shadow-lg mt-10">
+                <div class="py-4 rounded-md shadow-lg mt-40">
                     <div class=" px-4 flex justify-between ">
                         <span class="font-semibold text-sm">Subtotal Hour</span>
                         <span class="font-bold"> {{SumHr}} hr</span>
@@ -97,20 +97,6 @@
                     <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
                         <span class="font-semibold text-2xl">Total</span>
                         <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="px-5 mt-5">
-                <div class="rounded-md shadow-lg px-4 py-4">
-                    <div class="flex flex-row justify-between items-center">
-                        <div class="flex flex-col">
-                            <span class="uppercase text-xs font-semibold">cashless credit</span>
-                            <span class="text-xl font-bold text-yellow-500">$ {{Sumtotal}}</span>
-                            <span class=" text-xs text-gray-400 ">Available</span>
-                        </div>
-                        <v-col class="d-flex" cols="6" sm="6">
-                            <v-select outlined :items="items" label="Which service to choose" dense></v-select>
-                        </v-col>
                     </div>
                 </div>
             </div>
@@ -133,7 +119,6 @@ import _ from 'lodash'
 export default {
     data: () => {
         return ({
-            items: ['Go Home', 'Session',],
             allMenus: [],
             counter: 1,
             menus: [],
