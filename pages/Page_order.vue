@@ -34,9 +34,9 @@
                                     <Cardmenu-MenuCoffee v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 7" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuItaliansoda v-if="val.id == 8" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuSmoothie v-if="val.id == 9" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuDessert v-if="val.id == 10" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuCoffee v-if="val.id == 8" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuCoffee v-if="val.id == 9" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuCoffee v-if="val.id == 10" @callback="MenuVal" :menu='menu' />
                                 </div>
                             </div>
                         </v-tab-item>
@@ -52,12 +52,6 @@
                 <div class="font-bold text-5xl text-yellow-400">Main Order</div>
             </div>
             <br>
-
-            <div class=" flex flex-row items-center justify-center ">
-                <v-col cols="12" sm="6">
-                    <v-text-field label="Phone number" outlined></v-text-field>
-                </v-col>
-            </div>
             <!-- end header -->
             <!-- order list -->
             <div class="px-5 py-4 mt-0.5 overflow-y-auto h-96">
@@ -113,7 +107,7 @@
 </template>
 
 <script lang="ts">
-import { Menu } from '~/vuexes/counter'
+import { Menu } from '~/vuexes/menu'
 import { Product } from '@/vuexes/product'
 import _ from 'lodash'
 export default {

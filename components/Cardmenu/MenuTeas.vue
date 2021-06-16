@@ -83,7 +83,7 @@
 
 <script lang="ts">
 import { createHmac } from 'crypto'
-import { Menu } from '~/vuexes/counter'
+import { Menu } from '~/vuexes/menu'
 export default {
     props: {
         menu: {

@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { Menu } from '~/vuexes/counter'
+import { Menu } from '~/vuexes/menu'
 import { Product } from '~/vuexes/product'
 export default {
     props: {

@@ -44,7 +44,6 @@
                                             </div>
                                         </v-dialog>
                                     </div>
-                                    </v-dialog>
                                     <!--End Dialog Time -->
                                     <!-- Check Bin -->
                                     <div class="pl-3">
