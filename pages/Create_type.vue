@@ -45,9 +45,29 @@
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{product.type}}</td>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
-                                                <v-btn depressed fab icon outlined small color="red">
-                                                    <v-icon>mdi-close</v-icon>
-                                                </v-btn>
+                                                <div>
+                                                    <v-dialog v-model="dialog1" rounded width="500px">
+                                                        <template v-slot:activator="{ on, attrs }">
+                                                            <v-btn v-bind="attrs" v-on="on" depressed fab icon outlined small color="blue">
+                                                        <v-icon>mdi-border-color</v-icon>
+                                                    </v-btn>
+                                                        </template>
+                                                        <div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
+                                                            <div class="text-center">
+                                                                <h2 class="mt-5 text-3xl font-bold text-gray-900">
+                                                                    Working Space
+                                                                </h2>
+                                                                <p class="mt-2 text-sm text-gray-400">The order you ordered text.</p>
+                                                            </div>
+                                                            <EditProduct />
+                                                        </div>
+                                                    </v-dialog>
+                                                </div>
+                                                <div class="ml-2">
+                                                    <v-btn depressed fab icon outlined small color="red">
+                                                        <v-icon>mdi-close</v-icon>
+                                                    </v-btn>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -84,9 +104,29 @@
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{order.price}} B.</td>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
-                                                <v-btn depressed fab icon outlined small color="red">
-                                                    <v-icon>mdi-close</v-icon>
-                                                </v-btn>
+                                                <div>
+                                                    <v-dialog v-model="dialog1" rounded width="500px">
+                                                        <template v-slot:activator="{ on, attrs }">
+                                                            <v-btn v-bind="attrs" v-on="on" class="ma-1 " outlined color="blue">
+                                                                <v-icon>mdi-clock-outline</v-icon> Time
+                                                            </v-btn>
+                                                        </template>
+                                                        <div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
+                                                            <div class="text-center">
+                                                                <h2 class="mt-5 text-3xl font-bold text-gray-900">
+                                                                    Working Space
+                                                                </h2>
+                                                                <p class="mt-2 text-sm text-gray-400">The order you ordered text.</p>
+                                                            </div>
+                                                            <EditOrderDetail />
+                                                        </div>
+                                                    </v-dialog>
+                                                </div>
+                                                <div class="ml-2">
+                                                    <v-btn depressed fab icon outlined small color="red">
+                                                        <v-icon>mdi-close</v-icon>
+                                                    </v-btn>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

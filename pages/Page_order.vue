@@ -82,8 +82,8 @@
             
             <!-- end total -->
             <!-- cash -->
-            <div class="px-5">
-                <div class="py-4 rounded-md shadow-lg mt-40">
+            <div class="px-">
+                <div class="py-4 rounded-md shadow-lg mt-72">
                     <div class=" px-4 flex justify-between ">
                         <span class="font-semibold text-sm">Subtotal Hour</span>
                         <span class="font-bold"> {{SumHr}} hr</span>
