@@ -18,7 +18,7 @@
                         </v-btn>
                     </template>
                     <!-- <---Card Dialog --->
-                    <v-card shaped height="525">
+                    <v-card rounded-xl height="525">
                         <v-card-title>Select Topping</v-card-title>
                         <v-divider></v-divider>
                         <v-card-text style="height: 300px;">

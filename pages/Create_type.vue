@@ -169,8 +169,8 @@
 
 <script>
 import {
-    Typedetial
-} from '@/vuexes/typedetail'
+    Createmenu
+} from '~/vuexes/createmenu'
 import {
     Product
 } from '@/vuexes/product'
@@ -185,8 +185,8 @@ export default {
     },
     async created() {
         this.product = await Product.getProduct()
-        this.producttype = await Typedetial.getProducttype()
-        this.orderdetail = await Typedetial.getOrderdetail()
+        this.producttype = await Createmenu.getProducttype()
+        this.orderdetail = await Createmenu.getOrderdetail()
     }
 }
 </script>
