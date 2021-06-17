@@ -49,15 +49,15 @@
                                                     <v-dialog v-model="dialog1" rounded width="500px">
                                                         <template v-slot:activator="{ on, attrs }">
                                                             <v-btn v-bind="attrs" v-on="on" depressed fab icon outlined small color="blue">
-                                                        <v-icon>mdi-border-color</v-icon>
-                                                    </v-btn>
+                                                                <v-icon>mdi-border-color</v-icon>
+                                                            </v-btn>
                                                         </template>
                                                         <div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
                                                             <div class="text-center">
-                                                                <h2 class="mt-5 text-3xl font-bold text-gray-900">
-                                                                    Working Space
+                                                                <h2 class="mt-5 text-3xl font-bold text-blue-400">
+                                                                    Edit Product
                                                                 </h2>
-                                                                <p class="mt-2 text-sm text-gray-400">The order you ordered text.</p>
+                                                                <p class="mt-2 text-sm text-gray-400">The product you can edit text.</p>
                                                             </div>
                                                             <EditProduct />
                                                         </div>
@@ -107,16 +107,16 @@
                                                 <div>
                                                     <v-dialog v-model="dialog1" rounded width="500px">
                                                         <template v-slot:activator="{ on, attrs }">
-                                                            <v-btn v-bind="attrs" v-on="on" class="ma-1 " outlined color="blue">
-                                                                <v-icon>mdi-clock-outline</v-icon> Time
+                                                            <v-btn v-bind="attrs" v-on="on" depressed fab icon outlined small color="blue">
+                                                                 <v-icon>mdi-border-color</v-icon>
                                                             </v-btn>
                                                         </template>
                                                         <div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
                                                             <div class="text-center">
-                                                                <h2 class="mt-5 text-3xl font-bold text-gray-900">
-                                                                    Working Space
+                                                                <h2 class="mt-5 text-3xl font-bold text-blue-400">
+                                                                    Edit Order Detail
                                                                 </h2>
-                                                                <p class="mt-2 text-sm text-gray-400">The order you ordered text.</p>
+                                                                <p class="mt-2 text-sm text-gray-400">The order you can ed text.</p>
                                                             </div>
                                                             <EditOrderDetail />
                                                         </div>

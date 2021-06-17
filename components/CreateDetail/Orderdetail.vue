@@ -5,26 +5,26 @@
             <div class="flex justify-between px-4 items-center">
                 <div class="text-lg font-semibold">
                     <p class="text-blue-600">Order Detail</p>
-                    <v-row>
-                        <v-col cols="4">
-                            <v-subheader>Name:</v-subheader>
-                        </v-col>
-                        <v-col cols="5">
-                            <v-text-field outlined label="Filled " v-model="form.name"></v-text-field>
-                        </v-col>
-                        <v-col cols="4">
-                            <v-subheader>Type:</v-subheader>
-                        </v-col>
-                        <v-col cols="5">
-                            <v-select :items="items" label="select" outlined></v-select>
-                        </v-col>
-                        <v-col cols="4">
-                            <v-subheader>Price:</v-subheader>
-                        </v-col>
-                        <v-col cols="5">
-                            <v-text-field outlined label="Price" v-model="form.price"></v-text-field>
-                        </v-col>
-                    </v-row>
+                        <v-row align="center">
+                            <v-col cols="12" sm="6">
+                                <v-subheader v-text="'Order Detail Name'"></v-subheader>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-text-field  label="filled" v-model="form.name" outlined  dense multiple hint="Pick your favorite states" ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-subheader v-text="'Order Detail Type'" ></v-subheader>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-select v-model="e7" :items="states" outlined  dense label="Select" multiple chips hint="What are the target regions" persistent-hint></v-select>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-subheader v-text="'Order Detail Price'"></v-subheader>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-text-field  label="filled"  v-model="form.price" outlined  dense multiple hint="Pick your favorite states" ></v-text-field>
+                            </v-col>
+                        </v-row>
                     <div class="flex justify-center items-center text-center">
                         <button type="submit" class="my-5 w-full  flex justify-center bg-blue-500  p-4  rounded-lg  font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-400 ">
                             <span class="text-white">Add Order Detail</span>
@@ -39,10 +39,10 @@
 
 <script>
 export default {
-    data :() =>({
-        form:{
-            name:null,
-            price : null,
+    data: () => ({
+        form: {
+            name: null,
+            price: null,
         }
     })
 }

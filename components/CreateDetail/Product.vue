@@ -6,7 +6,7 @@
                 <div class="text-lg font-semibold">
                     <p class="text-blue-600 ">Product </p>
                     <div class="flex flex-row">
-                        <v-file-input v-model="files" color="deep-purple accent-4" counter label="Image input" multiple placeholder="Select your files" prepend-icon="mdi-paperclip" outlined :show-size="1000">
+                        <v-file-input v-model="files" color="deep-purple accent-4" counter label="Image input" multiple placeholder="Select your files" prepend-icon="mdi-paperclip" outlined :show-size="1000" >
                             <template v-slot:selection="{ index, text }">
                                 <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>
                                     {{ text }}
