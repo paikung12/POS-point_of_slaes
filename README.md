@@ -6,7 +6,7 @@
 # install dependencies
 $ npm install
 $ npm install axios
-$ npm inslall vuex-class-modules
+$ npm install vuex-class-modules
 
 # Install Css
 $ npm install --save-dev @nuxtjs/tailwindcss postcss@latest
