@@ -70,7 +70,7 @@
                         </button>
                     </div>
                     <div class="font-semibold text-lg w-16 text-center">
-                        {{menuchoose.detail.price * menuchoose.counter }}
+                        {{menuchoose.price * menuchoose.counter }}
                     </div>
                     <v-btn depressed fab icon outlined small color="red" @click="del(i)">
                         <v-icon>mdi-close</v-icon>

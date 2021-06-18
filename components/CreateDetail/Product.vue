@@ -24,7 +24,7 @@
                         <v-col cols="2">
                             <v-subheader>Type:</v-subheader>
                         </v-col>
-                        <v-select :items="items" label="select" outlined></v-select>
+                        <v-select :items="items" label="select" outlined class="mr-4"></v-select>
                     </div>
                     <span class="text-gray-400 text-base text-blue-400">You can add Product Type.</span>
                 </div>
@@ -41,7 +41,7 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
     data: () => ({
         files: [],
