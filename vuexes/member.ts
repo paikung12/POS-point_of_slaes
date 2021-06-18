@@ -7,17 +7,10 @@ class MemberModule extends VuexModule{
    public async getMember(){
        return await Core.getHttp('/backend/member/')
    }
-   public async getPoint(){
-       return await Core.getHttp('/backend/point/')
-   }
-   public async getPromotion(){
-       return await Core.getHttp('/backend/promotion/')
-   }
+
    public async postMember(params :any){
-       var formData = new FormData();
-       formData.append("name" , params.name)
-       formData.append("phone" , params.phone)
-       return await Core.postHttp('/backend/member/', formData)
+
+       return await Core.postHttp('/backend/member/', params)
    }
 }
 

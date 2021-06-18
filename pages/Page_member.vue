@@ -28,7 +28,7 @@
                     <div class="text-center px-6 py-4">
                         <div class="py-8">
                             <div class="mb-4">
-                                <v-form>
+                                <v-form @submit="savemember()">
                                     <v-row>
                                         <v-col cols="3">
                                             <v-subheader>Name: </v-subheader>
@@ -45,7 +45,7 @@
                                             <v-text-field v-model="form.phone " outlined label="phone"></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <button class="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium">Submit</button>
+                                    <button  class="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium">Submit</button>
                                 </v-form>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                             <div class="flex items-center justify-start text-sm">
                                                 <div>
                                                     <span class="mx-4">
-                                                        #{{member.id}}
+                                                        #{{i+1}}
                                                     </span>
                                                     <span>
                                                         {{member.name}}
@@ -102,16 +102,26 @@ export default {
                 phone: null,
             },
             member: [],
-            promotion: []
         }
     },
     async created() {
         this.member = await Member.getMember()
-        this.promotion = await Member.getPromotion()
-    },
-    methods: {
 
     },
+    methods: {
+        async savemember() {
+            if(this.form.name && this.form.phone){
+                await Member.postMember(this.form)
+                alert ("Sucess")
+            }
+            else{
+                alert ("Fail")
+            }
+           
+           
+            
+        },
+    }
 }
 </script>
 

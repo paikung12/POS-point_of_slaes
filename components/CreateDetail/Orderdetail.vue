@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="bg-white py-4 px-4 shadow-xl rounded-2xl my-4 mx-4">
-        <v-form>
+        <v-form @submit="addTopping()">
             <div class="flex justify-between px-4 items-center">
                 <div class="text-lg font-semibold">
                     <p class="text-blue-600">Order Detail</p>
@@ -16,7 +16,12 @@
                                 <v-subheader v-text="'Order Detail Type'" ></v-subheader>
                             </v-col>
                             <v-col cols="12" sm="6">
-                                <v-select v-model="e7" :items="states" outlined  dense label="Select" multiple chips hint="What are the target regions" persistent-hint></v-select>
+                                <div v-for="type,index in product_types" :key="index"> 
+                                    <v-checkbox class="pl-5" v-model="form.type" :label="type.name"
+                                 :value="type.id">
+                                    </v-checkbox> 
+                                </div>
+                                                         
                             </v-col>
                             <v-col cols="12" sm="6">
                                 <v-subheader v-text="'Order Detail Price'"></v-subheader>
@@ -38,13 +43,26 @@
 </template>
 
 <script>
+import {Product} from '~/vuexes/product'
 export default {
     data: () => ({
+        product_types: [],
+        checkbox:[],
         form: {
             name: null,
             price: null,
+            type:[]
         }
-    })
+    }),
+    async created(){
+        this.product_types = await Product.getProducttype()
+    },
+    methods: {
+        async addTopping(){
+            var data = await Product.postOrderdetail(this.form)
+        
+        }
+    },
 }
 </script>
 

@@ -24,9 +24,41 @@ class ProductModule extends VuexModule{
     public async getHeatlevel(){
         return await Core.getHttp('/backend/heatlevel/')
     }
+
+    public async getHeatlevelByID(pk:number){
+        return await Core.getHttp(`/backend/heatlevel/${pk}/`)
+    }
+
     public async getProductpriceiew() {
         return await Core.getHttp('/backend/productpriceview/')
     }
+
+
+    public async postProducttype(params :any){
+
+       return await Core.postHttp('/backend/producttype/', params)
+    }
+
+    public async postProduct(params :any){
+        var formData = new FormData();
+        formData.append("name" , params.name)
+        formData.append("img" , params.img)
+        formData.append("type" , params.type)
+        return await Core.postHttp('/backend/product/', params)
+    }
+
+    public async postProductPrice(params :any){
+        return await Core.postHttp('/backend/productprice/', params)
+    }
+
+    public async postOrderdetail(params :any){
+        return await Core.postHttp('/backend/orderdetail/', params)
+    }
+    
+ 
+
+
+
 }
 
 import store from "~/vuexes"

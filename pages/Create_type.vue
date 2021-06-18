@@ -154,11 +154,12 @@
                 </div>
                 <div class="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-6 xxl:col-span-8">
                     <div>
-                        <CreateDetail-Product />
-                    </div>
-                    <div>
                         <CreateDetail-Productprice />
                     </div>
+                    <!-- <div>
+                        
+                        <CreateDetail-Product />
+                    </div> -->
                 </div>
             </div>
             <!-- ./Task Summaries -->

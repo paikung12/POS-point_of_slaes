@@ -11,9 +11,7 @@ class CreatemenuModule extends VuexModule{
         return await Core.getHttp('/backend/orderdetail/')
     }
     public async postProducttype(params:any){
-        var formData = new FormData();
-        formData.append("name" , params.name)
-        return await Core.postHttp('/backend/producttype/', formData )
+        return await Core.postHttp('/backend/producttype/', params )
     }
     public async postProduct(params:any){
         var formData = new FormData();
