@@ -24,12 +24,17 @@
 </template>
 
 <script>
+import { create } from 'lodash'
 export default {
     data() {
         return {
              files: [],
         }
+        
     },
+    async created(){
+        
+    }
 }
 </script>
 
