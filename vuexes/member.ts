@@ -7,11 +7,12 @@ class MemberModule extends VuexModule{
    public async getMember(){
        return await Core.getHttp('/backend/member/')
    }
-
    public async postMember(params :any){
-
        return await Core.postHttp('/backend/member/', params)
    }
+   public async getMemberfilter(phone:number){
+      return await Core.getHttp(`/backend/member/?phone=${phone}`)
+      }
 }
 
 import store from "~/vuexes"
