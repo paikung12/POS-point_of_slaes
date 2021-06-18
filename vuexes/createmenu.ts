@@ -7,8 +7,11 @@ class CreatemenuModule extends VuexModule{
     public async getProducttype(){
         return await Core.getHttp('/backend/producttype/')
     }
-    public async getOrderdetail(type:number){
+    public async getOrderdetail(){
         return await Core.getHttp('/backend/orderdetail/')
+    }
+    public async getOrderdetailview(){
+        return await Core.getHttp('/backend/vieworderdetail/')
     }
     public async postProducttype(params:any){
         return await Core.postHttp('/backend/producttype/', params )

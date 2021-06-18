@@ -9,6 +9,13 @@ class ProductModule extends VuexModule{
     public async getProduct(){
         return await Core.getHttp('/backend/product/')
     }
+    public async getProductByID(pk:number){
+        return await Core.getHttp(`/backend/viewproduct/${pk}/`)
+    }
+    public async getProductview(){
+        return await Core.getHttp('/backend/viewproduct/')
+    }
+
     public async getProducttype(){
         return await Core.getHttp('/backend/producttype/')
     }

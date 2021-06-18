@@ -3,14 +3,19 @@ import _ from "lodash"
 import {Core} from './core'
 @Module
 class MemberModule extends VuexModule{
+
    //state 
    public async getMember(){
        return await Core.getHttp('/backend/member/')
    }
+   public async getMemberByID(pk:number){
+    return await Core.getHttp(`/backend/member/${pk}/`)
+}
    public async postMember(params :any){
        return await Core.postHttp('/backend/member/', params)
    }
-   public async getMemberfilter(phone:number){
+   
+   public async getMemberfilter(phone:string){
       return await Core.getHttp(`/backend/member/?phone=${phone}`)
       }
 }

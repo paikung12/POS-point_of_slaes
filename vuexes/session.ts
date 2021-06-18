@@ -7,6 +7,9 @@ class SessionModule extends VuexModule{
    public async getSession(){
        return await Core.getHttp('/backend/session/')
    }
+   public async postSession(params:any){
+    return await Core.postHttp('/backend/session/', params)
+}
 }
 
 import store from "~/vuexes"

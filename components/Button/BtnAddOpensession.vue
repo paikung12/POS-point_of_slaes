@@ -50,17 +50,16 @@
                             <v-form>
                                 <div class="grid grid-cols-1 space-y-2">
                                     <label class="text-sm font-bold text-gray-700 tracking-wide">Phone number</label>
-                                    <v-text-field placeholder="08x-xxx-xxxx" outlined v-model="form.phone"></v-text-field>
+                                    <v-text-field placeholder="08x-xxx-xxxx" outlined v-model="phone"></v-text-field>
                                 </div>
                                 <div class="grid grid-cols-1 space-y-2">
-                                    <pre>{{form}}</pre>
                                     <label class="text-sm font-bold text-gray-700 tracking-wide">Attach Document</label>
                                     <div class="flex items-center justify-center w-full">
                                     </div>
                                 </div>
                             </v-form>
                             <div>
-                                <button  @click="opensesion()" type="submit" class="my-5 w-full  flex justify-center bg-blue-500  p-4  rounded-full  font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-400 ">
+                                <button  @click.prevent="opensesion()" type="submit" class="my-5 w-full  flex justify-center bg-blue-500  p-4  rounded-full  font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-400 ">
                                     <span class="text-white">Open Session</span>
                                 </button>
                             </div>
@@ -77,29 +76,42 @@
 import {
     Member
 } from '@/vuexes/member'
+import {
+    Session
+} from '@/vuexes/session'
 export default {
-    props: {
-        member: {
-            default: {
-                name: null,
-                phone: []
-            }
-        }
-    },
+
     data: () => {
         return {
-            form: {
-                phone: null,
+            phone:null,
+            session_form:{
+                member:null,
+                status:null
             },
             memberfilter: [],
         }
     },
     async created() {
-        this.memberfilter = await Member.getMemberfilter(this.member.phone)
+
     },
     methods: {
         async opensesion() {
-            var data = await Member.getMemberfilter(this.form)
+            if(this.phone != null){
+                var data = await Member.getMemberfilter(this.phone)
+                this.session_form.member = data[0].id
+                this.session_form.status = 1
+                var session = await Session.postSession(this.session_form)
+                console.log(session)
+            }
+            else{
+                var data = await Member.getMemberByID(1)
+                console.log(data)
+                this.session_form.member = data.id
+                this.session_form.status = 1
+                var session = await Session.postSession(this.session_form)
+                console.log(session)
+            }
+            
         }
 
     }

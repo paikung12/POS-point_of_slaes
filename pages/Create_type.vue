@@ -42,7 +42,7 @@
                                     <tr class="text-gray-700 dark:text-gray-100" v-for="(product,i) in product" :key="i">
                                         <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">{{i+1}}</th>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{product.name}}</td>
-                                        <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{product.type}}</td>
+                                        <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{product.type.name}}</td>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
                                                 <div>
@@ -59,7 +59,7 @@
                                                                 </h2>
                                                                 <p class="mt-2 text-sm text-gray-400">The product you can edit text.</p>
                                                             </div>
-                                                            <EditProduct />
+                                                            <EditProduct  />
                                                         </div>
                                                     </v-dialog>
                                                 </div>
@@ -100,7 +100,7 @@
                                     <tr class="text-gray-700 dark:text-gray-100" v-for="(order,i) in orderdetail" :key="i">
                                         <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">{{i+1}}</th>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{order.name}}</td>
-                                        <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{order.type}}</td>
+                                        <td v-for="(type,i) in order.type" :key="i" class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{type.name}}</td>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{order.price}} B.</td>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
@@ -185,9 +185,9 @@ export default {
         })
     },
     async created() {
-        this.product = await Product.getProduct()
+        this.product = await Product.getProductview()
         this.producttype = await Createmenu.getProducttype()
-        this.orderdetail = await Createmenu.getOrderdetail()
+        this.orderdetail = await Createmenu.getOrderdetailview()
     }
 }
 </script>

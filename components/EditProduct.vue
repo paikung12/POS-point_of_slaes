@@ -1,5 +1,6 @@
 <template>
 <v-container fluid>
+    <pre>{{product}}</pre>
     <v-form>
         <p class="text-gray-800 font-medium text-blue-500">Product</p>
         <div class="">
@@ -43,11 +44,25 @@
 </template>
 
 <script>
+import {
+    Product
+} from '@/vuexes/product'
 export default {
+    props: {
+       productid:{
+           default:{
+               name : null
+           }
+       }
+    },
     data() {
         return {
              files: [],
+             product:[],
         }
+    },
+    async created() {
+        this.product = await Product.getProductByID(1)
     },
 }
 </script>
