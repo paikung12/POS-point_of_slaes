@@ -106,6 +106,7 @@ import { Menu } from '~/vuexes/menu'
 import { Product } from '@/vuexes/product'
 import _ from 'lodash'
 import { Core } from '~/vuexes/core'
+import { Session } from '~/vuexes/session'
 export default {
     data: () => {
         return ({
@@ -122,18 +123,20 @@ export default {
             formOrder: {},
             formSession: {},
             order:[],
-            member:null,
+            memberid:null,
+            sessionid:null,
             session:null,
+
         });
     },
     async created() {
-        let sessionid = this.$route.query.session
-        let memberid = this.$route.query.member
-        this.member = memberid
-        this.session = sessionid
-        console.log(sessionid, memberid)
+        let getsessionid = this.$route.query.session
+        let getmemberid = this.$route.query.member
+        this.memberid = getsessionid
+        this.sessionid = getmemberid
         this.allMenus = await Product.getProduct()
         this.type = await Product.getProducttype()
+        this.session = await Session.getSessionById(this.sessionid)
         await this.changeType(this.type[0].id)
     },
     methods: {
@@ -160,14 +163,14 @@ export default {
             alert(JSON.stringify(val))
         },
         async storeData() {
-            let order = [];
+            let order = this.session.order;
             for (let index = 0; index < this.menuchooses.length; index++) {
                 let formOrder = {
                     "count": this.menuchooses[index].counter,
                     "voucher": 0,
                     "total_price": this.menuchooses[index].price * this.menuchooses[index].counter,
                     "product": this.menuchooses[index].data.heat.id,
-                    "member": this.member,
+                    "member": this.memberid,
                     "sweetlevel":this.menuchooses[index].data.sweet.id,
                     "detail": this.menuchooses[index].detailId
                 }
@@ -177,18 +180,22 @@ export default {
                     
                 }
                 await this.storeSession(order)
+                
+                
             }
+            this.menuchooses = []
+            console.log(this.menuchooses)
         },
         async storeSession(order:any) {
 
             for (let index = 0; index < order.length; index++){
                 let formSession = {
-                    "member": this.member,
+                    "member": this.memberid,
                     "order": order,
                     "status": 1,
                     "start_at":null
                 }
-                let save = await Core.putHttp(`/backend/session/${this.session}/`, formSession)
+                let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
                 console.log(save)
             }
 
