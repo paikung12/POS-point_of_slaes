@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="bg-white py-4 px-4 shadow-xl rounded-2xl my-4 mx-4">
-        <v-form @submit="addTopping()">
+        <v-form @submit.prevent="addTopping()">
             <div class="flex justify-between px-4 items-center">
                 <div class="text-lg font-semibold">
                     <p class="text-blue-600">Order Detail</p>
@@ -60,7 +60,7 @@ export default {
     methods: {
         async addTopping(){
             var data = await Product.postOrderdetail(this.form)
-        
+            console.log(data)
         }
     },
 }
