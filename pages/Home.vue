@@ -21,7 +21,7 @@
             <Button-BtnAddOpensession />
 
             <Button-BtnAddMember />
-            
+
             <Button-BtnCreateType />
 
             <Button-BtnSummaryofOrder />
@@ -35,7 +35,9 @@
                         Sessions
                     </span>
                 </div>
-                <Sessions />
+                    <div >
+                        <Sessions />
+                    </div>
             </div>
         </div>
     </div>
@@ -44,13 +46,15 @@
 
 <script lang="ts">
 import Page_order from './Page_order.vue'
-import { Session } from '~/vuexes/session'
+import {
+    Session
+} from '~/vuexes/session'
 import Sessions from '~/components/Sessions.vue'
 export default {
     components: {
-    Page_order,
-        Sessions
-  },
+        Page_order,
+        Sessions,
+    },
     data() {
         return {
             dialog: false,
@@ -59,7 +63,7 @@ export default {
     },
     async created() {
         this.session = await Session.getSession()
-    }, 
+    },
 }
 </script>
 

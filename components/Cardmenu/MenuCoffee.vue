@@ -35,7 +35,7 @@
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-card-text style="height: 300px;">
-                                <p  v-if="heat.length > 0" class="text-l pt-2">Select Hot & Cold</p>
+                                <p v-if="heat.length > 0" class="text-l pt-2">Select Hot & Cold</p>
                                 <v-row>
                                     <div v-for="(data,i) in heat" :key="i">
                                         <v-checkbox class="pl-5" v-model="form.heat" :label="data.heat_named" :value="data">
@@ -58,7 +58,7 @@
                                         </v-checkbox>
                                         <pre>{{detail.checkbox}}</pre>
                                     </div>
-                                </v-row>                                
+                                </v-row>
                             </v-card-text>
                             <v-divider></v-divider>
                             <v-card-actions>
@@ -66,7 +66,6 @@
                                     <v-text-field label="Voucher" value=" " prefix="$" outlined dense v-model="form.number"></v-text-field>
                                 </v-col>
 
-                             
                                 <div class="flex justify-end">
                                     <v-btn color="green darken-1" text @click="callbackMenu()">
                                         Submit
@@ -91,8 +90,13 @@
 </template>
 
 <script lang="ts">
-import { Menu } from '~/vuexes/menu'
-import { Product } from '~/vuexes/product'
+import {
+    Menu
+} from '~/vuexes/menu'
+import {
+    Product
+} from '~/vuexes/product'
+import _ from 'lodash'
 export default {
     props: {
         menu: {
@@ -101,8 +105,10 @@ export default {
                 prices: 0,
                 counter: 1,
                 type: [],
-                data:{},
-                price:0
+                data: {},
+                price: 0,
+                detailId:[]
+
             }
         },
         detail: {
@@ -111,6 +117,7 @@ export default {
                 prices: 0,
                 product: [],
                 heat: [],
+                
             }
         }
     },
@@ -120,13 +127,13 @@ export default {
                 number: null,
                 heat: null,
                 sweet: null,
-                detail: null,
+                detail: [],
             },
             dialog: false,
             sweetlevel: [],
             price: [],
             heat: [],
-            heatlevel:[],
+            heatlevel: [],
             checkbox: [],
             orderdetail: [],
             productdetail: [],
@@ -140,13 +147,20 @@ export default {
     },
     methods: {
         async callbackMenu() {
+            let detailPrice = await this.getDetailPrice();
             this.menu.counter = 1
             this.menu.data = this.form
-            this.menu.price = this.form.heat.price +this.form.detail.price
+            this.menu.price = this.form.heat.price + detailPrice
+            this.menu.detailId = _.map(this.form.detail, 'id');
             await Menu.setMenu(this.menu, this.detail)
+
             this.dialog = false;
             var data = await Product.saveOrder(this.form)
         },
+        async getDetailPrice() {
+                return _.sumBy(this.form.detail, function(o:any) { return o.price; });      
+        }
+
     },
 }
 </script>

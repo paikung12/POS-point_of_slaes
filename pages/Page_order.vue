@@ -77,11 +77,6 @@
                     </v-btn>
                 </div>
             </div>
-            <!-- end order list -->
-            <!-- totalItems -->
-            
-            <!-- end total -->
-            <!-- cash -->
             <div class="px-">
                 <div class="py-4 rounded-md shadow-lg mt-72">
                     <div class=" px-4 flex justify-between ">
@@ -97,9 +92,9 @@
             <!-- end cash -->
             <!-- button pay-->
             <div class="px-5 mt-5">
-                <div class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
+                <button @click.prevent="addOrder()" class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
                     Pay With Cashless Credit
-                </div>
+                </button>
             </div>
         </div>
     </div>
@@ -110,26 +105,42 @@
 import { Menu } from '~/vuexes/menu'
 import { Product } from '@/vuexes/product'
 import _ from 'lodash'
+import { Core } from '~/vuexes/core'
 export default {
     data: () => {
         return ({
+            form: {
+                member: null,
+                order: [],
+                time_start: null,
+            },
+            arr: [],
             allMenus: [],
             counter: 1,
             menus: [],
             type: [],
+            formOrder: {},
+            formSession: {}
         });
     },
     async created() {
+        let sessionid = this.$route.query.session
+        let memberid = this.$route.query.member
+        console.log(sessionid, memberid)
         this.allMenus = await Product.getProduct()
         this.type = await Product.getProducttype()
         await this.changeType(this.type[0].id)
     },
     methods: {
         getMenu(id: any) {
-            return _.filter(this.allMenus, { type: id })
+            return _.filter(this.allMenus, {
+                type: id
+            })
         },
         async changeType(id: any) {
-            this.menus = _.filter(this.allMenus, { type: id })
+            this.menus = _.filter(this.allMenus, {
+                type: id
+            })
         },
         async increments(id: number) {
             await Menu.Counterincrement(id)
@@ -143,6 +154,32 @@ export default {
         MenuVal(val: any) {
             alert(JSON.stringify(val))
         },
+        addOrder() {
+            for (let i in this.menuchooses) {
+                console.log(this.menuchooses[i].id)
+            }
+        },
+        async storeData() {
+            let order = [];
+            for (let index = 0; index < this.menuchooses.length; index++) {
+                let formOrder = {
+                    "count": this.menuchooses[index].counter,
+                    "voucher": 0,
+                    "total_price": this.menuchooses[index].price * this.menuchooses[index].counter,
+                    "product": this.menuchooses[index].heat.id,
+                    "member": 1,
+                    "sweetlevel": this.menuchooses[index].sweet.id,
+                    "detail": this.menuchooses.detailId
+                }
+                let save = await Core.postHttp(`/backend/order/`, formOrder)
+                if (save.id) {
+                    order.push(save.id)
+                }
+            }
+        },
+        async storeSession() {
+
+        }
     },
     computed: {
         menuchooses() {
@@ -150,13 +187,22 @@ export default {
         },
         Sumtotal: function () {
             var sum = 0
-            this.menuchooses.forEach((e: { price: number, counter: number }) => { sum += e.price * e.counter })
-
+            this.menuchooses.forEach((e: {
+                price: number,
+                counter: number
+            }) => {
+                sum += e.price * e.counter
+            })
             return sum
         },
         SumHr: function () {
             var sumHr = 0
-            this.menuchooses.forEach((e: { hr: number, counter: number }) => { sumHr += e.hr * e.counter })
+            this.menuchooses.forEach((e: {
+                hr: number,
+                counter: number
+            }) => {
+                sumHr += e.hr * e.counter
+            })
             return sumHr
         },
     }

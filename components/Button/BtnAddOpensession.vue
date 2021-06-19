@@ -47,7 +47,7 @@
                                 </h2>
                                 <p class="mt-2 text-sm text-gray-400">The Open you Session text.</p>
                             </div>
-                            <v-form>
+                            <v-form @submit="opensesion()">
                                 <div class="grid grid-cols-1 space-y-2">
                                     <label class="text-sm font-bold text-gray-700 tracking-wide">Phone number</label>
                                     <v-text-field placeholder="08x-xxx-xxxx" outlined v-model="phone"></v-text-field>
@@ -57,12 +57,12 @@
                                     <div class="flex items-center justify-center w-full">
                                     </div>
                                 </div>
-                            </v-form>
-                            <div>
-                                <button  @click.prevent="opensesion()" type="submit" class="my-5 w-full  flex justify-center bg-blue-500  p-4  rounded-full  font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-400 ">
+                                                            <div>
+                                <button  class="my-5 w-full  flex justify-center bg-blue-500  p-4  rounded-full  font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-400 ">
                                     <span class="text-white">Open Session</span>
                                 </button>
                             </div>
+                            </v-form>
                         </div>
                     </v-dialog>
                 </div>
@@ -89,6 +89,7 @@ export default {
                 status:null
             },
             memberfilter: [],
+            dialog:false,
         }
     },
     async created() {

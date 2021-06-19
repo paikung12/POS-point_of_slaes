@@ -15,7 +15,9 @@ class ProductModule extends VuexModule{
     public async getProductview(){
         return await Core.getHttp('/backend/viewproduct/')
     }
-
+    public async getProductpricess(product:number){
+        return await Core.getHttp(`/backend/productprice/?product=${product}`)
+    }
     public async getProducttype(){
         return await Core.getHttp('/backend/producttype/')
     }
@@ -60,6 +62,10 @@ class ProductModule extends VuexModule{
 
     public async postOrderdetail(params :any){
         return await Core.postHttp('/backend/orderdetail/', params)
+    }
+    public async saveOrder(form: any){ 
+        console.log(form);
+    //    return await Core.postHttp('/backend/order' ,form)
     }
     
  
