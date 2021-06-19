@@ -5,6 +5,8 @@ import _ from "lodash"
 @Module
 class MenuModule extends VuexModule{
 
+    
+
     public chooseMenus:any = []
 
     public setMenu(menu:any){
@@ -25,7 +27,13 @@ class MenuModule extends VuexModule{
         this.chooseMenus.splice(index, 1, currentMenu);
     }
     //state
+
+    
+
+    
  
 }
+
+
 import store from "~/vuexes"
 export const Menu = new MenuModule({store, name: "Menu"})

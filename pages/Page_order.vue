@@ -92,7 +92,7 @@
             <!-- end cash -->
             <!-- button pay-->
             <div class="px-5 mt-5">
-                <button @click.prevent="addOrder()" class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
+                <button @click.prevent="storeData()" class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
                     Pay With Cashless Credit
                 </button>
             </div>
@@ -120,12 +120,17 @@ export default {
             menus: [],
             type: [],
             formOrder: {},
-            formSession: {}
+            formSession: {},
+            order:[],
+            member:null,
+            session:null,
         });
     },
     async created() {
         let sessionid = this.$route.query.session
         let memberid = this.$route.query.member
+        this.member = memberid
+        this.session = sessionid
         console.log(sessionid, memberid)
         this.allMenus = await Product.getProduct()
         this.type = await Product.getProducttype()
@@ -154,11 +159,6 @@ export default {
         MenuVal(val: any) {
             alert(JSON.stringify(val))
         },
-        addOrder() {
-            for (let i in this.menuchooses) {
-                console.log(this.menuchooses[i].id)
-            }
-        },
         async storeData() {
             let order = [];
             for (let index = 0; index < this.menuchooses.length; index++) {
@@ -166,18 +166,32 @@ export default {
                     "count": this.menuchooses[index].counter,
                     "voucher": 0,
                     "total_price": this.menuchooses[index].price * this.menuchooses[index].counter,
-                    "product": this.menuchooses[index].heat.id,
-                    "member": 1,
-                    "sweetlevel": this.menuchooses[index].sweet.id,
-                    "detail": this.menuchooses.detailId
+                    "product": this.menuchooses[index].data.heat.id,
+                    "member": this.member,
+                    "sweetlevel":this.menuchooses[index].data.sweet.id,
+                    "detail": this.menuchooses[index].detailId
                 }
                 let save = await Core.postHttp(`/backend/order/`, formOrder)
                 if (save.id) {
                     order.push(save.id)
+                    
                 }
+                await this.storeSession(order)
             }
         },
-        async storeSession() {
+        async storeSession(order:any) {
+
+            for (let index = 0; index < order.length; index++){
+                let formSession = {
+                    "member": this.member,
+                    "order": order,
+                    "status": 1,
+                    "start_at":null
+                }
+                let save = await Core.putHttp(`/backend/session/${this.session}/`, formSession)
+                console.log(save)
+            }
+
 
         }
     },
