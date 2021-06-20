@@ -102,12 +102,8 @@
 </template>
 
 <script lang="ts">
-import {
-    Menu
-} from '~/vuexes/menu'
-import {
-    Product
-} from '@/vuexes/product'
+import { Menu } from '~/vuexes/menu'
+import { Product } from '@/vuexes/product'
 import _ from 'lodash'
 import moment from 'moment'
 import {
@@ -196,11 +192,12 @@ export default {
                 for (let index = 0; index < counter.length; index++) {
                     sum += counter[index]
                 }
+                await this.storeSession(order, sum)
 
             }
-            this.$refs.menuchooses = []
-            await this.storeSession(order, sum)
+            
             this.$router.push('Home')
+            
             
         },
         async storeSession(order: any, count: any) {
@@ -215,8 +212,7 @@ export default {
                         "start_at": this.session.start_at,
                         "end_at": timeend
                     }
-                    let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
-                    console.log(save)
+                    await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
                 } else {
                     var timeend = moment(this.session.end_at).add(count, "hours").format()
                     let formSession = {
@@ -226,12 +222,11 @@ export default {
                         "start_at": this.session.start_at,
                         "end_at": timeend
                     }
-                    let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
+                    await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
                 }
             } else {
 
                 await this.getTimenow()
-                console.log(this.time)
                 var timeend = moment(this.time).add(count, "hours").format()
                 let formSession = {
                     "member": this.memberid,

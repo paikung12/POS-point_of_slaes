@@ -49,6 +49,8 @@ import Page_order from './Page_order.vue'
 import {
     Session
 } from '~/vuexes/session'
+import {Menu} from "~/vuexes/menu"
+
 import Sessions from '~/components/Sessions.vue'
 export default {
     components: {
@@ -63,6 +65,7 @@ export default {
     },
     async created() {
         this.session = await Session.getSession()
+          await Menu.clearMenu()
     },
 }
 </script>

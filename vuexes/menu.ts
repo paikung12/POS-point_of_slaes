@@ -14,6 +14,11 @@ class MenuModule extends VuexModule{
         // menu.detail = detail
         this.chooseMenus.push(menu)
     }
+    public async clearMenu(){
+        while(this.chooseMenus.length > 0) {
+            this.chooseMenus.pop();
+        }
+    }
     public async Counterincrement(id:number){
         let index = _.findIndex(this.chooseMenus,{id:id})
         let currentMenu = this.chooseMenus[index]
