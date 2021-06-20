@@ -147,14 +147,19 @@
             </div>
             <div class="grid grid-cols-12 gap-6">
                 <div class="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-6 xxl:col-span-8">
+
                     <CreateDetail-ProductType />
+
                     <div>
-                        <CreateDetail-Orderdetail />
+
+                        <CreateDetail-Productprice />
                     </div>
                 </div>
                 <div class="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-6 xxl:col-span-8">
                     <div>
-                        <CreateDetail-Productprice />
+
+                         <CreateDetail-Orderdetail />
+                         
                     </div>
                     <!-- <div>
                         

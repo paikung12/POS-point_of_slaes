@@ -49,19 +49,16 @@
                             </div>
                             <v-form @submit="opensesion()">
                                 <div class="grid grid-cols-1 space-y-2">
-                                    <label class="text-sm font-bold text-gray-700 tracking-wide">Phone number</label>
+                                    <label class="text-sm font-bold text-blue-400 tracking-wide">Phone number</label>
                                     <v-text-field placeholder="08x-xxx-xxxx" outlined v-model="phone"></v-text-field>
                                 </div>
-                                <div class="grid grid-cols-1 space-y-2">
-                                    <label class="text-sm font-bold text-gray-700 tracking-wide">Attach Document</label>
-                                    <div class="flex items-center justify-center w-full">
+                                <div class="divide-y divide-fuchsia-300">
+                                    <div>
+                                        <button class="my-5 w-full  flex justify-center bg-blue-500  p-4  rounded-lg  font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-400 ">
+                                            <span class="text-white">Open Session</span>
+                                        </button>
                                     </div>
                                 </div>
-                                                            <div>
-                                <button  class="my-5 w-full  flex justify-center bg-blue-500  p-4  rounded-full  font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-400 ">
-                                    <span class="text-white">Open Session</span>
-                                </button>
-                            </div>
                             </v-form>
                         </div>
                     </v-dialog>
@@ -83,13 +80,13 @@ export default {
 
     data: () => {
         return {
-            phone:null,
-            session_form:{
-                member:null,
-                status:null
+            phone: null,
+            session_form: {
+                member: null,
+                status: null
             },
             memberfilter: [],
-            dialog:false,
+            dialog: false,
         }
     },
     async created() {
@@ -97,14 +94,13 @@ export default {
     },
     methods: {
         async opensesion() {
-            if(this.phone != null){
+            if (this.phone != null) {
                 var data = await Member.getMemberfilter(this.phone)
                 this.session_form.member = data[0].id
                 this.session_form.status = 1
                 var session = await Session.postSession(this.session_form)
                 console.log(session)
-            }
-            else{
+            } else {
                 var data = await Member.getMemberByID(1)
                 console.log(data)
                 this.session_form.member = data.id
@@ -112,7 +108,7 @@ export default {
                 var session = await Session.postSession(this.session_form)
                 console.log(session)
             }
-            
+
         }
 
     }

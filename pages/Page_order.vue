@@ -102,12 +102,20 @@
 </template>
 
 <script lang="ts">
-import { Menu } from '~/vuexes/menu'
-import { Product } from '@/vuexes/product'
+import {
+    Menu
+} from '~/vuexes/menu'
+import {
+    Product
+} from '@/vuexes/product'
 import _ from 'lodash'
 import moment from 'moment'
-import { Core } from '~/vuexes/core'
-import { Session } from '~/vuexes/session'
+import {
+    Core
+} from '~/vuexes/core'
+import {
+    Session
+} from '~/vuexes/session'
 export default {
     data: () => {
         return ({
@@ -123,30 +131,26 @@ export default {
             type: [],
             formOrder: {},
             formSession: {},
-            order:[],
-            memberid:null,
-            sessionid:null,
-            session:null,
-            time:null,
+            order: [],
+            memberid: null,
+            sessionid: null,
+            session: null,
+            time: null,
 
         });
     },
     async created() {
         let getsessionid = this.$route.query.session
         let getmemberid = this.$route.query.member
-        this.memberid = getsessionid
-        this.sessionid = getmemberid
+        this.memberid = getmemberid
+        this.sessionid = getsessionid
         this.allMenus = await Product.getProduct()
         this.type = await Product.getProducttype()
         this.session = await Session.getSessionById(this.sessionid)
         await this.changeType(this.type[0].id)
     },
     methods: {
-        getTimenow(){
-            let gettime = moment().format();
-            this.time = gettime  
-            console.log(this.time)  
-        },
+
         getMenu(id: any) {
             return _.filter(this.allMenus, {
                 type: id
@@ -170,8 +174,10 @@ export default {
             alert(JSON.stringify(val))
         },
         async storeData() {
-            
+
             let order = this.session.order;
+            let counter = [];
+            let sum = null;
             for (let index = 0; index < this.menuchooses.length; index++) {
                 let formOrder = {
                     "count": this.menuchooses[index].counter,
@@ -179,34 +185,72 @@ export default {
                     "total_price": this.menuchooses[index].price * this.menuchooses[index].counter,
                     "product": this.menuchooses[index].data.heat.id,
                     "member": this.memberid,
-                    "sweetlevel":this.menuchooses[index].data.sweet.id,
+                    "sweetlevel": this.menuchooses[index].data.sweet.id,
                     "detail": this.menuchooses[index].detailId
                 }
                 let save = await Core.postHttp(`/backend/order/`, formOrder)
                 if (save.id) {
                     order.push(save.id)
-                    
+                    counter.push(formOrder.count)
                 }
-                await this.storeSession(order)
-                    
+                for (let index = 0; index < counter.length; index++) {
+                    sum += counter[index]
+                }
+                await this.storeSession(order, sum)
+
             }
             this.$router.push('Home')
             this.$refs.menuchooses = []
-            console.log(this.menuchooses)
         },
-        async storeSession(order:any) {
-            await this.getTimenow()
-            for (let index = 0; index < order.length; index++){
+        async storeSession(order: any, count: any) {
+
+            if (this.session.start_at != null) {
+                if (this.session.end_at == null) {
+                    var timeend = moment(this.session.start_at).add(count, "hours").format()
+                    let formSession = {
+                        "member": this.memberid,
+                        "order": order,
+                        "status": 1,
+                        "start_at": this.session.start_at,
+                        "end_at": timeend
+                    }
+                    let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
+                    console.log(save)
+                } else {
+                    var timeend = moment(this.session.end_at).add(count, "hours").format()
+                    let formSession = {
+                        "member": this.memberid,
+                        "order": order,
+                        "status": 1,
+                        "start_at": this.session.start_at,
+                        "end_at": timeend
+                    }
+                    let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
+                    console.log(save)
+                }
+            } else {
+
+                await this.getTimenow()
+                console.log(this.time)
+                var timeend = moment(this.time).add(count, "hours").format()
                 let formSession = {
                     "member": this.memberid,
                     "order": order,
                     "status": 1,
-                    "start_at": this.time
+                    "start_at": this.time,
+                    "end_at": timeend
                 }
                 let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
                 console.log(save)
             }
-        }
+
+        },
+        getTimenow() {
+            let gettime = moment().format();
+            this.time = gettime
+            console.log(this.time)
+        },
+
     },
     computed: {
         menuchooses() {

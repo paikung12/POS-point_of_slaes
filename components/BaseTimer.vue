@@ -21,7 +21,7 @@
 </template>
 
 <script>
-const FULL_DASH_ARRAY = 283;
+const FULL_DASH_ARRAY = 3600;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
 
