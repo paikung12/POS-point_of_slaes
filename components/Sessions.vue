@@ -2,8 +2,8 @@
 <div>
     <div>
         <div class="flex flex-row grid mt-8  gap-8 grid-cols-2 md:grid-cols-2 xl:grid-cols-">
-            <div v-for="(item,i) in session" :key="i">
-                <div class="widget w-full p-4 rounded-xl bg-white border-l-8 border-green-400 shadow-md" v-if="item.status == 1">
+            <div v-for="(item,i) in viewsession" :key="i">
+                <div class="widget w-full p-4 rounded-xl bg-white border-l-8 border-green-400 shadow-md">
                     <div class="flex items-center">
                         <div class=" h-full w-full lg:h-48 lg:w-48   lg:mb-0 mb-3 ">
                             <BaseTimer />
@@ -13,8 +13,8 @@
                                 <div class="w-full flex-none text-xs text-blue-700 font-medium ">
                                     Working Space
                                 </div>
-                                <div v-for="(view ,i) in viewsession" :key="i">
-                                    <h2 class="flex-auto text-lg font-medium">{{view.member.name}}</h2>
+                                <div>
+                                    <h2 class="flex-auto text-lg font-medium">{{item.member.name}}</h2>
                                 </div>
                             </div>
                             <p class="mt-13"></p>
@@ -24,7 +24,7 @@
                                     <div class="flex justify-center items-center">
                                         <div class="flex justify-start">
                                             <div>
-                                                <v-btn class="ma-1 rounded-lg" outlined color="warning" @click="$router.push(`Page_order?session=${item.id}&&member=${item.member}`)">
+                                                <v-btn class="ma-1 rounded-lg" outlined color="warning" @click="$router.push(`Page_order?session=${item.id}&&member=${item.member.id}`)">
                                                     <v-icon dense>mdi-cart-plus</v-icon>
                                                     Add order
                                                 </v-btn>
@@ -50,7 +50,7 @@
                                             </div>
                                             <!--End Dialog Time -->
                                             <!-- Check Bin -->
-                                            <v-btn  class="ma-1 " outlined color="error">
+                                            <v-btn @click="changeStatus(item.id)" class="ma-1 " outlined color="error">
                                                 <v-icon>mdi-clipboard-text-multiple-outline</v-icon> Close Session
                                             </v-btn>
                                             <!-- End Check Bin -->
@@ -69,21 +69,62 @@
 </template>
 
 <script lang="ts">
-import { Session } from '../vuexes/session'
+import {
+    Time
+} from '../vuexes/time'
+import {
+    Session
+} from '../vuexes/session'
 export default {
+    props: {
+        time: {
+            default: {
+                id: null,
+                start_at: null,
+                end_at: null,
+            }
+        }
+
+    },
     data() {
         return {
+            form: {
+                status: 2,
+            },
+            formTime: {},
             dialog1: false,
             session: [],
             viewsession: [],
         }
     },
     async created() {
-        this.session = await Session.getSession()
-        this.viewsession = await Session.getViewsession()
+        this.viewsession = await Session.getViewsession(1)
+        // this.session = await Session.getSession()
+        // console.log(this.session)
+        // await Time.setTime(this.session)
+        await this.addTime()
+
     },
     methods: {
-        
-    }
+        async changeStatus(pk: number) {
+            let save = await Session.updateSession(pk, this.form)
+            alert(0)
+        },
+        async addTime() {
+
+            for (let index = 0; index < this.viewsession.length; index++) {
+                let formTime = {
+                    "id": this.viewsession[index].id,
+                    "start_at": this.viewsession[index].start_at,
+                    "end_at": this.viewsession[index].end_at
+                }
+
+
+                await Time.setTime(formTime)
+
+            }
+
+        }
+    },
 }
 </script>

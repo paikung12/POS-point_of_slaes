@@ -8,14 +8,19 @@ class SessionModule extends VuexModule{
        return await Core.getHttp('/backend/session/')
    }
    public async getSessionById(pk:any){
-    return await Core.getHttp(`/backend/session/${pk}/`)
-}
+       return await Core.getHttp(`/backend/session/${pk}/`)
+    }
    public async postSession(params:any){
        return await Core.postHttp('/backend/session/', params)
    }
-   public async getViewsession(){
-       return await Core.getHttp('/backend/viewsession/')
+   public async getViewsession(status:number){
+       return await Core.getHttp(`/backend/viewsession/?status=${status}`)
    }
+   public async updateSession(pk:number, params:any){
+    return await Core.putHttp(`/backend/session/${pk}/`, params)
+}
+   
+
 }
 import store from "~/vuexes"
 export const Session = new SessionModule({store, name: "Session"})

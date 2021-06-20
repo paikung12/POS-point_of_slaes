@@ -64,7 +64,6 @@ class ProductModule extends VuexModule{
         return await Core.postHttp('/backend/orderdetail/', params)
     }
     public async saveOrder(form: any){ 
-        console.log(form);
     //    return await Core.postHttp('/backend/order' ,form)
     }
 

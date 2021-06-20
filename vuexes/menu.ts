@@ -6,14 +6,16 @@ import _ from "lodash"
 class MenuModule extends VuexModule{
 
     
-
     public chooseMenus:any = []
 
     public setMenu(menu:any){
         menu.counter =  1
-        // menu.detail = detail
         this.chooseMenus.push(menu)
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     public async clearMenu(){
         while(this.chooseMenus.length > 0) {
             this.chooseMenus.pop();

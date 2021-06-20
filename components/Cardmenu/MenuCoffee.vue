@@ -152,6 +152,7 @@ export default {
             this.menu.data = this.form
             this.menu.price = this.form.heat.price + detailPrice
             this.menu.detailId = _.map(this.form.detail, 'id');
+            console.log(this.menu)
             await Menu.setMenu(this.menu, this.detail)
 
             this.dialog = false;
