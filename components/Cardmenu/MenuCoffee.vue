@@ -1,7 +1,7 @@
 <template>
 <div>
     <v-hover v-slot="{ hover }">
-        <v-card class="mx-auto" color="grey lighten-4" width="450 ">
+        <v-card class="mx-auto" color="grey lighten-4" width="450">
             <v-img :aspect-ratio="16/9" src="https://site.listsothebysrealty.in.th/wp-content/uploads/2020/02/01-Espresso-1.jpg">
                 <v-expand-transition>
                     <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-10 pl-8 " style="height: 100%;">

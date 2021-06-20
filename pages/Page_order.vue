@@ -132,8 +132,8 @@ export default {
     async created() {
         let getsessionid = this.$route.query.session
         let getmemberid = this.$route.query.member
-        this.memberid = getsessionid
-        this.sessionid = getmemberid
+        this.memberid = getmemberid
+        this.sessionid = getsessionid
         this.allMenus = await Product.getProduct()
         this.type = await Product.getProducttype()
         this.session = await Session.getSessionById(this.sessionid)
@@ -188,19 +188,17 @@ export default {
         },
         async storeSession(order:any) {
 
-            for (let index = 0; index < order.length; index++){
                 let formSession = {
                     "member": this.memberid,
                     "order": order,
                     "status": 1,
                     "start_at":null
                 }
+                
                 let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
                 console.log(save)
             }
-
-
-        }
+    
     },
     computed: {
         menuchooses() {

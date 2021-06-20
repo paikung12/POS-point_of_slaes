@@ -50,7 +50,7 @@
                                             </div>
                                             <!--End Dialog Time -->
                                             <!-- Check Bin -->
-                                            <v-btn class="ma-1 " outlined color="error">
+                                            <v-btn  class="ma-1 " outlined color="error">
                                                 <v-icon>mdi-clipboard-text-multiple-outline</v-icon> Close Session
                                             </v-btn>
                                             <!-- End Check Bin -->
@@ -69,9 +69,7 @@
 </template>
 
 <script lang="ts">
-import {
-    Session
-} from '../vuexes/session'
+import { Session } from '../vuexes/session'
 export default {
     data() {
         return {
@@ -85,7 +83,7 @@ export default {
         this.viewsession = await Session.getViewsession()
     },
     methods: {
-
+        
     }
 }
 </script>
