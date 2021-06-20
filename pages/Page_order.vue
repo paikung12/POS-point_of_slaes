@@ -105,6 +105,7 @@
 import { Menu } from '~/vuexes/menu'
 import { Product } from '@/vuexes/product'
 import _ from 'lodash'
+import moment from 'moment'
 import { Core } from '~/vuexes/core'
 import { Session } from '~/vuexes/session'
 export default {
@@ -126,6 +127,7 @@ export default {
             memberid:null,
             sessionid:null,
             session:null,
+            time:null,
 
         });
     },
@@ -140,6 +142,11 @@ export default {
         await this.changeType(this.type[0].id)
     },
     methods: {
+        getTimenow(){
+            let gettime = moment().format();
+            this.time = gettime  
+            console.log(this.time)  
+        },
         getMenu(id: any) {
             return _.filter(this.allMenus, {
                 type: id
@@ -163,6 +170,7 @@ export default {
             alert(JSON.stringify(val))
         },
         async storeData() {
+            
             let order = this.session.order;
             for (let index = 0; index < this.menuchooses.length; index++) {
                 let formOrder = {
@@ -180,26 +188,24 @@ export default {
                     
                 }
                 await this.storeSession(order)
-                
-                
+                    
             }
-            this.menuchooses = []
+            this.$router.push('Home')
+            this.$refs.menuchooses = []
             console.log(this.menuchooses)
         },
         async storeSession(order:any) {
-
+            await this.getTimenow()
             for (let index = 0; index < order.length; index++){
                 let formSession = {
                     "member": this.memberid,
                     "order": order,
                     "status": 1,
-                    "start_at":null
+                    "start_at": this.time
                 }
                 let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
                 console.log(save)
             }
-
-
         }
     },
     computed: {
