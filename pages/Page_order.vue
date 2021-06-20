@@ -196,11 +196,12 @@ export default {
                 for (let index = 0; index < counter.length; index++) {
                     sum += counter[index]
                 }
-                await this.storeSession(order, sum)
 
             }
-            this.$router.push('Home')
             this.$refs.menuchooses = []
+            await this.storeSession(order, sum)
+            this.$router.push('Home')
+            
         },
         async storeSession(order: any, count: any) {
 
@@ -226,7 +227,6 @@ export default {
                         "end_at": timeend
                     }
                     let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
-                    console.log(save)
                 }
             } else {
 
@@ -240,15 +240,13 @@ export default {
                     "start_at": this.time,
                     "end_at": timeend
                 }
-                let save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
-                console.log(save)
+                await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
             }
 
         },
         getTimenow() {
             let gettime = moment().format();
             this.time = gettime
-            console.log(this.time)
         },
 
     },
