@@ -2,11 +2,12 @@
 <div>
     <div>
         <div class="flex flex-row grid mt-8  gap-8 grid-cols-2 md:grid-cols-2 xl:grid-cols-">
+ 
             <div v-for="(item,i) in viewsession" :key="i">
                 <div class="widget w-full p-4 rounded-xl bg-white border-l-8 border-green-400 shadow-md">
                     <div class="flex items-center">
                         <div class=" h-full w-full lg:h-48 lg:w-48   lg:mb-0 mb-3 ">
-                            <BaseTimer />
+                            <BaseTimer :id="item.id" :start_time="item.start_at" :end_time="item.end_at" />
                         </div>
                         <div class="flex-auto ml-3 justify-evenly py-2">
                             <div class="flex flex-wrap">
@@ -76,16 +77,7 @@ import {
     Session
 } from '../vuexes/session'
 export default {
-    props: {
-        time: {
-            default: {
-                id: null,
-                start_at: null,
-                end_at: null,
-            }
-        }
-
-    },
+    
     data() {
         return {
             form: {
@@ -99,10 +91,7 @@ export default {
     },
     async created() {
         this.viewsession = await Session.getViewsession(1)
-        // this.session = await Session.getSession()
-        // console.log(this.session)
-        // await Time.setTime(this.session)
-        await this.addTime()
+
 
     },
     methods: {
@@ -110,21 +99,7 @@ export default {
             let save = await Session.updateSession(pk, this.form)
             alert(0)
         },
-        async addTime() {
 
-            for (let index = 0; index < this.viewsession.length; index++) {
-                let formTime = {
-                    "id": this.viewsession[index].id,
-                    "start_at": this.viewsession[index].start_at,
-                    "end_at": this.viewsession[index].end_at
-                }
-
-
-                await Time.setTime(formTime)
-
-            }
-
-        }
     },
 }
 </script>

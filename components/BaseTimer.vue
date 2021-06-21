@@ -1,30 +1,26 @@
 <template>
-<div>
-    <div class="base-timer">
-        <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g class="base-timer__circle">
-                <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-                <path :stroke-dasharray="circleDasharray" class="base-timer__path-remaining" :class="remainingPathColor" d="
-                    M 50, 50
-                    m -45, 0
-                    a 45,45 0 1,0 90,0
-                    a 45,45 0 1,0 -90,0
-                "></path>
-            </g>
-        </svg>
-            <span   class="base-timer__label">{{ formattedTimeLeft }}</span>
-            <pre>{{timesession}}</pre>
-    </div>
+<div class="base-timer">
+    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g class="base-timer__circle">
+            <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+            <path :stroke-dasharray="circleDasharray" class="base-timer__path-remaining" :class="remainingPathColor" d="
+            M 50, 50
+            m -45, 0
+            a 45,45 0 1,0 90,0
+            a 45,45 0 1,0 -90,0
+          "></path>
+        </g>
+    </svg>
+    <span class="base-timer__label">{{ formattedTimeLeft }}</span>
 </div>
 </template>
 
 <script>
 import {
-    Time
-} from '../vuexes/time'
-import {
-    Session
-} from '../vuexes/session';
+    create
+} from 'lodash';
+import moment from 'moment'
+
 const FULL_DASH_ARRAY = 3600;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
@@ -43,28 +39,38 @@ const COLOR_CODES = {
     }
 };
 
-const TIME_LIMIT = 10;
+const TIME_LIMIT = 420;
 
 export default {
     data() {
         return {
             timePassed: 0,
             timerInterval: null,
-            session: [],
-            time: [],
-            hours:null,
+            timetest: null,
         };
     },
+
+    props: {
+        id: {
+            default: 'id'
+        },
+        start_time: {
+            default: 'hello'
+        },
+        end_time: {
+            default: 'Hello'
+        },
+
+    },
     async created() {
-        this.hoursCal()
+      await this.timegg()
     },
     computed: {
+
         circleDasharray() {
             return `${(this.timeFraction * FULL_DASH_ARRAY).toFixed(0)} 283`;
         },
-        timesession() {
-            return Time.timesession
-        },
+
         formattedTimeLeft() {
             const timeLeft = this.timeLeft;
             const hours = Math.floor(timeLeft / 3600)
@@ -73,15 +79,19 @@ export default {
             if (seconds < 10) {
                 seconds = `${seconds}`;
             }
+
             return `${hours}:${minutes}:${seconds}`;
         },
+
         timeLeft() {
             return TIME_LIMIT - this.timePassed;
         },
+
         timeFraction() {
             const rawTimeFraction = this.timeLeft / TIME_LIMIT;
             return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
         },
+
         remainingPathColor() {
             const {
                 alert,
@@ -105,24 +115,33 @@ export default {
             }
         }
     },
+
     mounted() {
         this.startTimer();
     },
     methods: {
+        timegg() {
+            var now = moment().format("hh:mm:ss");
+            var end = moment(this.end_time).format("hh:mm:ss");
+            var nowsecounds = moment.duration(now).asSeconds();
+            var endsecounds = moment.duration(end).asSeconds();
+            this.timetest = endsecounds - nowsecounds
+            console.log(now)
+            console.log(end)
+            console.log(nowsecounds)
+            console.log(endsecounds)
+            
+            console.log(this.timetest)
+            // var diff = date2.diff(date1);
+            // console.log(diff)
+        },
         onTimesUp() {
             clearInterval(this.timerInterval);
         },
         startTimer() {
             this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
-        },
-        hoursCal(){
-            for (let index = 0; index < this.timesession.length; index++) {
-                this.hours = this.timesession[index].end_at - this.timesession[index].start_at  
-                console.log(this.hours)    
-            }
-              
         }
-    },
+    }
 };
 </script>
 

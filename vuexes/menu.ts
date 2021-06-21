@@ -10,12 +10,9 @@ class MenuModule extends VuexModule{
 
     public setMenu(menu:any){
         menu.counter =  1
-        this.chooseMenus.push(menu)
+        this.chooseMenus = menu
     }
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
     public async clearMenu(){
         while(this.chooseMenus.length > 0) {
             this.chooseMenus.pop();
