@@ -92,7 +92,6 @@ export default {
     async created() {
         this.viewsession = await Session.getViewsession(1)
 
-
     },
     methods: {
         async changeStatus(pk: number) {

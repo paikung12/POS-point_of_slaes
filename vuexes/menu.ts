@@ -10,7 +10,7 @@ class MenuModule extends VuexModule{
 
     public setMenu(menu:any){
         menu.counter =  1
-        this.chooseMenus = menu
+        this.chooseMenus.push(menu)
     }
 
     public async clearMenu(){
