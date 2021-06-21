@@ -11,7 +11,8 @@
           "></path>
         </g>
     </svg>
-    <span class="base-timer__label">{{ formattedTimeLeft }}</span>
+    <span class="base-timer__label">{{ formattedTimeLeft }}
+    </span>
 </div>
 </template>
 
@@ -39,7 +40,7 @@ const COLOR_CODES = {
     }
 };
 
-const TIME_LIMIT = 420;
+const TIME_LIMIT = 450;
 
 export default {
     data() {
@@ -47,6 +48,9 @@ export default {
             timePassed: 0,
             timerInterval: null,
             timetest: null,
+            displayHours: 0,
+            displayMinutes: 0,
+            displaySeconds: 0,
         };
     },
 
@@ -63,14 +67,19 @@ export default {
 
     },
     async created() {
-      await this.timegg()
+        await this.timegg()
     },
     computed: {
-
-        circleDasharray() {
-            return `${(this.timeFraction * FULL_DASH_ARRAY).toFixed(0)} 283`;
+        _seceond: () => 1000,
+        _minutes: () => {
+            return this._seceond * 60
         },
-
+        _hours: () => {
+            return this._minutes * 60
+        },
+        timeLeft() {
+            return this.timetest - TIME_LIMIT;
+        },
         formattedTimeLeft() {
             const timeLeft = this.timeLeft;
             const hours = Math.floor(timeLeft / 3600)
@@ -81,10 +90,7 @@ export default {
             }
 
             return `${hours}:${minutes}:${seconds}`;
-        },
 
-        timeLeft() {
-            return TIME_LIMIT - this.timePassed;
         },
 
         timeFraction() {
@@ -106,7 +112,10 @@ export default {
             } else {
                 return info.color;
             }
-        }
+        },
+        circleDasharray() {
+            return `${(this.timeFraction * FULL_DASH_ARRAY).toFixed(0)} 283`;
+        },
     },
     watch: {
         timeLeft(newValue) {
@@ -126,21 +135,38 @@ export default {
             var nowsecounds = moment.duration(now).asSeconds();
             var endsecounds = moment.duration(end).asSeconds();
             this.timetest = endsecounds - nowsecounds
-            console.log(now)
-            console.log(end)
-            console.log(nowsecounds)
-            console.log(endsecounds)
-            
             console.log(this.timetest)
             // var diff = date2.diff(date1);
             // console.log(diff)
         },
+        // formattedTimeLeft1() {
+        //     const timer = setInterval(() => {
+        //         var now = moment().format("hh:mm:ss");
+        //         var end = moment(this.end_time).format("hh:mm:ss");
+        //         var nowsecounds = moment.duration(now).asSeconds();
+        //         var endsecounds = moment.duration(end).asSeconds();
+        //         this.timetest = endsecounds - nowsecounds
+
+        //         if (distance < 0) {
+        //             clearInterval(timer)
+        //             return;
+        //         }
+        //         const hours = Math.floor((distance / this._hours))
+        //         const minutes = Math.floor((distance / this._hours) / this._minutes)
+        //         const seconds = Math.floor((distance / this._minutes) / this._seceond)
+        //         this.displayHours = hours < 10 ? "0" + hours : hours;
+        //         this.displayMinutes = minutes < 10 ? "0" + minutes : minutes;
+        //         this.displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+        //     }, 1000)
+
+        // },
         onTimesUp() {
             clearInterval(this.timerInterval);
         },
         startTimer() {
             this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
-        }
+        },
+
     }
 };
 </script>
