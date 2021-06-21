@@ -40,7 +40,7 @@ const COLOR_CODES = {
     }
 };
 
-const TIME_LIMIT = 450;
+const TIME_LIMIT = 60;
 
 export default {
     data() {
@@ -70,20 +70,13 @@ export default {
         await this.timegg()
     },
     computed: {
-        _seceond: () => 1000,
-        _minutes: () => {
-            return this._seceond * 60
-        },
-        _hours: () => {
-            return this._minutes * 60
-        },
         timeLeft() {
-            return this.timetest - TIME_LIMIT;
+            return (this.timetest+ TIME_LIMIT) - this.timePassed ;
         },
         formattedTimeLeft() {
             const timeLeft = this.timeLeft;
             const hours = Math.floor(timeLeft / 3600)
-            const minutes = Math.floor(timeLeft / 60);
+            const minutes = Math.floor((timeLeft / 60)/6);
             let seconds = timeLeft % 60;
             if (seconds < 10) {
                 seconds = `${seconds}`;
@@ -139,27 +132,6 @@ export default {
             // var diff = date2.diff(date1);
             // console.log(diff)
         },
-        // formattedTimeLeft1() {
-        //     const timer = setInterval(() => {
-        //         var now = moment().format("hh:mm:ss");
-        //         var end = moment(this.end_time).format("hh:mm:ss");
-        //         var nowsecounds = moment.duration(now).asSeconds();
-        //         var endsecounds = moment.duration(end).asSeconds();
-        //         this.timetest = endsecounds - nowsecounds
-
-        //         if (distance < 0) {
-        //             clearInterval(timer)
-        //             return;
-        //         }
-        //         const hours = Math.floor((distance / this._hours))
-        //         const minutes = Math.floor((distance / this._hours) / this._minutes)
-        //         const seconds = Math.floor((distance / this._minutes) / this._seceond)
-        //         this.displayHours = hours < 10 ? "0" + hours : hours;
-        //         this.displayMinutes = minutes < 10 ? "0" + minutes : minutes;
-        //         this.displaySeconds = seconds < 10 ? "0" + seconds : seconds;
-        //     }, 1000)
-
-        // },
         onTimesUp() {
             clearInterval(this.timerInterval);
         },
