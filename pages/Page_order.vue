@@ -102,8 +102,12 @@
 </template>
 
 <script lang="ts">
-import { Menu } from '~/vuexes/menu'
-import { Product } from '@/vuexes/product'
+import {
+    Menu
+} from '~/vuexes/menu'
+import {
+    Product
+} from '@/vuexes/product'
 import _ from 'lodash'
 import moment from 'moment'
 import {
@@ -195,26 +199,24 @@ export default {
                 await this.storeSession(order, sum)
 
             }
-            
+
             this.$router.push('Home')
-            
-            
+
         },
         async storeSession(order: any, count: any) {
 
             if (this.session.start_at != null) {
                 if (this.session.end_at == null) {
-                    var timeend = moment(this.session.start_at).add(count, "hours").format()
-                    let formSession = {
-                        "member": this.memberid,
-                        "order": order,
-                        "status": 1,
-                        "start_at": this.session.start_at,
-                        "end_at": timeend
-                    }
-                    await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
-                } else {
+
                     var timeend = moment(this.session.end_at).add(count, "hours").format()
+                    var overtime = moment().set({
+                        "hour": 22,
+                        "minute": 0,
+                        "second": 0
+                    }).format()
+                    if (timeend > overtime) {
+                        timeend = overtime
+                    }
                     let formSession = {
                         "member": this.memberid,
                         "order": order,
@@ -223,11 +225,41 @@ export default {
                         "end_at": timeend
                     }
                     await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
+
                 }
-            } else {
+                else {
+                    var timeend = moment(this.session.end_at).add(count, "hours").format()
+                    var overtime = moment().set({
+                        "hour": 22,
+                        "minute": 0,
+                        "second": 0
+                    }).format()
+                    if (timeend > overtime) {
+                        timeend = overtime
+                    }
+                    let formSession = {
+                        "member": this.memberid,
+                        "order": order,
+                        "status": 1,
+                        "start_at": this.session.start_at,
+                        "end_at": timeend
+                    }
+                    await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
+
+                }
+            }
+            else {
 
                 await this.getTimenow()
-                var timeend = moment(this.time).add(count, "hours").format()
+                var timeend = moment(this.session.end_at).add(count, "hours").format()
+                var overtime = moment().set({
+                    "hour": 22,
+                    "minute": 0,
+                    "second": 0
+                }).format()
+                if (timeend > overtime) {
+                    timeend = overtime
+                }
                 let formSession = {
                     "member": this.memberid,
                     "order": order,
@@ -235,7 +267,7 @@ export default {
                     "start_at": this.time,
                     "end_at": timeend
                 }
-                await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
+                var save = await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
             }
 
         },

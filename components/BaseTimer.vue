@@ -21,10 +21,13 @@ import {
     create
 } from 'lodash';
 import moment from 'moment'
+import {
+    Session
+} from '../vuexes/session'
 
 const FULL_DASH_ARRAY = 3600;
-const WARNING_THRESHOLD = 50000;
-const ALERT_THRESHOLD = 10;
+const WARNING_THRESHOLD = 10;
+const ALERT_THRESHOLD = 5;
 
 const COLOR_CODES = {
     info: {
@@ -40,7 +43,7 @@ const COLOR_CODES = {
     }
 };
 
-const TIME_LIMIT = 60;
+const TIME_LIMIT = 0;
 
 export default {
     data() {
@@ -51,10 +54,15 @@ export default {
             displayHours: 0,
             displayMinutes: 0,
             displaySeconds: 0,
+            form: {
+                status: 2,
+                close_at:null,
+            },
         };
     },
 
     props: {
+        
         id: {
             default: 'id'
         },
@@ -70,13 +78,20 @@ export default {
         await this.timegg()
     },
     computed: {
+        _seceond: () => 1000,
+        _minutes: () => {
+            return this._seceond * 60
+        },
+        _hours: () => {
+            return this._minutes * 60
+        },
         timeLeft() {
-            return (this.timetest+ TIME_LIMIT) - this.timePassed ;
+            return (this.timetest + TIME_LIMIT ) - this.timePassed ;
         },
         formattedTimeLeft() {
             const timeLeft = this.timeLeft;
             const hours = Math.floor(timeLeft / 3600)
-            const minutes = Math.floor((timeLeft / 60)/6);
+            const minutes = Math.floor((timeLeft / 60)-(hours*60));
             let seconds = timeLeft % 60;
             if (seconds < 10) {
                 seconds = `${seconds}`;
@@ -128,12 +143,16 @@ export default {
             var nowsecounds = moment.duration(now).asSeconds();
             var endsecounds = moment.duration(end).asSeconds();
             this.timetest = endsecounds - nowsecounds
-            console.log(this.timetest)
-            // var diff = date2.diff(date1);
-            // console.log(diff)
+            
         },
-        onTimesUp() {
+        async onTimesUp() {
             clearInterval(this.timerInterval);
+            this.changeStatusAuto(this.id)
+        },
+        async changeStatusAuto(pk){
+            this.form.close_at = moment().format()
+            await Session.updateSession(pk, this.form)
+
         },
         startTimer() {
             this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
