@@ -1,5 +1,8 @@
 <template>
 <div>
+    <div class="flex justify-end mr-1 mt-1">
+        <v-btn depressed text color="white"  @click="$router.push('')"> log out</v-btn>
+    </div>
     <svg height="100%" width="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150 -mt-20">
         <defs>
             <linearGradient id="gradient">
@@ -35,9 +38,9 @@
                         Sessions
                     </span>
                 </div>
-                    <div >
-                        <Sessions />
-                    </div>
+                <div>
+                    <Sessions />
+                </div>
             </div>
         </div>
     </div>
@@ -49,7 +52,9 @@ import Page_order from './Page_order.vue'
 import {
     Session
 } from '~/vuexes/session'
-import {Menu} from "~/vuexes/menu"
+import {
+    Menu
+} from "~/vuexes/menu"
 import Sessions from '~/components/Sessions.vue'
 export default {
     components: {
@@ -62,10 +67,10 @@ export default {
             session: [],
         }
     },
-     async created() {
+    async created() {
         await Menu.clearMenu()
         this.session = await Session.getSession()
-          await Menu.clearMenu()
+        await Menu.clearMenu()
     },
 }
 </script>

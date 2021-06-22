@@ -36,7 +36,7 @@
                                     <Cardmenu-MenuCoffee v-if="val.id == 3" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 4" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuDessert v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuDessert v-if="val.id == 8" @callback="MenuVal" :menu='menu' />
                                 </div>
                             </div>
                         </v-tab-item>
@@ -83,13 +83,12 @@
                         <span class="font-semibold text-2xl">Total</span>
                         <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
                     </div>
-                </div>
-                
+                </div>      
             </div>
             <!-- end cash -->
             <!-- button pay-->
             <div class="px-5 mt-5">
-                <button @click.prevent="storeData()" class="w-full px-6 py-3 mt-3 text-lg text-white font-semibold transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-yellow-500 hover:bg-yellow-400 hover:shadow-lg focus:outline-none">
+                <button @click.prevent="storeData()" class="w-full px-6 py-5 mt-3 text-xl text-white font-semibold transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-yellow-500 hover:bg-yellow-400 hover:shadow-lg focus:outline-none">
                     Pay With Cashless Credit
                 </button>
             </div>

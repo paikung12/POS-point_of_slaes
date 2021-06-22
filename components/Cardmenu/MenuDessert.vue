@@ -7,6 +7,7 @@
                     <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-10 pl-8 " style="height: 100%;">
                         $ 25 & 30 .Bath
                     </div>
+                   
                 </v-expand-transition>
             </v-img>
             <v-card-text class="pt-6" style="position: relative;">
@@ -46,17 +47,9 @@
                                 <p class="text-l pt-2">Choose Sweetness</p>
                                 <v-row>
                                     <div v-for="(sweet,i) in sweetlevel " :key="i">
-                                        <v-checkbox class="pl-5" v-model="form.sweet" :label="sweet.name" :value="sweet">
+                                        <v-checkbox  v-if="sweet.id == 5" class="pl-5" v-model="form.sweet" :label="sweet.name" :value="sweet">
                                         </v-checkbox>
                                         <pre>{{sweet.checkbox}}</pre>
-                                    </div>
-                                </v-row>
-                                <p class="text-l pt-2">Whipcream Milk foam & Honey </p>
-                                <v-row>
-                                    <div v-for="(detail,i) in orderdetail" :key="i">
-                                        <v-checkbox class="pl-5" v-model="form.detail" :label="detail.name" :value="detail">
-                                        </v-checkbox>
-                                        <pre>{{detail.checkbox}}</pre>
                                     </div>
                                 </v-row>
                             </v-card-text>
@@ -103,17 +96,16 @@ export default {
             default: {
                 name: 'Time',
                 prices: 0,
-                counter: 1,
+                counter: 8,
                 type: [],
                 data: {},
                 price: 0,
                 detailId:[]
-
             }
         },
         detail: {
             default: {
-                named: 'time',
+                named: 'hot,cold',
                 prices: 0,
                 product: [],
                 heat: [],
@@ -140,7 +132,7 @@ export default {
         }
     },
     async created() {
-        this.heat = await Product.getProductpricess(this.menu.type, this.detail.product)
+        this.heat = await Product.getProductpricess(this.menu.id, this.detail.product)
         this.orderdetail = await Product.getOrderdetail(this.menu.type)
         this.heatlevel = await Product.getHeatlevel()
         this.sweetlevel = await Product.getSweetlevel()
