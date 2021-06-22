@@ -17,6 +17,21 @@
         <path d="M 0,400 C 0,400 0,266 0,266 C 40.745314441301645,262.3340955351714 81.49062888260329,258.66819107034286 133,248 C 184.5093711173967,237.33180892965714 246.78279891088846,219.6613312538 295,234 C 343.21720108911154,248.3386687462 377.37817547384276,294.6864839144571 418,309 C 458.62182452615724,323.3135160855429 505.7044991937404,305.5927330883714 556,302 C 606.2955008062596,298.4072669116286 659.8038277511961,308.94258373205736 714,302 C 768.1961722488039,295.05741626794264 823.0801898014751,270.636931983399 878,262 C 932.9198101985249,253.36306801660098 987.8754130429036,260.5096883343466 1025,259 C 1062.1245869570964,257.4903116656534 1081.4181580269105,247.3243146792144 1131,258 C 1180.5818419730895,268.6756853207856 1260.451954849454,300.1930529487959 1317,305 C 1373.548045150546,309.8069470512041 1406.774022575273,287.90347352560207 1440,266 C 1440,266 1440,400 1440,400 Z" stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150" transform="rotate(-180 720 200)"></path>
     </svg>
     <div class="flex justify-end pr-5 -mt-96">
+        <div class="flex flex-row justify-between items-center px-5  ">
+            <v-btn large icon dark class="white--text" fab @click="$router.push('Home')">
+                <v-icon style="font-size:48px;"> mdi-arrow-left-thin-circle-outline</v-icon>
+            </v-btn>
+            <div class="text-gray-800">
+                <div class="font-bold text-3xl pl-5 text-white ">Summary of Month</div>
+                <span class="text-xs pl-5 text-white">Location ID#SIMON123</span>
+            </div>
+            <div class=" pl-28 flex items-center flex flex-row justify-end">
+                <div class="text-sm text-center mr-4">
+                    <div class="font-light  text-white"></div>
+                    <span class="font-semibold text-xl text-white"></span>
+                </div>
+            </div>
+        </div>
         <v-col cols="2" sm="2">
             <v-select dark :items="items" label="Standard" outlined></v-select>
         </v-col>
@@ -138,11 +153,11 @@
             <!-- <---Table Sum ---->
             <div class="w-full sm:w-1/2 xl:w-4/5 pl-8">
                 <div class="flex flex-wrap">
-                    <div class="w-1/2">
-                        <Chart-Barchart />
+                    <div class="w-full">
+                        <Chart-LiechartMonth />
                     </div>
-                    <div class="w-1/2 ">
-                        <Chart-Barchart />
+                    <div class="w-full ">
+                        <Chart-BarchartMonth />
                     </div>
                 </div>
                 <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
@@ -152,7 +167,7 @@
                             <span class="text-sm text-gray-500 dark:text-gray-300 dark:text-white ml-2">
                                 (You can see bill detail)
                             </span>
-                            <TableSumOrder />
+                            <TableSumMonth />
                         </p>
                     </div>
                 </div>

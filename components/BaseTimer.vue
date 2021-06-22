@@ -25,10 +25,10 @@ import {
     Session
 } from '../vuexes/session'
 
+
 const FULL_DASH_ARRAY = 36000;
 const WARNING_THRESHOLD = 5000;
-const ALERT_THRESHOLD = 0;
-
+const ALERT_THRESHOLD = 50;
 
 const COLOR_CODES = {
     info: {
@@ -152,6 +152,7 @@ export default {
         },
         async changeStatusAuto(pk){
             this.form.close_at = moment().format()
+            console.log(this.form)
             await Session.updateSession(pk, this.form)
 
         },

@@ -17,6 +17,21 @@
         <path d="M 0,400 C 0,400 0,266 0,266 C 63.62330487192365,285.1832985275846 127.2466097438473,304.3665970551693 165,310 C 202.7533902561527,315.6334029448307 214.63686589653446,307.71691030690744 263,294 C 311.36313410346554,280.28308969309256 396.2059266700151,260.7657617172011 445,264 C 493.7940733299849,267.2342382827989 506.5394274234052,293.2200428242882 553,303 C 599.4605725765948,312.7799571757118 679.6363636363637,306.35406698564594 731,294 C 782.3636363636363,281.64593301435406 804.9151180311403,263.363689233128 842,264 C 879.0848819688597,264.636310766872 930.7031642390759,284.19117608184195 984,287 C 1037.296835760924,289.80882391815805 1092.2722250125564,275.8716064395041 1144,259 C 1195.7277749874436,242.1283935604959 1244.2079357106982,222.3223981601417 1293,223 C 1341.7920642893018,223.6776018398583 1390.896032144651,244.83880091992916 1440,266 C 1440,266 1440,400 1440,400 Z" stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150" transform="rotate(-180 720 200)"></path>
     </svg>
     <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased  text-black dark:text-white -mt-96">
+        <div class="flex flex-row justify-between items-center px-5  ">
+            <v-btn large icon dark class="white--text" fab @click="$router.push('Home')">
+                <v-icon style="font-size:48px;"> mdi-arrow-left-thin-circle-outline</v-icon>
+            </v-btn>
+            <div class="text-gray-800">
+                <div class="font-bold text-3xl pl-5 text-white ">Create Menu & Type</div>
+                <span class="text-xs pl-5 text-white">Location ID#SIMON123</span>
+            </div>
+            <div class=" pl-28 flex items-center flex flex-row justify-end">
+                <div class="text-sm text-center mr-4">
+                    <div class="font-light  text-white"></div>
+                    <span class="font-semibold text-xl text-white"></span>
+                </div>
+            </div>
+        </div>
         <div class="h-full ml-1 mt-14 mb-10 md:ml-64">
             <div class="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4">
                 <!-- Table Detail -->
@@ -59,7 +74,7 @@
                                                                 </h2>
                                                                 <p class="mt-2 text-sm text-gray-400">The product you can edit text.</p>
                                                             </div>
-                                                            <EditProduct  />
+                                                            <EditProduct />
                                                         </div>
                                                     </v-dialog>
                                                 </div>
@@ -100,7 +115,9 @@
                                     <tr class="text-gray-700 dark:text-gray-100" v-for="(order,i) in orderdetail" :key="i">
                                         <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">{{i+1}}</th>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{order.name}}</td>
-                                        <td v-for="(type,i) in order.type" :key="i" class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{type.name}}</td>
+                                        <div>
+                                            <td v-for="(type,i) in order.type" :key="i" class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{type.name}}</td>
+                                        </div>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{order.price}} B.</td>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
@@ -108,7 +125,7 @@
                                                     <v-dialog v-model="dialog1" rounded width="500px">
                                                         <template v-slot:activator="{ on, attrs }">
                                                             <v-btn v-bind="attrs" v-on="on" depressed fab icon outlined small color="blue">
-                                                                 <v-icon>mdi-border-color</v-icon>
+                                                                <v-icon>mdi-border-color</v-icon>
                                                             </v-btn>
                                                         </template>
                                                         <div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
@@ -158,8 +175,8 @@
                 <div class="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-6 xxl:col-span-8">
                     <div>
 
-                         <CreateDetail-Orderdetail />
-                         
+                        <CreateDetail-Orderdetail />
+
                     </div>
                     <!-- <div>
                         

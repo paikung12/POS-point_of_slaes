@@ -17,12 +17,27 @@
         <path d="M 0,400 C 0,400 0,266 0,266 C 63.62330487192365,285.1832985275846 127.2466097438473,304.3665970551693 165,310 C 202.7533902561527,315.6334029448307 214.63686589653446,307.71691030690744 263,294 C 311.36313410346554,280.28308969309256 396.2059266700151,260.7657617172011 445,264 C 493.7940733299849,267.2342382827989 506.5394274234052,293.2200428242882 553,303 C 599.4605725765948,312.7799571757118 679.6363636363637,306.35406698564594 731,294 C 782.3636363636363,281.64593301435406 804.9151180311403,263.363689233128 842,264 C 879.0848819688597,264.636310766872 930.7031642390759,284.19117608184195 984,287 C 1037.296835760924,289.80882391815805 1092.2722250125564,275.8716064395041 1144,259 C 1195.7277749874436,242.1283935604959 1244.2079357106982,222.3223981601417 1293,223 C 1341.7920642893018,223.6776018398583 1390.896032144651,244.83880091992916 1440,266 C 1440,266 1440,400 1440,400 Z" stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150" transform="rotate(-180 720 200)"></path>
     </svg>
     <div class="flex-grow container mx-auto sm:px-4 pt-6 pb-8 -mt-96">
+        <div class="flex flex-row justify-between items-center px-5  ">
+            <v-btn large icon dark class="white--text" fab @click="$router.push('Home')">
+                <v-icon style="font-size:48px;"> mdi-arrow-left-thin-circle-outline</v-icon>
+            </v-btn>
+            <div class="text-gray-800">
+                <div class="font-bold text-3xl pl-5 text-white ">Registor Members</div>
+                <span class="text-xs pl-5 text-white">Location ID#SIMON123</span>
+            </div>
+            <div class=" pl-28 flex items-center flex flex-row justify-end">
+                <div class="text-sm text-center mr-4">
+                    <div class="font-light  text-white"></div>
+                    <span class="font-semibold text-xl text-white"></span>
+                </div>
+            </div>
+        </div>
         <div class="flex flex-wrap -mx-4">
             <div class="w-full mb-6 lg:mb-0 lg:w-2/5 px-4 flex flex-col pt-8">
                 <div class="shadow-lg rounded-2xl bg-white ">
                     <div class="border-b">
                         <div class="flex justify-between px-6 -mb-px">
-                            <h3 class="text-blue-dark py-4 font-normal text-lg ">Registor Members</h3>
+                            <h3 class="text-blue-dark py-4 font-normal text-lg ">Registor</h3>
                         </div>
                     </div>
                     <div class="text-center px-6 py-4">
@@ -45,7 +60,7 @@
                                             <v-text-field v-model="form.phone " outlined label="phone"></v-text-field>
                                         </v-col>
                                     </v-row>
-                                    <button  class="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium">Submit</button>
+                                    <button class="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium">Submit</button>
                                 </v-form>
                             </div>
                         </div>
@@ -63,7 +78,7 @@
                         <div class="text-center px-6 py-4">
                             <div class="py-8">
                                 <div class="mb-4">
-                                    <ul v-for="(member,i) in member" :key="i" >
+                                    <ul v-for="(member,i) in member" :key="i">
                                         <li class="flex items-center text-gray-600 dark:text-gray-200 justify-between py-3 border-b-2 border-gray-100 dark:border-gray-800">
                                             <div class="flex items-center justify-start text-sm">
                                                 <div>
@@ -92,8 +107,12 @@
 </template>
 
 <script lang="ts">
-import { method } from 'lodash'
-import { Member } from '~/vuexes/member'
+import {
+    method
+} from 'lodash'
+import {
+    Member
+} from '~/vuexes/member'
 export default {
     data() {
         return {
@@ -110,16 +129,13 @@ export default {
     },
     methods: {
         async savemember() {
-            if(this.form.name && this.form.phone){
+            if (this.form.name && this.form.phone) {
                 await Member.postMember(this.form)
-                alert ("Sucess")
+                alert("Sucess")
+            } else {
+                alert("Fail")
             }
-            else{
-                alert ("Fail")
-            }
-           
-           
-            
+
         },
     }
 }
