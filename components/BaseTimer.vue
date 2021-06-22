@@ -22,9 +22,9 @@ import {
 } from 'lodash';
 import moment from 'moment'
 
-const FULL_DASH_ARRAY = 3600;
-const WARNING_THRESHOLD = 50000;
-const ALERT_THRESHOLD = 10;
+const FULL_DASH_ARRAY = 36000;
+const WARNING_THRESHOLD = 5000;
+const ALERT_THRESHOLD = 0;
 
 const COLOR_CODES = {
     info: {
@@ -40,7 +40,7 @@ const COLOR_CODES = {
     }
 };
 
-const TIME_LIMIT = 60;
+const TIME_LIMIT = 0;
 
 export default {
     data() {
