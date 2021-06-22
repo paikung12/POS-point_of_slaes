@@ -23,8 +23,8 @@ import {
 import moment from 'moment'
 
 const FULL_DASH_ARRAY = 3600;
-const WARNING_THRESHOLD = 10;
-const ALERT_THRESHOLD = 5;
+const WARNING_THRESHOLD = 50000;
+const ALERT_THRESHOLD = 10;
 
 const COLOR_CODES = {
     info: {

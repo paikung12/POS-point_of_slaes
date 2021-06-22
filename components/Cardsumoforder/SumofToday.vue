@@ -49,10 +49,57 @@
                     <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 64</p>
                  </div>
               </div>
+              <div class="mt-8">
+                 <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
+                 <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-md text-black dark:text-white ml-2">
+                              Member
+                            </span>
+                            <span class="text-sm text-gray-500 dark:text-white ml-2">
+                              Summary of order by Member.
+                            </span>
+                        </div>
+                    </div>
+                      <div class="text-gray-200 ">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1088 1248v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68z">
+                        </path>
+                        </svg>
+                      </div>
+                    <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 150</p>
+                 </div>
+                 <div class="border-t-2 "></div>
+                 <br>
+                 <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-md text-black dark:text-white ml-2">
+                              Anonymous : 
+                            </span>
+                            <span class="text-sm text-gray-500 dark:text-white ml-2">
+                              Summary of glass by Anonymous.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-gray-200 ">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1088 1248v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68z">
+                        </path>
+                        </svg>
+                      </div>
+                    <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 64</p>
+                 </div>
+              </div>
+              </div>
             </div>
            </div>
+           
+
            <!-- <---Table Sum ----> 
            <div class="w-full sm:w-1/2 xl:w-3/4 pl-8">
+                <Chart-Barchart />
             <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
               <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
                 <p class="font-bold text-md p-4 text-black dark:text-white">
@@ -66,57 +113,7 @@
             </div>
            </div>
          </div>
-
          <!-- <---Summary of Today ----> 
-         <div class="w-full sm:w-1/2 xl:w-1/4">
-            <div class="mb-4">
-              <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
-                 <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center">
-                        <div class="flex flex-col">
-                            <span class="font-bold text-md text-black dark:text-white ml-2">
-                              Product
-                            </span>
-                            <span class="text-sm text-gray-500 dark:text-white ml-2">
-                              Summary of Product
-                            </span>
-                        </div>
-                        <div class="flex items-center">
-                          <button class="text-gray-200">
-                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                             <path d="M1088 1248v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68z">
-                             </path>
-                             </svg>
-                          </button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between mb-4 space-x-12">
-                      <p class="pl-6 px-2 py-1 flex  font-semibold text-xs rounded-md text-blue-400 border border-blue-400  bg-white">
-                         Progress Product
-                      </p>
-                  </div>
-                 </div>
-                  <ul>
-                     <li class="flex items-center text-gray-600 dark:text-gray-200 justify-between py-3 border-b-2 border-gray-100 dark:border-gray-800">
-                       <div class="flex items-center justify-start text-sm">
-                          <span class="mx-4">
-                            01
-                          </span>
-                          <span>
-                            Coffee Amerigano
-                          </span>
-                        </div>
-                        <svg width="20" height="20" fill="currentColor" class="mx-4 text-gray-400 dark:text-gray-300" viewBox="0 0 1024 1024">
-                           <path d="M699 353h-46.9c-10.2 0-19.9 4.9-25.9 13.3L469 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H325c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8a31.8 31.8 0 0 0 51.7 0l210.6-292c3.9-5.3.1-12.7-6.4-12.7z" fill="currentColor">
-                           </path>
-                           <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372s372 166.6 372 372s-166.6 372-372 372z" fill="currentColor">
-                           </path>
-                        </svg>
-                      </li>
-                  </ul>
-              </div>
-            </div>
-           </div>
       </div>
     </div>
   </div>
