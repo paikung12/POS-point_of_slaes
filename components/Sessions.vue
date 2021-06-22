@@ -76,12 +76,16 @@ import {
 import {
     Session
 } from '../vuexes/session'
+import moment from 'moment'
+
+
 export default {
     
     data() {
         return {
             form: {
                 status: 2,
+                close_at:null
             },
             formTime: {},
             dialog1: false,
@@ -93,12 +97,16 @@ export default {
         this.viewsession = await Session.getViewsession(1)
 
     },
+
     methods: {
         async changeStatus(pk: number) {
+            this.form.close_at = moment().format()
             let save = await Session.updateSession(pk, this.form)
             alert(0)
         },
 
+
+        
     },
 }
 </script>
