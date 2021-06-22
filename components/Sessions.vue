@@ -76,7 +76,7 @@ export default {
     },
     async created() {
         this.viewsession = await Session.getViewsession(1)
-        this.changeStatusAuto()
+        // this.changeStatusAuto()
 
     },
 
@@ -107,8 +107,6 @@ export default {
                     }
                 }
             }
-
-        }
     },
 }
 </script>

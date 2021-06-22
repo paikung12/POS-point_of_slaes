@@ -77,24 +77,31 @@
                     </v-btn>
                 </div>
             </div>
-            <div class="">
-                <div class="py-4 rounded-lg shadow-md mt-72 bg-gray-200 bg-opacity-25">
-                    <div class=" mt-3 py-2 px-4 flex items-center justify-between">
+            <div class="px-">
+                <div class="py-4 rounded-md shadow-lg mt-72">
+                    <div class=" px-4 flex justify-between ">
+                        <span class="font-semibold text-sm">Subtotal Hour</span>
+                        <span class="font-bold"> {{SumHr}} hr</span>
+                    </div>
+                    <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
                         <span class="font-semibold text-2xl">Total</span>
                         <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
                     </div>
-                </div>      
-            </div>
-            <!-- end cash -->
-            <!-- button pay-->
-            <div class="px-5 mt-5">
-                <button @click.prevent="storeData()" class="w-full px-6 py-5 mt-3 text-xl text-white font-semibold transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-yellow-500 hover:bg-yellow-400 hover:shadow-lg focus:outline-none">
-                    Pay With Cashless Credit
-                </button>
+                    <<<<<<< HEAD </div>=======</div>>>>>>>> f8d4180597b00c336aff3870984c76b5ed0f2ad3
+                </div>
+                <!-- end cash -->
+                <!-- button pay-->
+                <div class="px-5 mt-5">
+                    <<<<<<< HEAD <button @click.prevent="storeData()" class="w-full px-6 py-5 mt-3 text-xl text-white font-semibold transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-yellow-500 hover:bg-yellow-400 hover:shadow-lg focus:outline-none">
+                        =======
+                        <button @click.prevent="storeData()" class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
+                            >>>>>>> f8d4180597b00c336aff3870984c76b5ed0f2ad3
+                            Pay With Cashless Credit
+                        </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </template>
 
 <script lang="ts">
@@ -205,14 +212,7 @@ export default {
                 if (this.session.end_at == null) {
 
                     var timeend = moment(this.session.end_at).add(count, "hours").format()
-                    var overtime = moment().set({
-                        "hour": 22,
-                        "minute": 0,
-                        "second": 0
-                    }).format()
-                    if (timeend > overtime) {
-                        timeend = overtime
-                    }
+
                     let formSession = {
                         "member": this.memberid,
                         "order": order,
@@ -224,14 +224,7 @@ export default {
 
                 } else {
                     var timeend = moment(this.session.end_at).add(count, "hours").format()
-                    var overtime = moment().set({
-                        "hour": 22,
-                        "minute": 0,
-                        "second": 0
-                    }).format()
-                    if (timeend > overtime) {
-                        timeend = overtime
-                    }
+
                     let formSession = {
                         "member": this.memberid,
                         "order": order,
@@ -245,15 +238,8 @@ export default {
             } else {
 
                 await this.getTimenow()
-                var timeend = moment(this.session.end_at).add(count, "hours").format()
-                var overtime = moment().set({
-                    "hour": 22,
-                    "minute": 0,
-                    "second": 0
-                }).format()
-                if (timeend > overtime) {
-                    timeend = overtime
-                }
+                var timeend = moment(this.time).add(count, "hours").format()
+
                 let formSession = {
                     "member": this.memberid,
                     "order": order,
@@ -266,6 +252,7 @@ export default {
 
         },
         getTimenow() {
+
             let gettime = moment().format();
             this.time = gettime
         },
