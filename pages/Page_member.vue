@@ -107,6 +107,7 @@
 </template>
 
 <script lang="ts">
+import Swal from 'sweetalert2'
 import {
     method
 } from 'lodash'
@@ -131,9 +132,17 @@ export default {
         async savemember() {
             if (this.form.name && this.form.phone) {
                 await Member.postMember(this.form)
-                alert("Sucess")
+                Swal.fire(
+                    'Registor success!',
+                    'You clicked the button!',
+                    'success'
+                )
             } else {
-                alert("Fail")
+                Swal.fire(
+                    'Something Worng?',
+                    'Input name worng or Input phone worng',
+                    'question'
+                )
             }
 
         },

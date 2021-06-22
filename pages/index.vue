@@ -4,8 +4,8 @@
         <div class="flex-1 min-h-full min-w-full rounded-3xl bg-white shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
             <div class="w-full md:w-1/2">
                 <div class="mb-10 md:mb-20 text-gray-600 font-light">
-                    <h1 class="font-black uppercase text-3xl lg:text-5xl text-indigo-700 mb-10">We co-spaces
-                        <br>working & Coffee</h1>
+                    <h1 class="font-black uppercase text-3xl lg:text-5xl text-indigo-700 mb-10">We co-working
+                        <br>spaces & Coffee</h1>
                     <p>We're big believers in talking it out.</p>
                     <p>Give us a call and let's find a solution that works for you.</p>
                 </div>

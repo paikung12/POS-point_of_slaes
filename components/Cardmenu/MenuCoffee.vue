@@ -101,9 +101,9 @@ export default {
     props: {
         menu: {
             default: {
-                name: 'coffee',
+                name: 'Time',
                 prices: 0,
-                counter: 1,
+                counter: 8,
                 type: [],
                 data: {},
                 price: 0,

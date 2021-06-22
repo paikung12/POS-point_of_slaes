@@ -37,7 +37,7 @@
                                     <Cardmenu-MenuCoffee v-if="val.id == 4" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
-                                    
+
                                 </div>
                             </div>
                         </v-tab-item>
@@ -88,14 +88,16 @@
                         <span class="font-semibold text-2xl">Total</span>
                         <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
                     </div>
+
                 </div>
-            </div>
-            <!-- end cash -->
-            <!-- button pay-->
-            <div class="px-5 mt-5">
-                <button @click.prevent="storeData()" class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
-                    Pay With Cashless Credit
-                </button>
+                <!-- end cash -->
+                <!-- button pay-->
+                <div class="px-5 mt-5">
+
+                    <button @click.prevent="storeData()" class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
+                        Pay With Cashless Credit
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -220,8 +222,7 @@ export default {
                     }
                     await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
 
-                }
-                else {
+                } else {
                     var timeend = moment(this.session.end_at).add(count, "hours").format()
 
                     let formSession = {
@@ -234,8 +235,7 @@ export default {
                     await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
 
                 }
-            }
-            else {
+            } else {
 
                 await this.getTimenow()
                 var timeend = moment(this.time).add(count, "hours").format()

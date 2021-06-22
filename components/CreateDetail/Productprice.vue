@@ -27,7 +27,6 @@
                         <v-select v-model="form1.type" :items="product_types" label="select" item-text="name" item-value="id" outlined></v-select>
 
                     </div>
-                    <span class="text-gray-400 text-base text-blue-400">You can add Product Type.</span>
                 </div>
                 <div class="text-lg font-semibold">
                     <button class="focus:outline-none bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
@@ -43,7 +42,7 @@
                     <p class="text-blue-600"></p>
                     <v-row align="center">
                         <v-col cols="12" sm="6">
-                            <v-subheader v-text="'Product Heat level:'"></v-subheader>
+                            <v-subheader v-text="'You can add Product Price.'"></v-subheader>
                         </v-col>
 
                         <div class="flex justify-between px-4 items-center">
