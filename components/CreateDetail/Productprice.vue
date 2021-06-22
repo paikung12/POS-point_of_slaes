@@ -123,14 +123,15 @@ export default {
             var product = await Product.postProduct(this.form1)
 
             this.form2.product = product.id
-            for (let i in this.price) {
-                this.form2.heat = this.price[i].heat
-                this.form2.price = this.price[i].price
-                var productprice = await Product.postProductPrice(this.form2)
-                console.log(productprice)
-            }
 
-        },
+             for (let i in this.prices) {
+                 this.form2.heat = this.prices[i].heat
+                 this.form2.price = this.prices[i].price
+                 var productprice = await Product.postProductPrice(this.form2)
+                 console.log(productprice)
+             }
+             
+         },
 
         async addPrice(id, p) {
             var data = await Product.getHeatlevelByID(id)

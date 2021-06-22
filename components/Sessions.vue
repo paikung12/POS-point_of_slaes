@@ -2,7 +2,7 @@
 <div>
     <div>
         <div class="flex flex-row grid mt-8  gap-8 grid-cols-2 md:grid-cols-2 xl:grid-cols-">
- 
+
             <div v-for="(item,i) in viewsession" :key="i">
                 <div class="widget w-full p-4 rounded-xl bg-white border-l-8 border-green-400 shadow-md">
                     <div class="flex items-center">
@@ -59,14 +59,13 @@ import {
 } from '../vuexes/session'
 import moment from 'moment'
 
-
 export default {
-    
+
     data() {
         return {
             form: {
                 status: 2,
-                close_at:null
+                close_at: null
             },
             formTime: {},
             dialog1: false,
@@ -76,6 +75,7 @@ export default {
     },
     async created() {
         this.viewsession = await Session.getViewsession(1)
+        this.changeStatusAuto()
 
     },
 
@@ -85,9 +85,25 @@ export default {
             let save = await Session.updateSession(pk, this.form)
             alert(0)
         },
+        async changeStatusAuto() {
+            if (this.viewsession.length != 0) {
+                this.form.close_at = moment().format()
+                var overtime = moment().set({
+                    "hour": 22,
+                    "minute": 0,
+                    "second": 0
+                }).format()
+                console.log("overtime"+overtime)
+                for (let index = 0; index < this.viewsession.length; index++) {
+                    console.log(this.viewsession[index].end_at)
+                    if (this.viewsession[index].end_at >= overtime ) {
+                        let save = await Session.updateSession(this.viewsession[index].id, this.form)
+                        console.log(save)
+                    }
+                }
+            }
 
-
-        
+        }
     },
 }
 </script>
