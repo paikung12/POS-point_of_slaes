@@ -75,7 +75,7 @@ export default {
     },
     async created() {
         this.viewsession = await Session.getViewsession(1)
-        this.changeStatusAuto()
+        // this.changeStatusAuto()
 
     },
 
@@ -85,25 +85,25 @@ export default {
             let save = await Session.updateSession(pk, this.form)
             alert(0)
         },
-        async changeStatusAuto() {
-            if (this.viewsession.length != 0) {
-                this.form.close_at = moment().format()
-                var overtime = moment().set({
-                    "hour": 22,
-                    "minute": 0,
-                    "second": 0
-                }).format()
-                console.log("overtime"+overtime)
-                for (let index = 0; index < this.viewsession.length; index++) {
-                    console.log(this.viewsession[index].end_at)
-                    if (this.viewsession[index].end_at >= overtime ) {
-                        let save = await Session.updateSession(this.viewsession[index].id, this.form)
-                        console.log(save)
-                    }
-                }
-            }
+        // async changeStatusAuto() {
+        //     if (this.viewsession.length != 0) {
+        //         this.form.close_at = moment().format()
+        //         var overtime = moment().set({
+        //             "hour": 22,
+        //             "minute": 0,
+        //             "second": 0
+        //         }).format()
+        //         console.log("overtime" + overtime)
+                
+        //         for (let index = 0; index < this.viewsession.length; index++) {
+        //             console.log("sesseion" + this.viewsession[0])
+        //             if (this.viewsession[index].end_at >= overtime) {
+        //                 let save = await Session.updateSession(this.viewsession[index].id, this.form)
+        //             }
+        //         }
+        //     }
 
-        }
+        // }
     },
 }
 </script>

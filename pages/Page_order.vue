@@ -36,7 +36,8 @@
                                     <Cardmenu-MenuCoffee v-if="val.id == 3" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 4" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuDessert v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuCoffee v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuCoffee v-if="val.id == 15" @callback="MenuVal" :menu='menu' />
                                 </div>
                             </div>
                         </v-tab-item>
@@ -77,19 +78,22 @@
                     </v-btn>
                 </div>
             </div>
-            <div class="">
-                <div class="py-4 rounded-lg shadow-md mt-72 bg-gray-200 bg-opacity-25">
-                    <div class=" mt-3 py-2 px-4 flex items-center justify-between">
+            <div class="px-">
+                <div class="py-4 rounded-md shadow-lg mt-72">
+                    <div class=" px-4 flex justify-between ">
+                        <span class="font-semibold text-sm">Subtotal Hour</span>
+                        <span class="font-bold"> {{SumHr}} hr</span>
+                    </div>
+                    <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
                         <span class="font-semibold text-2xl">Total</span>
                         <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
                     </div>
                 </div>
-                
             </div>
             <!-- end cash -->
             <!-- button pay-->
             <div class="px-5 mt-5">
-                <button @click.prevent="storeData()" class="w-full px-6 py-3 mt-3 text-lg text-white font-semibold transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-yellow-500 hover:bg-yellow-400 hover:shadow-lg focus:outline-none">
+                <button @click.prevent="storeData()" class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
                     Pay With Cashless Credit
                 </button>
             </div>
@@ -206,33 +210,7 @@ export default {
                 if (this.session.end_at == null) {
 
                     var timeend = moment(this.session.end_at).add(count, "hours").format()
-                    var overtime = moment().set({
-                        "hour": 22,
-                        "minute": 0,
-                        "second": 0
-                    }).format()
-                    if (timeend > overtime) {
-                        timeend = overtime
-                    }
-                    let formSession = {
-                        "member": this.memberid,
-                        "order": order,
-                        "status": 1,
-                        "start_at": this.session.start_at,
-                        "end_at": timeend
-                    }
-                    await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
 
-                } else {
-                    var timeend = moment(this.session.end_at).add(count, "hours").format()
-                    var overtime = moment().set({
-                        "hour": 22,
-                        "minute": 0,
-                        "second": 0
-                    }).format()
-                    if (timeend > overtime) {
-                        timeend = overtime
-                    }
                     let formSession = {
                         "member": this.memberid,
                         "order": order,
@@ -243,18 +221,25 @@ export default {
                     await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
 
                 }
-            } else {
+                else {
+                    var timeend = moment(this.session.end_at).add(count, "hours").format()
+
+                    let formSession = {
+                        "member": this.memberid,
+                        "order": order,
+                        "status": 1,
+                        "start_at": this.session.start_at,
+                        "end_at": timeend
+                    }
+                    await Core.putHttp(`/backend/session/${this.sessionid}/`, formSession)
+
+                }
+            }
+            else {
 
                 await this.getTimenow()
-                var timeend = moment(this.session.end_at).add(count, "hours").format()
-                var overtime = moment().set({
-                    "hour": 22,
-                    "minute": 0,
-                    "second": 0
-                }).format()
-                if (timeend > overtime) {
-                    timeend = overtime
-                }
+                var timeend = moment(this.time).add(count, "hours").format()
+
                 let formSession = {
                     "member": this.memberid,
                     "order": order,
@@ -267,6 +252,7 @@ export default {
 
         },
         getTimenow() {
+
             let gettime = moment().format();
             this.time = gettime
         },
