@@ -118,7 +118,7 @@ export default {
     data() {
         return {
             form: {
-                number: null,
+                number: 0,
                 heat: null,
                 sweet: null,
                 detail: [],

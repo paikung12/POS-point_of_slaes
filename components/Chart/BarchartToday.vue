@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="p-4 flex-auto">
-        <div class="relative h-350-px" style="position: relative; height:350px; width:140vh">
+        <div v-if="response" class="relative h-350-px" style="position: relative; height:350px; width:140vh">
             <canvas id="bar-chart"></canvas>
         </div>
     </div>
@@ -22,20 +22,27 @@
 
 <script>
 import Chart from "chart.js";
+import { Product } from '~/vuexes/product';
 export default {
-    mounted: function () {
+    data: () => ({
+        product_type:[],
+        test : 0,
+        response:false
+    }),
+    async created(){
+        this.product_type = await Product.getProducttype()
+        this.test = this.product_type.length
+        console.log(this.test)
+    },
+    methods:{
+
+    },
+    mounted: async function () {
         this.$nextTick(function () {
             let config = {
                 type: "bar",
                 data: {
-                    labels: [
-                        "Cofee",
-                        "Tea",
-                        "Milk",
-                        "Smoothies",
-                        "ItalianSoda",
-                        "Dessert",
-                    ],
+                    labels: this.product_type,
                     datasets: [{
                         label: new Date().getMonth(),
                         backgroundColor: [
@@ -57,7 +64,7 @@ export default {
                             'rgb(201, 203, 207)'
                         ],
                         borderWidth: 1,
-                        data: [60, 78, 56, 34, 100, 45, 13],
+                        data: [this.test, 78, 56, 34, 100, 45, 13],
                         fill: false,
                         barThickness: 8,
                     }, ],
@@ -92,6 +99,7 @@ export default {
             var ctx = document.getElementById("bar-chart").getContext("2d");
             window.myBar = new Chart(ctx, config);
         });
+        this.response = true
     },
 };
 </script>

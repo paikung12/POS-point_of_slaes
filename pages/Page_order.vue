@@ -36,7 +36,7 @@
                                     <Cardmenu-MenuCoffee v-if="val.id == 3" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 4" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuDessert v-if="val.id == 8 " @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuDessert v-if="val.id == 8 " @callback="MenuVal" :menu='menu' /> 
                                 </div>
                             </div>
                         </v-tab-item>
@@ -186,7 +186,7 @@ export default {
                     "count": this.menuchooses[index].counter,
                     "time": this.menuchooses[index].data.heat.time,
                     "voucher": this.menuchooses[index].data.number,
-                    "total_price": this.menuchooses[index].price * this.menuchooses[index].counter,
+                    "total_price": (this.menuchooses[index].price * this.menuchooses[index].counter) - this.menuchooses[index].data.number,
                     "product": this.menuchooses[index].data.heat.id,
                     "member": this.memberid,
                     "sweetlevel": this.menuchooses[index].data.sweet.id,

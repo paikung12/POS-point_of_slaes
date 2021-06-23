@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import Swal from 'sweetalert2'
+import sweetalert2 from 'sweetalert2'
 import {
     Time
 } from '../vuexes/time'
@@ -59,6 +59,7 @@ import {
     Session
 } from '../vuexes/session'
 import moment from 'moment'
+import Swal from 'sweetalert2'
 
 export default {
 
@@ -91,6 +92,6 @@ export default {
             })
         },
 
-    },
+
 }
 </script>

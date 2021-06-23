@@ -9,11 +9,9 @@ class MenuModule extends VuexModule{
     public chooseMenus:any = []
 
     public setMenu(menu:any){
-        
         this.chooseMenus.push(menu)
     }
     public setTime(menu:any){
-        menu.counter =  1
         this.chooseMenus.push(menu)
     }
 
