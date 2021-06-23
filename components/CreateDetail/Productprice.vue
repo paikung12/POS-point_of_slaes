@@ -6,17 +6,9 @@
                 <div class="text-lg font-semibold">
                     <p class="text-blue-600 ">Product </p>
                     <div class="flex flex-row">
-                        <v-file-input v-model="files" color="deep-purple accent-4" counter label="Image input" multiple placeholder="Select your files" prepend-icon="mdi-paperclip" outlined :show-size="1000">
-                            <template v-slot:selection="{ index, text }">
-                                <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>
-                                    {{ text }}
-                                </v-chip>
-
-                                <span v-else-if="index === 2" class="text-overline grey--text text--darken-3 mx-2">
-                                    +{{ files.length - 2 }} File(s)
-                                </span>
-                            </template>
-                        </v-file-input>
+                        <label>File
+                            <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" />
+                        </label>
                         <v-col cols="2">
                             <v-subheader>Name:</v-subheader>
                         </v-col>
@@ -99,7 +91,6 @@ import {
 } from '~/vuexes/product'
 export default {
     data: () => ({
-        files: [],
         product_types: [],
         heat_levels: [],
         heat: {},
@@ -114,7 +105,7 @@ export default {
             product: null,
             heat: null,
             price: null,
-            time:null,
+            time: null,
         }
     }),
     async created() {
@@ -123,24 +114,25 @@ export default {
 
     },
     methods: {
-        async saveproduct() {
-            var product = await Product.postProduct(this.form1)
 
+        async saveproduct() {
+
+
+            var product = await Product.postProduct(this.form1)
+            console.log(product)
             this.form2.product = product.id
 
-             for (let i in this.prices) {
-                 this.form2.heat = this.prices[i].heat
-                 this.form2.price = this.prices[i].price
-                 this.form2.time = this.prices[i].time
-                 var productprice = await Product.postProductPrice(this.form2)
-                 console.log(productprice)
-             }
-             
-         },
+            for (let i in this.prices) {
+                this.form2.heat = this.prices[i].heat
+                this.form2.price = this.prices[i].price
+                this.form2.time = this.prices[i].time
+                var productprice = await Product.postProductPrice(this.form2)
+            }
+
+        },
 
         async addPrice(id, p, t) {
             var data = await Product.getHeatlevelByID(id)
-            console.log(data)
             this.prices.push({
                 heat: id,
                 name: data.name,

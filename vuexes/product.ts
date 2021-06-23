@@ -69,6 +69,9 @@ class ProductModule extends VuexModule{
     public async getOrder(){
         return await Core.getHttp('/backend/order/')
     }
+    public async getViewOrder(){
+        return await Core.getHttp('/backend/vieworder/')
+    }
 
     
  
