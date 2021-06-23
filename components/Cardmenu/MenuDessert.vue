@@ -7,7 +7,6 @@
                     <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-10 pl-8 " style="height: 100%;">
                         $ 25 & 30 .Bath
                     </div>
-                   
                 </v-expand-transition>
             </v-img>
             <v-card-text class="pt-6" style="position: relative;">
@@ -27,29 +26,22 @@
                                         <span class="font-semibold text-2xl">Select Topping</span>
                                     </p>
                                 </div>
-                                <div class="flex justify-end">
-                                    <p class="text-sm text-gray-500 mt-1">
-                                        <span class="font-semibold text-2xl">Total</span>
-                                        <span class="font-bold text-2xl text-yellow-400">$ 45</span>
-                                    </p>
-                                </div>
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-card-text style="height: 300px;">
-                                <p v-if="heat.length > 0" class="text-l pt-2">Select Hot & Cold</p>
+                                <p v-if="heat.length > 0" class="text-l pt-2">Select All Day & 1 Hr.</p>
                                 <v-row>
                                     <div v-for="(data,i) in heat" :key="i">
-                                        <v-checkbox class="pl-5" v-model="form.heat" :label="data.heat_named" :value="data">
+                                        <v-checkbox   class="pl-5" v-model="form.heat" :label="data.heat_named" :value="data">
                                         </v-checkbox>
                                         <pre>{{price.checkbox}}</pre>
                                     </div>
                                 </v-row>
-                                <p class="text-l pt-2">Choose Sweetness</p>
+                                <p class="text-l pt-2">Please check</p>
                                 <v-row>
                                     <div v-for="(sweet,i) in sweetlevel " :key="i">
-                                        <v-checkbox  v-if="sweet.id == 5" class="pl-5" v-model="form.sweet" :label="sweet.name" :value="sweet">
+                                        <v-checkbox disabled v-if="sweet.id == 5" class="pl-5" v-model="form.sweet" :label="sweet.name" :value="sweet">
                                         </v-checkbox>
-                                        <pre>{{sweet.checkbox}}</pre>
                                     </div>
                                 </v-row>
                             </v-card-text>
@@ -96,11 +88,11 @@ export default {
             default: {
                 name: 'Time',
                 prices: 0,
-                counter: 8,
+                counter: null,
                 type: [],
                 data: {},
                 price: 0,
-                detailId:[]
+                detailId: []
             }
         },
         detail: {
@@ -109,7 +101,7 @@ export default {
                 prices: 0,
                 product: [],
                 heat: [],
-                
+
             }
         }
     },
@@ -118,7 +110,7 @@ export default {
             form: {
                 number: null,
                 heat: null,
-                sweet: null,
+                sweet:[],
                 detail: [],
             },
             dialog: false,
@@ -130,12 +122,14 @@ export default {
             orderdetail: [],
             productdetail: [],
         }
+
     },
     async created() {
         this.heat = await Product.getProductpricess(this.menu.id, this.detail.product)
         this.orderdetail = await Product.getOrderdetail(this.menu.type)
         this.heatlevel = await Product.getHeatlevel()
         this.sweetlevel = await Product.getSweetlevel()
+        this.form.sweet = _.filter(this.sweetlevel,{id:5})  
     },
     methods: {
         async callbackMenu() {
@@ -145,13 +139,15 @@ export default {
             this.menu.price = this.form.heat.price + detailPrice
             this.menu.detailId = _.map(this.form.detail, 'id');
             console.log(this.menu)
-            await Menu.setMenu(this.menu, this.detail)
+            await Menu.setTime(this.menu)
 
             this.dialog = false;
             var data = await Product.saveOrder(this.form)
         },
         async getDetailPrice() {
-                return _.sumBy(this.form.detail, function(o:any) { return o.price; });      
+            return _.sumBy(this.form.detail, function (o: any) {
+                return o.price;
+            });
         }
 
     },

@@ -26,19 +26,13 @@
                                         <span class="font-semibold text-2xl">Select Topping</span>
                                     </p>
                                 </div>
-                                <div class="flex justify-end">
-                                    <p class="text-sm text-gray-500 mt-1">
-                                        <span class="font-semibold text-2xl">Total</span>
-                                        <span class="font-bold text-2xl text-yellow-400">$ 45</span>
-                                    </p>
-                                </div>
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-card-text style="height: 300px;">
                                 <p v-if="heat.length > 0" class="text-l pt-2">Select Hot & Cold</p>
                                 <v-row>
-                                    <div v-for="(data,i) in heat" :key="i">
-                                        <v-checkbox class="pl-5" v-model="form.heat" :label="data.heat_named" :value="data">
+                                    <div v-for="(data,i) in heat" :key="i" >
+                                        <v-checkbox  class="pl-5" v-model="form.heat" :label="data.heat_named" :value="data">
                                         </v-checkbox>
                                         <pre>{{price.checkbox}}</pre>
                                     </div>
@@ -63,7 +57,7 @@
                             <v-divider></v-divider>
                             <v-card-actions>
                                 <v-col cols="4">
-                                    <v-text-field label="Voucher" value=" " prefix="$" outlined dense v-model="form.number"></v-text-field>
+                                    <v-text-field label="Voucher" v-model="form.number"></v-text-field>
                                 </v-col>
 
                                 <div class="flex justify-end">
@@ -103,7 +97,7 @@ export default {
             default: {
                 name: 'Time',
                 prices: 0,
-                counter: 8,
+                counter: null,
                 type: [],
                 data: {},
                 price: 0,
@@ -140,7 +134,7 @@ export default {
         }
     },
     async created() {
-        this.heat = await Product.getProductpricess(this.menu.type, this.detail.product)
+        this.heat = await Product.getProductpricess(this.menu.id, this.detail.product)
         this.orderdetail = await Product.getOrderdetail(this.menu.type)
         this.heatlevel = await Product.getHeatlevel()
         this.sweetlevel = await Product.getSweetlevel()
@@ -148,15 +142,14 @@ export default {
     methods: {
         async callbackMenu() {
             let detailPrice = await this.getDetailPrice();
-            this.menu.counter = 1
             this.menu.data = this.form
-            this.menu.price = this.form.heat.price + detailPrice
+            this.menu.price = this.form.heat.price + detailPrice - this.form.number
             this.menu.detailId = _.map(this.form.detail, 'id');
+            this.menu.counter = 1
             console.log(this.menu)
             await Menu.setMenu(this.menu, this.detail)
 
             this.dialog = false;
-            var data = await Product.saveOrder(this.form)
         },
         async getDetailPrice() {
                 return _.sumBy(this.form.detail, function(o:any) { return o.price; });      
