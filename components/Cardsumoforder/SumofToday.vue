@@ -60,7 +60,7 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 150</p>
+                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> {{count_order}}</p>
                             </div>
                             <div class="border-t-2 "></div>
                             <br>
@@ -86,7 +86,7 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 64</p>
+                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> {{summery_order}}</p>
                             </div>
                         </div>
                         <div class="mt-8">
@@ -113,7 +113,7 @@
                                             </path>
                                         </svg>
                                     </div>
-                                    <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 150</p>
+                                    <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> {{count_member}}</p>
                                 </div>
                                 <div class="border-t-2 "></div>
                                 <br>
@@ -139,7 +139,7 @@
                                             </path>
                                         </svg>
                                     </div>
-                                    <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 64</p>
+                                    <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> {{count_anon}}</p>
                                 </div>
                             </div>
                         </div>
@@ -169,8 +169,42 @@
 </template>
 
 <script>
-export default {
+import moment from 'moment'
+import {
+    Product
+} from '~/vuexes/product'
 
+export default {
+    data: () => ({
+        count_order: 0,
+        summery_order: 0,
+        count_member: 0,
+        count_anon: 0,
+        
+    }),
+    async created() {
+        await this.getOrder()        
+
+    },
+    methods: {
+        async getOrder(){
+            let order = await Product.getOrder()
+            let today = moment().startOf("day").format() 
+            let endtoday = moment().startOf("day").add(1 , 'day').format()
+            for(let index = 0; index < order.length; index++  ){
+                if(order[index].create_at >= today && order[index].create_at <= endtoday){
+                    this.count_order += order[index].count
+                    this.summery_order += order[index].total_price
+                }
+                if(order[index].member == 1){
+                    this.count_anon += order[index].count
+                }else{
+                    this.count_member += order[index].count
+                }
+            }
+        } 
+       
+    },
 }
 </script>
 

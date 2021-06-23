@@ -186,13 +186,12 @@ export default {
                     "count": this.menuchooses[index].counter,
                     "time": this.menuchooses[index].data.heat.time,
                     "voucher": this.menuchooses[index].data.number,
-                    "total_price": this.menuchooses[index].price * this.menuchooses[index].counter,
+                    "total_price": (this.menuchooses[index].price * this.menuchooses[index].counter) - this.menuchooses[index].data.number,
                     "product": this.menuchooses[index].data.heat.id,
                     "member": this.memberid,
                     "sweetlevel": this.menuchooses[index].data.sweet.id,
                     "detail": this.menuchooses[index].detailId
                 }
-                console.log(formOrder.voucher)
                 let save = await Core.postHttp(`/backend/order/`, formOrder)
                 if (save.id) {
                     order.push(save.id)
