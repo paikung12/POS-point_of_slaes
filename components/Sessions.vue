@@ -15,7 +15,7 @@
                                     Working Space
                                 </div>
                                 <div>
-                                    <h2 class="flex-auto text-lg font-medium">{{item.member.name}}:{{item.member.phone}}</h2>
+                                    <h2 class="flex-auto text-lg font-medium">{{item.member.name}}</h2>
                                 </div>
                             </div>
                             <p class="mt-13"></p>
@@ -51,7 +51,6 @@
 </template>
 
 <script lang="ts">
-import Swal from 'sweetalert2'
 import {
     Time
 } from '../vuexes/time'
@@ -84,29 +83,9 @@ export default {
         async changeStatus(pk: number) {
             this.form.close_at = moment().format()
             let save = await Session.updateSession(pk, this.form)
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Do you want to close session',
-            })
+            alert(0)
         },
-        async changeStatusAuto() {
-            if (this.viewsession.length != 0) {
-                this.form.close_at = moment().format()
-                var overtime = moment().set({
-                    "hour": 22,
-                    "minute": 0,
-                    "second": 0
-                }).format()
-                console.log("overtime" + overtime)
-                for (let index = 0; index < this.viewsession.length; index++) {
-                    console.log(this.viewsession[index].end_at)
-                    if (this.viewsession[index].end_at >= overtime) {
-                        let save = await Session.updateSession(this.viewsession[index].id, this.form)
-                        console.log(save)
-                    }
-                }
-            }
+       
     },
 }
 </script>

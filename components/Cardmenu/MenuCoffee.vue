@@ -63,7 +63,7 @@
                             <v-divider></v-divider>
                             <v-card-actions>
                                 <v-col cols="4">
-                                    <v-text-field label="Voucher" value=" " prefix="$" outlined dense v-model="form.number"></v-text-field>
+                                    <v-text-field label="Voucher" v-model="form.number"></v-text-field>
                                 </v-col>
 
                                 <div class="flex justify-end">
@@ -103,7 +103,7 @@ export default {
             default: {
                 name: 'Time',
                 prices: 0,
-                counter: 8,
+                counter: null,
                 type: [],
                 data: {},
                 price: 0,
@@ -140,7 +140,7 @@ export default {
         }
     },
     async created() {
-        this.heat = await Product.getProductpricess(this.menu.type, this.detail.product)
+        this.heat = await Product.getProductpricess(this.menu.id, this.detail.product)
         this.orderdetail = await Product.getOrderdetail(this.menu.type)
         this.heatlevel = await Product.getHeatlevel()
         this.sweetlevel = await Product.getSweetlevel()
@@ -148,15 +148,14 @@ export default {
     methods: {
         async callbackMenu() {
             let detailPrice = await this.getDetailPrice();
-            this.menu.counter = 1
             this.menu.data = this.form
-            this.menu.price = this.form.heat.price + detailPrice
+            this.menu.price = this.form.heat.price + detailPrice - this.form.number
             this.menu.detailId = _.map(this.form.detail, 'id');
+            this.menu.counter = 1
             console.log(this.menu)
             await Menu.setMenu(this.menu, this.detail)
 
             this.dialog = false;
-            var data = await Product.saveOrder(this.form)
         },
         async getDetailPrice() {
                 return _.sumBy(this.form.detail, function(o:any) { return o.price; });      

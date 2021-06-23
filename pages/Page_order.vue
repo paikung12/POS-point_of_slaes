@@ -37,7 +37,7 @@
                                     <Cardmenu-MenuCoffee v-if="val.id == 4" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
-
+                                    <Cardmenu-MenuCoffee v-if="val.id == 7" @callback="MenuVal" :menu='menu' />
                                 </div>
                             </div>
                         </v-tab-item>
@@ -93,7 +93,6 @@
                 <!-- end cash -->
                 <!-- button pay-->
                 <div class="px-5 mt-5">
-
                     <button @click.prevent="storeData()" class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
                         Pay With Cashless Credit
                     </button>
@@ -151,6 +150,7 @@ export default {
         this.type = await Product.getProducttype()
         this.session = await Session.getSessionById(this.sessionid)
         await this.changeType(this.type[0].id)
+        console.log(this.menuchooses)
     },
     methods: {
 
@@ -179,30 +179,31 @@ export default {
         async storeData() {
 
             let order = this.session.order;
-            let counter = [];
+            let timer = [];
             let sum = null;
             for (let index = 0; index < this.menuchooses.length; index++) {
                 let formOrder = {
                     "count": this.menuchooses[index].counter,
-                    "voucher": 0,
+                    "time": this.menuchooses[index].data.heat.time,
+                    "voucher": this.menuchooses[index].data.number,
                     "total_price": this.menuchooses[index].price * this.menuchooses[index].counter,
                     "product": this.menuchooses[index].data.heat.id,
                     "member": this.memberid,
                     "sweetlevel": this.menuchooses[index].data.sweet.id,
                     "detail": this.menuchooses[index].detailId
                 }
+                console.log(formOrder.voucher)
                 let save = await Core.postHttp(`/backend/order/`, formOrder)
                 if (save.id) {
                     order.push(save.id)
-                    counter.push(formOrder.count)
+                    timer.push(formOrder.time)
                 }
-                for (let index = 0; index < counter.length; index++) {
-                    sum += counter[index]
+                for (let index = 0; index < timer.length; index++) {
+                    sum += timer[index]
                 }
-                await this.storeSession(order, sum)
 
             }
-
+            await this.storeSession(order, sum)
             this.$router.push('Home')
 
         },

@@ -27,8 +27,8 @@ import {
 
 
 const FULL_DASH_ARRAY = 36000;
-const WARNING_THRESHOLD = 5000;
-const ALERT_THRESHOLD = 50;
+const WARNING_THRESHOLD = 1800;
+const ALERT_THRESHOLD = 300;
 
 const COLOR_CODES = {
     info: {
@@ -44,17 +44,17 @@ const COLOR_CODES = {
     }
 };
 
-const TIME_LIMIT = 0;
+// const TIME_LIMIT = 0;
 
 export default {
     data() {
         return {
             timePassed: 0,
             timerInterval: null,
-            timetest: null,
             displayHours: 0,
             displayMinutes: 0,
             displaySeconds: 0,
+            TIME_LIMIT:null,
             form: {
                 status: 2,
                 close_at:null,
@@ -87,7 +87,7 @@ export default {
             return this._minutes * 60
         },
         timeLeft() {
-            return (this.timetest + TIME_LIMIT ) - this.timePassed ;
+            return  this.TIME_LIMIT  - this.timePassed ;
         },
         formattedTimeLeft() {
             const timeLeft = this.timeLeft;
@@ -98,13 +98,13 @@ export default {
                 seconds = `${seconds}`;
             }
 
-            return `${hours}:${minutes}:${seconds}`;
+            return `${hours}:${minutes}`;
 
         },
 
         timeFraction() {
-            const rawTimeFraction = this.timeLeft / TIME_LIMIT;
-            return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+            const rawTimeFraction = this.timeLeft / this.TIME_LIMIT;
+            return rawTimeFraction - (1 / this.TIME_LIMIT) * (1 - rawTimeFraction);
         },
 
         remainingPathColor() {
@@ -139,11 +139,10 @@ export default {
     },
     methods: {
         timegg() {
-            var now = moment().format("hh:mm:ss");
-            var end = moment(this.end_time).format("hh:mm:ss");
-            var nowsecounds = moment.duration(now).asSeconds();
-            var endsecounds = moment.duration(end).asSeconds();
-            this.timetest = endsecounds - nowsecounds
+            var now = parseFloat(moment().format("HH.mm"));
+            var end = parseFloat(moment(this.end_time).format("HH.mm "));
+            
+            this.TIME_LIMIT = (end-now)*3600
             
         },
         async onTimesUp() {
