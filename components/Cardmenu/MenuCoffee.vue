@@ -148,7 +148,6 @@ export default {
             this.menu.counter = 1
             console.log(this.menu)
             await Menu.setMenu(this.menu, this.detail)
-
             this.dialog = false;
         },
         async getDetailPrice() {

@@ -40,7 +40,7 @@
                                 <p class="text-l pt-2">Please check</p>
                                 <v-row>
                                     <div v-for="(sweet,i) in sweetlevel " :key="i">
-                                        <v-checkbox disabled v-if="sweet.id == 5" class="pl-5" v-model="form.sweet" :label="sweet.name" :value="sweet">
+                                        <v-checkbox  v-if="sweet.id == 5" class="pl-5" v-model="form.sweet" :label="sweet.name" :value="sweet">
                                         </v-checkbox>
                                     </div>
                                 </v-row>
@@ -139,7 +139,7 @@ export default {
             this.menu.price = this.form.heat.price + detailPrice
             this.menu.detailId = _.map(this.form.detail, 'id');
             console.log(this.menu)
-            await Menu.setTime(this.menu)
+            await Menu.setMenu(this.menu)
 
             this.dialog = false;
             var data = await Product.saveOrder(this.form)

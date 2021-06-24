@@ -18,7 +18,12 @@
                                     <h2 class="flex-auto text-lg font-medium">{{item.member.name}}</h2>
                                 </div>
                             </div>
-                            <p class="mt-13"></p>
+                            <div class="grid grid-cols-3 lg:grid-cols-3 gap-5 w-full ">
+                                <div  class="flex" v-for="order,i in item.order" :key="i">
+                                    <h2>{{order.product.product_named}}</h2>
+                                </div>
+                            </div>
+                            <p class=""></p>
                             <div class="flex p-4 pb-2 border-t border-gray-200 "></div>
                             <div class="flex space-x-3 text-sm font-medium">
                                 <div class="flex-auto flex space-x-3">
@@ -91,7 +96,6 @@ export default {
                 text: 'Session Closed!',
             })
         },
-
-
+    }
 }
 </script>

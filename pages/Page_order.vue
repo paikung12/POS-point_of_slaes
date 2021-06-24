@@ -36,7 +36,8 @@
                                     <Cardmenu-MenuCoffee v-if="val.id == 3" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 4" @callback="MenuVal" :menu='menu' />
                                     <Cardmenu-MenuCoffee v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuDessert v-if="val.id == 8 " @callback="MenuVal" :menu='menu' /> 
+                                    <Cardmenu-MenuCoffee v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuDessert v-if="val.id == 7 " @callback="MenuVal" :menu='menu' />
                                 </div>
                             </div>
                         </v-tab-item>

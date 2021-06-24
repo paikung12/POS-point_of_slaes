@@ -64,7 +64,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5"> 150</p>
+                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5">89277</p>
                         </div>
                         <div class="border-t-2 "></div>
                         <br>
@@ -90,7 +90,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5 "> 64</p>
+                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5 ">246560</p>
                         </div>
                     </div>
                     <div class="mt-8">
@@ -117,7 +117,7 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 150</p>
+                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 44638</p>
                             </div>
                             <div class="border-t-2 "></div>
                             <br>
@@ -143,7 +143,7 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 64</p>
+                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 44639</p>
                             </div>
                         </div>
                     </div>

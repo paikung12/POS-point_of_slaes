@@ -11,10 +11,6 @@ class MenuModule extends VuexModule{
     public setMenu(menu:any){
         this.chooseMenus.push(menu)
     }
-    public setTime(menu:any){
-        this.chooseMenus.push(menu)
-    }
-
     public async clearMenu(){
         while(this.chooseMenus.length > 0) {
             this.chooseMenus.pop();

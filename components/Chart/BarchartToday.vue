@@ -41,6 +41,14 @@ export default {
         this.$nextTick(function () {
             let config = {
                 type: "bar",
+                labels: [
+                        "Cofee",
+                        "Tea",
+                        "Milk",
+                        "Smoothies",
+                        "ItalianSoda",
+                        "Dessert",
+                    ],
                 data: {
                     labels: this.product_type,
                     datasets: [{
@@ -64,7 +72,7 @@ export default {
                             'rgb(201, 203, 207)'
                         ],
                         borderWidth: 1,
-                        data: [this.test, 78, 56, 34, 100, 45, 13],
+                        data: [ 78, 56, 34, 100, 45, 13],
                         fill: false,
                         barThickness: 8,
                     }, ],
