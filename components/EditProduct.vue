@@ -49,11 +49,9 @@ import {
 } from '@/vuexes/product'
 export default {
     props: {
-       productid:{
-           default:{
-               name : null
-           }
-       }
+       id: {
+            default: 'id'
+        },
     },
     data() {
         return {
@@ -62,7 +60,7 @@ export default {
         }
     },
     async created() {
-        this.product = await Product.getProductByID(1)
+        this.product = await Product.getProductByID(this.id)
     },
 }
 </script>

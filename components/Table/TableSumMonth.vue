@@ -50,7 +50,7 @@
                                                 <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
                                                     <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
                                                         <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-                                                         
+
                                                         </div>
                                                     </div>
                                                 </label>
@@ -70,7 +70,12 @@
 
 <script>
 export default {
+    data: () => {
+        return ({
+            dialog1: false,
 
+        })
+    },
 }
 </script>
 

@@ -69,6 +69,15 @@ class ProductModule extends VuexModule{
     public async getOrder(){
         return await Core.getHttp('/backend/order/')
     }
+    public async getViewOrder(){
+        return await Core.getHttp('/backend/vieworder/')
+    }
+    public async deleteProductById(pk:number){
+        return await Core.deleteHttp(`/backend/product/${pk}/`)
+    }
+    public async deleteOrderdetailById(pk:number){
+        return await Core.deleteHttp(`/backend/orderdetail/${pk}/`)
+    }
 
     
  

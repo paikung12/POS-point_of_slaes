@@ -14,100 +14,115 @@
     </div>
     <div class="p-4 flex-auto">
         <div v-if="response" class="relative h-350-px" style="position: relative; height:350px; width:140vh">
-            <canvas id="bar-chart"></canvas>
+            <div>
+                <apexchart width="500" type="bar" :options="options" :series="series"></apexchart>
+            </div>
         </div>
     </div>
 </div>
 </template>
 
 <script>
-import Chart from "chart.js";
-import { Product } from '~/vuexes/product';
+import VueApexCharts from 'vue-apexcharts'
+import moment from 'moment'
+import {
+    Product
+} from '~/vuexes/product';
 export default {
+    components: {
+        apexchart: VueApexCharts,
+    },
     data: () => ({
-        product_type:[],
-        test : 0,
-        response:false
-    }),
-    async created(){
-        this.product_type = await Product.getProducttype()
-        this.test = this.product_type.length
-        console.log(this.test)
-    },
-    methods:{
+        product_type: [],
+        typename: [],
+        order_today: [],
+        price_coffee: 0,
+        price_tea: 0,
+        price_milk: 0,
+        price_soda: 0,
+        price_smoothie: 0,
+        price_dessert: 0,
+        price_time: 0,
+        order: [],
+        price: [],
+        test: {
+            name: "total_price",
+            data: null
+        },
 
-    },
-    mounted: async function () {
-        this.$nextTick(function () {
-            let config = {
-                type: "bar",
-                labels: [
-                        "Cofee",
-                        "Tea",
-                        "Milk",
-                        "Smoothies",
-                        "ItalianSoda",
-                        "Dessert",
-                    ],
-                data: {
-                    labels: this.product_type,
-                    datasets: [{
-                        label: new Date().getMonth(),
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 205, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(201, 203, 207, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(255, 159, 64)',
-                            'rgb(255, 205, 86)',
-                            'rgb(75, 192, 192)',
-                            'rgb(54, 162, 235)',
-                            'rgb(153, 102, 255)',
-                            'rgb(201, 203, 207)'
-                        ],
-                        borderWidth: 1,
-                        data: [ 78, 56, 34, 100, 45, 13],
-                        fill: false,
-                        barThickness: 8,
-                    }, ],
-                },
-                options: {
-                    maintainAspectRatio:false,
-                    responsive: true,
-                    scales: {
-                        xAxes: [{
-                            stacked: true
-                            },
-                         ],
-                        yAxes: [{
-                            stacked: true,
-                            scaleLabel: {
-                                display: false,
-                                labelString: "Value",
-                            },
-                            gridLines: {
-                                borderDash: [2],
-                                drawBorder: false,
-                                borderDashOffset: [2],
-                                color: "rgba(33, 37, 41, 0.2)",
-                                zeroLineColor: "rgba(33, 37, 41, 0.15)",
-                                zeroLineBorderDash: [2],
-                                zeroLineBorderDashOffset: [2],
-                            },
-                        }, ],
-                    },
-                },
-            };
-            var ctx = document.getElementById("bar-chart").getContext("2d");
-            window.myBar = new Chart(ctx, config);
-        });
+        response: false,
+
+        options: {
+            chart: {
+                id: 'vuechart-example'
+            },
+            xaxis: {
+                categories: []
+            }
+        },
+        series: [{
+            name: '',
+            data: []
+        }]
+    }),
+
+    async created() {
+        await this.getData()
+        await this.getAllPrice()
         this.response = true
     },
+    methods: {
+        async getData() {
+            this.product_type = await Product.getProducttype()
+            for (let index = 0; index < this.product_type.length; index++) {
+                this.typename.push(this.product_type[index].name)
+            }
+            this.options.xaxis.categories = this.typename
+
+        },
+        async getAllPrice() {
+            this.order = await Product.getViewOrder()
+            let today = moment().startOf("day").format()
+            let endtoday = moment().startOf("day").add(1, 'day').format()
+            for (let index = 0; index < this.order.length; index++) {
+                if (this.order[index].create_at >= today && this.order[index].create_at <= endtoday) {
+                    if (this.order[index].product.type_id == 1) {
+                        this.price_coffee += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 2) {
+                        this.price_tea += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 3) {
+                        this.price_milk += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 4) {
+                        this.price_soda += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 5) {
+                        this.price_smoothie += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 7) {
+                        this.price_dessert += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 8) {
+                        this.price_time += this.order[index].total_price
+                    }
+
+                }
+            }
+            this.test.data = [
+                this.price_coffee,
+                this.price_tea,
+                this.price_milk,
+                this.price_soda,
+                this.price_smoothie,
+                this.price_dessert,
+                this.price_time
+            ]
+
+            this.series[0] = this.test
+        },
+    },
+
 };
 </script>

@@ -39,7 +39,12 @@
 
 <script>
 export default {
-
+  data: () => {
+        return ({
+            dialog1:false,
+            
+        })
+    },
 }
 </script>
 

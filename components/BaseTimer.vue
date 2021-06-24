@@ -25,7 +25,6 @@ import {
     Session
 } from '../vuexes/session'
 
-
 const FULL_DASH_ARRAY = 36000;
 const WARNING_THRESHOLD = 1800;
 const ALERT_THRESHOLD = 300;
@@ -54,16 +53,16 @@ export default {
             displayHours: 0,
             displayMinutes: 0,
             displaySeconds: 0,
-            TIME_LIMIT:null,
+            TIME_LIMIT: null,
             form: {
                 status: 2,
-                close_at:null,
+                close_at: null,
             },
         };
     },
 
     props: {
-        
+
         id: {
             default: 'id'
         },
@@ -87,12 +86,12 @@ export default {
             return this._minutes * 60
         },
         timeLeft() {
-            return  this.TIME_LIMIT  - this.timePassed ;
+            return this.TIME_LIMIT - this.timePassed;
         },
         formattedTimeLeft() {
             const timeLeft = this.timeLeft;
             const hours = Math.floor(timeLeft / 3600)
-            const minutes = Math.floor((timeLeft / 60)-(hours*60));
+            const minutes = Math.floor((timeLeft / 60) - (hours * 60));
             let seconds = timeLeft % 60;
             if (seconds < 10) {
                 seconds = `${seconds}`;
@@ -128,7 +127,7 @@ export default {
     },
     watch: {
         timeLeft(newValue) {
-            if (newValue === 0) {
+            if (newValue <= 0) {
                 this.onTimesUp();
             }
         }
@@ -139,17 +138,24 @@ export default {
     },
     methods: {
         timegg() {
-            var now = parseFloat(moment().format("HH.mm"));
-            var end = parseFloat(moment(this.end_time).format("HH.mm "));
-            
-            this.TIME_LIMIT = (end-now)*3600
-            
+            var today = moment().startOf('day').format()
+            if (this.end_time > today) {
+                var now = parseFloat(moment().format("HH.mm"));
+                var end = parseFloat(moment(this.end_time).format("HH.mm "));
+                console.log(now, end)
+                console.log(end - now)
+                this.TIME_LIMIT = (end - now) * 3600
+
+            } else {
+                this.TIME_LIMIT = 0
+            }
+
         },
         async onTimesUp() {
             clearInterval(this.timerInterval);
             this.changeStatusAuto(this.id)
         },
-        async changeStatusAuto(pk){
+        async changeStatusAuto(pk) {
             this.form.close_at = moment().format()
             console.log(this.form)
             await Session.updateSession(pk, this.form)

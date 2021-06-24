@@ -18,6 +18,9 @@
             <button type="submit" class="my-5 w-full  flex justify-center bg-blue-500  p-4  rounded-lg  font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-400 ">
                 <span class="text-white">Submit</span>
             </button>
+            <button type="submit" class="my-5 w-full  flex justify-center bg-blue-500  p-4  rounded-lg  font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-400 ">
+                <span class="text-white">back</span>
+            </button>
         </div>
     </v-form>
 </v-container>

@@ -76,6 +76,8 @@ import {
 import {
     Session
 } from '@/vuexes/session'
+import moment from 'moment'
+
 export default {
 
     data: () => {
@@ -83,7 +85,8 @@ export default {
             phone: null,
             session_form: {
                 member: null,
-                status: null
+                status: null,
+                end_at: null,
             },
             memberfilter: [],
             dialog: false,
@@ -94,19 +97,19 @@ export default {
     },
     methods: {
         async opensesion() {
+            var test = moment().add(1, "m").format()
             if (this.phone != null) {
                 var data = await Member.getMemberfilter(this.phone)
                 this.session_form.member = data[0].id
                 this.session_form.status = 1
-                var session = await Session.postSession(this.session_form)
-                console.log(session)
+                this.session_form.end_at = test
+                await Session.postSession(this.session_form)
             } else {
                 var data = await Member.getMemberByID(1)
-                console.log(data)
                 this.session_form.member = data.id
                 this.session_form.status = 1
-                var session = await Session.postSession(this.session_form)
-                console.log(session)
+                this.session_form.end_at = test
+                await Session.postSession(this.session_form)
             }
 
         }
