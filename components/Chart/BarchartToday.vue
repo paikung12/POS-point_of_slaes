@@ -35,8 +35,20 @@ export default {
     data: () => ({
         product_type: [],
         typename: [],
+        order_today: [],
+        price_coffee: 0,
+        price_tea: 0,
+        price_milk: 0,
+        price_soda: 0,
+        price_smoothie: 0,
+        price_dessert: 0,
+        price_time: 0,
         order: [],
         price: [],
+        test: {
+            name: "total_price",
+            data: null
+        },
 
         response: false,
 
@@ -45,18 +57,18 @@ export default {
                 id: 'vuechart-example'
             },
             xaxis: {
-                categories:["test1", "test2"]
+                categories: []
             }
         },
         series: [{
-            name: 'series-1',
-            data: [10,20]
+            name: '',
+            data: []
         }]
     }),
 
     async created() {
         await this.getData()
-        // await this.getAllPrice()
+        await this.getAllPrice()
         this.response = true
     },
     methods: {
@@ -65,41 +77,51 @@ export default {
             for (let index = 0; index < this.product_type.length; index++) {
                 this.typename.push(this.product_type[index].name)
             }
-            
+            this.options.xaxis.categories = this.typename
+
         },
-        // async getAllPrice() {
-        //     this.order = await Product.getViewOrder()
-        //     let test = []
-        //     console.log(this.order)
-        //     let today = moment().startOf("day").format()
-        //     let endtoday = moment().startOf("day").add(1, 'day').format()
-        //     for (let index = 0; index < this.order.length; index++) {
-        //         if (this.order[index].create_at >= today && this.order[index].create_at <= endtoday) {
-        //             if (this.order[index].product.type_id == 1) {
-        //                 this.price_coffee += this.order[index].total_price
-        //             } 
-        //             else if (this.order[index].product.type_id == 2) {
-        //                 this.price_tea += this.order[index].total_price
-        //             } 
-        //             else if (this.order[index].product.type_id == 3) {
-        //                 this.price_milk += this.order[index].total_price
-        //             } 
-        //             else if (this.order[index].product.type_id == 4) {
-        //                 this.price_soda += this.order[index].total_price
-        //             } 
-        //             else if (this.order[index].product.type_id == 5) {
-        //                 this.price_smoothie += this.order[index].total_price
-        //             } 
-        //             else if (this.order[index].product.type_id == 7) {
-        //                 this.price_dessert += this.order[index].total_price
-        //             } 
-        //             else if (this.order[index].product.type_id == 8) {
-        //                 this.price_time += this.order[index].total_price
-        //             }
-                    
-        //         }
-        //     }
-        // },
+        async getAllPrice() {
+            this.order = await Product.getViewOrder()
+            let today = moment().startOf("day").format()
+            let endtoday = moment().startOf("day").add(1, 'day').format()
+            for (let index = 0; index < this.order.length; index++) {
+                if (this.order[index].create_at >= today && this.order[index].create_at <= endtoday) {
+                    if (this.order[index].product.type_id == 1) {
+                        this.price_coffee += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 2) {
+                        this.price_tea += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 3) {
+                        this.price_milk += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 4) {
+                        this.price_soda += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 5) {
+                        this.price_smoothie += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 7) {
+                        this.price_dessert += this.order[index].total_price
+                    } 
+                    else if (this.order[index].product.type_id == 8) {
+                        this.price_time += this.order[index].total_price
+                    }
+
+                }
+            }
+            this.test.data = [
+                this.price_coffee,
+                this.price_tea,
+                this.price_milk,
+                this.price_soda,
+                this.price_smoothie,
+                this.price_dessert,
+                this.price_time
+            ]
+
+            this.series[0] = this.test
+        },
     },
 
 };

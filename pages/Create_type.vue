@@ -54,10 +54,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="text-gray-700 dark:text-gray-100" v-for="(product,i) in product" :key="i">
+                                    <tr class="text-gray-700 dark:text-gray-100" v-for="(item,i) in products" :key="i">
                                         <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">{{i+1}}</th>
-                                        <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{product.name}}</td>
-                                        <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{product.type.name}}</td>
+                                        <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{item.name}}</td>
+                                        <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{item.type.name}}</td>
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
                                                 <div>
@@ -79,8 +79,9 @@
                                                     </v-dialog>
                                                 </div>
                                                 <div class="ml-2">
-                                                    <v-btn depressed fab icon outlined small color="red">
+                                                    <v-btn @click="deleteProduct(item.id)" depressed fab icon outlined small color="red">
                                                         <v-icon>mdi-close</v-icon>
+                                                        
                                                     </v-btn>
                                                 </div>
                                             </div>
@@ -122,7 +123,7 @@
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
                                                 <div>
-                                                    <v-dialog v-model="dialog1" rounded width="500px">
+                                                    <v-dialog v-model="dialog2" rounded width="500px">
                                                         <template v-slot:activator="{ on, attrs }">
                                                             <v-btn v-bind="attrs" v-on="on" depressed fab icon outlined small color="blue">
                                                                 <v-icon>mdi-border-color</v-icon>
@@ -140,7 +141,7 @@
                                                     </v-dialog>
                                                 </div>
                                                 <div class="ml-2">
-                                                    <v-btn depressed fab icon outlined small color="red">
+                                                    <v-btn  depressed fab icon outlined small color="red">
                                                         <v-icon>mdi-close</v-icon>
                                                     </v-btn>
                                                 </div>
@@ -179,7 +180,7 @@
 
                     </div>
                     <!-- <div>
-                        
+
                         <CreateDetail-Product />
                     </div> -->
                 </div>
@@ -190,7 +191,7 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
     Createmenu
 } from '~/vuexes/createmenu'
@@ -201,15 +202,25 @@ import _ from 'lodash'
 export default {
     data: () => {
         return ({
+            dialog1:false,
+            dialog2:false,
             producttype: [],
             orderdetail: [],
-            product: [],
+            products: [],
         })
     },
     async created() {
-        this.product = await Product.getProductview()
-        this.producttype = await Createmenu.getProducttype()
-        this.orderdetail = await Createmenu.getOrderdetailview()
-    }
+        this.products = await Product.getProductview();
+        this.producttype = await Createmenu.getProducttype();
+        this.orderdetail = await Createmenu.getOrderdetailview();
+    },
+    methods: {
+        async deleteProduct(pk:number) {
+            var test = await Product.deleteProductById(pk)
+        },
+        async deleteOrderdetail(pk:number) {
+            await Product.deleteOrderdetailById(pk)
+        }
+    },
 }
 </script>

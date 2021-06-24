@@ -15,7 +15,11 @@
                                     Working Space
                                 </div>
                                 <div>
-                                    <h2 class="flex-auto text-lg font-medium">{{item.member.name}}</h2>
+                                    <h2 class="flex-auto text-lg font-medium">{{item.member.name}}</h2>                          
+                                </div>
+                                <div v-for="order,i in item.order" :key="i">
+                                    <h2>{{order.product.product_named}}</h2>
+                                    <h2>{{order.product.heat_named}}</h2>
                                 </div>
                             </div>
                             <p class="mt-13"></p>
@@ -75,6 +79,7 @@ export default {
     },
     async created() {
         this.viewsession = await Session.getViewsession(1)
+        
         // this.changeStatusAuto()
 
     },

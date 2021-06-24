@@ -7,27 +7,31 @@
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">No</th>
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Order</th>
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Time</th>
+                    <th class="py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Count</th>
                     <th class="py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Prices</th>
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-blue-500">Manage</th>
                 </tr>
             </thead>
             <tbody class="bg-white">
-                <tr>
+                <tr v-for="(item,i) in order_today" :key="i">
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
                         <div class="flex items-center">
                             <div>
-                                <div class="text-sm leading-5 text-gray-800">#1</div>
+                                <div class="text-sm leading-5 text-gray-800">{{i}}</div>
                             </div>
                         </div>
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                        <div class="text-sm leading-5 text-gray-900">Damilare Anjorin</div>
+                        <div class="text-sm leading-5 text-gray-900">{{item.product.product_named}}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                        <div class="text-sm leading-5 text-gray-900">30/4/2022</div>
+                        <div class="text-sm leading-5 text-gray-900">{{item.create_at}}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                        <div class="text-sm leading-5 text-gray-900">45 </div>
+                        <div class="text-sm leading-5 text-gray-900">{{item.count}} </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
+                        <div class="text-sm leading-5 text-gray-900">{{item.total_price}} </div>
                     </td>
                     <td class="flex justify-center px-6 py-4 whitespace-no-wrap border-b border-gray-300">
                         <v-dialog v-model="dialog1" rounded width="500px">
@@ -50,7 +54,7 @@
                                                 <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
                                                     <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
                                                         <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-                                                         
+
                                                         </div>
                                                     </div>
                                                 </label>
@@ -69,8 +73,34 @@
 </template>
 
 <script>
+import moment from 'moment'
+import {
+    Product
+} from '~/vuexes/product';
 export default {
-
+    data: () => {
+        return ({
+            dialog1: false,
+            order_today: [],
+        })
+    },
+    async created() {
+        await this.getOrder()
+    },
+    methods: {
+        async getOrder() {
+            var order = await Product.getViewOrder()
+            let today = moment().startOf("day").format()
+            let endtoday = moment().startOf("day").add(1, 'day').format()
+            for (let index = 0; index < order.length; index++) {
+                if (order[index].create_at >= today && order[index].create_at <= endtoday) {
+                    order[index].create_at = moment(order[0].create_at).format("YYYY/MM/DD HH:mm")
+                    this.order_today.push(order[index])
+                }
+            }
+            console.log(this.order_today)
+        },
+    }
 }
 </script>
 

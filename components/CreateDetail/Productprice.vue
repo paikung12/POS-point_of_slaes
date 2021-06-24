@@ -6,9 +6,7 @@
                 <div class="text-lg font-semibold">
                     <p class="text-blue-600 ">Product </p>
                     <div class="flex flex-row">
-                        <label>File
-                            <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" />
-                        </label>
+                        
                         <v-col cols="2">
                             <v-subheader>Name:</v-subheader>
                         </v-col>
@@ -48,11 +46,11 @@
                                     <v-col cols="2">
                                         <v-subheader>Type:</v-subheader>
                                     </v-col>
-                                    <v-text-field label="price" v-model="price" :key="index" outlined multiple></v-text-field>
+                                    <v-text-field label="price" v-model="price"  outlined multiple></v-text-field>
                                     <v-col cols="2">
                                         <v-subheader>Time:</v-subheader>
                                     </v-col>
-                                    <v-text-field label="Time" v-model="time" :key="index" outlined multiple></v-text-field>
+                                    <v-text-field label="Time" v-model="time"  outlined multiple></v-text-field>
                                 </div>
                             </div>
                             <div class="text-lg font-semibold">
@@ -65,7 +63,7 @@
                         </div>
 
                     </v-row>
-                    <div v-for="item, index in prices" :key="index">
+                    <div v-for="(item, i) in prices" :key="i">
                         <v-row>
                             <p>{{item.name}}</p>
                             <p>{{item.price}}</p>
@@ -94,6 +92,8 @@ export default {
         product_types: [],
         heat_levels: [],
         heat: {},
+        price:null,
+        time:null,
         prices: [],
         checkbox: [],
         form1: {

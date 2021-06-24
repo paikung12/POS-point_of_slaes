@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class=" lg:pl-5 w-full pt-20 pr-2 ">
-                    <v-tabs color="#FFD352" v-model="value" slider-color="#FFD352">
+                    <v-tabs color="#FFD352"  slider-color="#FFD352">
                         <v-tab v-for="(val,i) in type" :key="i">
                             {{val.name}}
                         </v-tab>
@@ -186,7 +186,7 @@ export default {
                     "count": this.menuchooses[index].counter,
                     "time": this.menuchooses[index].data.heat.time,
                     "voucher": this.menuchooses[index].data.number,
-                    "total_price": (this.menuchooses[index].price * this.menuchooses[index].counter) - this.menuchooses[index].data.number,
+                    "total_price": (this.menuchooses[index].price * this.menuchooses[index].counter),
                     "product": this.menuchooses[index].data.heat.id,
                     "member": this.memberid,
                     "sweetlevel": this.menuchooses[index].data.sweet.id,
