@@ -14,9 +14,9 @@
     </div>
     <div class="p-4 flex-auto">
         <div v-if="response" class="relative h-350-px" style="position: relative; height:350px; width:140vh">
-            <div >
-                <apexchart width="500" type="bar" :options="options" :series="series"></apexchart>
-            </div>
+
+            <apexchart width="1320px" height="360px" type="bar" :options="options" :series="series"></apexchart>
+
         </div>
     </div>
 </div>
@@ -42,62 +42,66 @@ export default {
         count_smoothie: 0,
         count_dessert: 0,
         count_time: 0,
-        allcount:{},
+        allcount: {
+            name: "Total Order In Year",
+            data: null
+        },
         response: false,
         dialog1: false,
         product_type: [],
-        series: [10,20],
-        chartOptions: {
-            labels: []
-        }
+        options: {
+            chart: {
+                id: 'vuechart-example',
+            },
+            xaxis: {
+                categories: []
+            }
+        },
+        series: [{
+            name: '',
+            data: []
+        }]
     }),
     async created() {
         await this.getType()
         await this.getOrder()
-        console.log(this.month)
         this.response = true
     },
     methods: {
         async getType() {
             let type = await Product.getProducttype()
-            
+
             for (let index = 0; index < type.length; index++) {
                 this.product_type.push(type[index].name)
             }
-            
-            this.chartOptions.labels = this.product_type
+
+            this.options.xaxis.categories = this.product_type
 
         },
-        async getOrder(){
+        async getOrder() {
             let order = await Product.getViewOrder()
             let year = moment().format('YYYY')
-            for(let index = 0; index < order.length; index++){
+            for (let index = 0; index < order.length; index++) {
                 let checkyear = moment(order[index].create_at).format("YYYY")
-                if(checkyear == year){
+                if (checkyear == year) {
                     if (order[index].product.type_id == 1) {
                         this.count_coffee += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 2) {
+                    } else if (order[index].product.type_id == 2) {
                         this.count_tea += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 3) {
+                    } else if (order[index].product.type_id == 3) {
                         this.count_milk += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 4) {
+                    } else if (order[index].product.type_id == 4) {
                         this.count_soda += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 5) {
+                    } else if (order[index].product.type_id == 5) {
                         this.count_smoothie += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 6) {
+                    } else if (order[index].product.type_id == 6) {
                         this.count_dessert += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 7) {
+                    } else if (order[index].product.type_id == 7) {
                         this.count_time += order[index].count
                     }
                 }
             }
-            this.allcount = [
+            this.allcount.data = [
                 this.count_coffee,
                 this.count_tea,
                 this.count_milk,
@@ -106,7 +110,8 @@ export default {
                 this.count_dessert,
                 this.count_time
             ]
-            this.series = this.allcount
+            console.log(this.allcount)
+            this.series[0] = this.allcount
 
         },
     }

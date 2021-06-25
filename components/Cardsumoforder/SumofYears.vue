@@ -154,10 +154,17 @@
             <div class="w-full sm:w-1/2 xl:w-4/5 pl-8">
                 <div class="flex flex-wrap">
                     <div class="w-full">
-                        <Chart-LiechartYears :year="year" />
+                        <Chart-LiechartYears  />
                     </div>
 
                 </div>
+                <div class="flex flex-wrap">
+                    <div class="w-full">
+                        <Chart-BarchartYears />
+                    </div>
+
+                </div>
+
 
             </div>
         </div>

@@ -13,8 +13,8 @@
         </div>
     </div>
     <div class="p-4 flex-auto">
-        <div v-if="response">
-            <apexchart width="800" height="300" type="donut" :options="chartOptions" :series="series"></apexchart>
+        <div v-if="response" class="relative h-350-px" style="position: relative; height:350px; width:140vh">
+            <apexchart width="1320px" height="360px" type="bar" :options="options" :series="series"></apexchart>
 
         </div>
     </div>
@@ -49,14 +49,25 @@ export default {
         count_smoothie: 0,
         count_dessert: 0,
         count_time: 0,
-        allcount: {},
+        allcount: {
+            name: 'Total Order In Month',
+            data: []
+        },
         response: false,
         dialog1: false,
         product_type: [],
-        series: [10, 20],
-        chartOptions: {
-            labels: []
-        }
+        options: {
+            chart: {
+                id: 'vuechart-example',
+            },
+            xaxis: {
+                categories: []
+            }
+        },
+        series: [{
+            name: '',
+            data: []
+        }]
     }),
     async created() {
         // this.selectMonth = moment().month(this.month).format("M")
@@ -74,7 +85,7 @@ export default {
                 this.product_type.push(type[index].name)
             }
 
-            this.chartOptions.labels = this.product_type
+            this.options.xaxis.categories = this.product_type
 
         },
         async getOrder() {
@@ -102,7 +113,7 @@ export default {
                     }
                 }
             }
-            this.allcount = [
+            this.allcount.data = [
                 this.count_coffee,
                 this.count_tea,
                 this.count_milk,
@@ -111,7 +122,7 @@ export default {
                 this.count_dessert,
                 this.count_time
             ]
-            this.series = this.allcount
+            this.series[0] = this.allcount
 
         },
     }
