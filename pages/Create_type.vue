@@ -81,7 +81,7 @@
                                                 <div class="ml-2">
                                                     <v-btn @click="deleteProduct(item.id)" depressed fab icon outlined small color="red">
                                                         <v-icon>mdi-close</v-icon>
-                                                        
+
                                                     </v-btn>
                                                 </div>
                                             </div>
@@ -136,12 +136,12 @@
                                                                 </h2>
                                                                 <p class="mt-2 text-sm text-gray-400">The order you can ed text.</p>
                                                             </div>
-                                                            <EditOrderDetail :id="order.id"/>
+                                                            <EditOrderDetail :id="order.id" />
                                                         </div>
                                                     </v-dialog>
                                                 </div>
                                                 <div class="ml-2">
-                                                    <v-btn  depressed fab icon outlined small color="red">
+                                                    <v-btn depressed fab icon outlined small color="red">
                                                         <v-icon>mdi-close</v-icon>
                                                     </v-btn>
                                                 </div>
@@ -165,12 +165,9 @@
             </div>
             <div class="grid grid-cols-12 gap-6">
                 <div class="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-6 xxl:col-span-8">
-
-                    <CreateDetail-ProductType />
-
+                    <CreateDetail-Productprice />
                     <div>
 
-                        <CreateDetail-Productprice />
                     </div>
                 </div>
                 <div class="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-6 xxl:col-span-8">
@@ -203,8 +200,8 @@ import _ from 'lodash'
 export default {
     data: () => {
         return ({
-            dialog1:false,
-            dialog2:false,
+            dialog1: false,
+            dialog2: false,
             producttype: [],
             orderdetail: [],
             products: [],
@@ -216,17 +213,17 @@ export default {
         this.orderdetail = await Createmenu.getOrderdetailview();
     },
     methods: {
-        async deleteProduct(pk:number) {
+        async deleteProduct(pk: number) {
             var test = await Product.deleteProductById(pk)
-             Swal.fire({
+            Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Delete Product!',
             })
         },
-        async deleteOrderdetail(pk:number) {
+        async deleteOrderdetail(pk: number) {
             await Product.deleteOrderdetailById(pk)
-             Swal.fire({
+            Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Delete OrderDetail!',
