@@ -5,13 +5,18 @@
         <p class="text-gray-800 font-medium text-blue-500">Order Detail</p>
         <div class="">
             <label class="block text-sm text-gray-00">Name</label>
-            <v-text-field  placeholder="filled" v-form="editForm.name" outlined dense>{{editForm.name}}</v-text-field>
+            <v-text-field placeholder="filled" v-form="editForm.name" outlined dense>{{orderdetail.name}}</v-text-field>
         </div>
         <div class="inline-block mt-2 w-1/2 pr-1">
             <label class="hidden block text-sm text-gray-600">Type</label>
-            <v-select  v-model="editForm.type" :items="product_types" label="select" item-text="name" item-value="id" outlined dense></v-select>
+            <div class="grid gap-x-28 gap-y-1 grid-cols-3">
+                <div v-for="type,index in product_types" :key="index">
+                    <v-checkbox class="pl-5" v-model="editForm.type" :label="type.name" :value="type.id" item-value="id">
+                    </v-checkbox>
+                </div>
+            </div>
         </div>
-        <div class="inline-block  -mt-4 -mx-1 pl-1 w-1/2">
+        <div class="inline-block pl-1 w-1/2">
             <label class="hidden block text-sm text-gray-600">Price</label>
             <v-text-field label="Price" placeholder="filled" v-form="editForm.price" item-text="name" item-value="id" outlined dense></v-text-field>
         </div>
@@ -24,13 +29,14 @@
 </v-container>
 </template>
 
-<script >
-import { Product} from '@/vuexes/product'
+<script>
+import {
+    Product
+} from '@/vuexes/product'
 import {
     create,
     method
 } from 'lodash'
-import { Core } from '~/vuexes/core'
 export default {
     props: {
         id: {
@@ -39,25 +45,26 @@ export default {
     },
     data() {
         return {
+            files: [],
             orderdetail: [],
             editorderdetail: [],
-            product_types:[],
+            product_types: [],
+            checkbox: [],
             editForm: {
-                name:null,
-                type:null,
-                price:null,
+                name: null,
+                type: [],
+                price: null,
             }
         }
 
     },
     async created() {
         this.editForm = await Product.getOrderdetailByID(this.id)
-        this.editorderdetail = await Product.putOrderdetail(this.editForm)
         this.product_types = await Product.getProducttype()
     },
     methods: {
         async store() {
-            var data = await Product.putOrderdetail(this.editForm)
+           var data = await Product.postOrderdetail(this.editForm, this.id)
         }
     }
 }
@@ -66,5 +73,3 @@ export default {
 <style>
 
 </style>
-
-
