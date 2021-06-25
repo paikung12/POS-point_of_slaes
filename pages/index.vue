@@ -50,7 +50,7 @@
                                     </v-text-field>
                                 </div>
                                 <div class="mb-6">
-                                    <button type="button" class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none" @click="$router.push('Home')">Sign in</button>
+                                    <button type="button" class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none" @click="getUserToken()">Sign in</button>
                                 </div>
                                 <p class="text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a href="#!" class="text-indigo-400 focus:outline-none focus:underline focus:text-indigo-500 dark:focus:border-indigo-800">Sign up</a>.</p>
                             </v-form>
@@ -67,6 +67,7 @@
 
 <script>
 import { values } from 'lodash'
+import {Login} from '~/vuexes/login'
 export default {
     data: () => ({
         show_password: false,
@@ -99,7 +100,8 @@ export default {
             //     }
         },
         async getUserToken() {
-            let token = await this.$store.dispatch(' ', this.form)
+            let token = await Login.logIn(this.form)
+            console.log(token)
                 if (token) {
                     if (this.form.remember_me) {
                         this.remember__me()

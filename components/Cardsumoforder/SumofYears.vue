@@ -33,7 +33,7 @@
             </div>
         </div>
         <v-col cols="2" sm="2">
-            <v-select dark :items="items" label="Standard" outlined></v-select>
+            <v-select v-model="year" dark :items="items" label="Standard" outlined></v-select>
         </v-col>
     </div>
     <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
@@ -154,7 +154,7 @@
             <div class="w-full sm:w-1/2 xl:w-4/5 pl-8">
                 <div class="flex flex-wrap">
                     <div class="w-full">
-                        <Chart-LiechartYears />
+                        <Chart-LiechartYears :month="year"/>
                     </div>
 
                 </div>
@@ -175,6 +175,7 @@ export default {
     watch: {},
     data: () => ({
         items: ['2021', '2022'],
+        year:null,
         count_order: 0,
         summery_order: 0,
         count_member: 0,
