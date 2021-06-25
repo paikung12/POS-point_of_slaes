@@ -69,13 +69,32 @@
 </template>
 
 <script>
+import moment from 'moment'
+import {
+    Product
+} from '~/vuexes/product';
 export default {
     data: () => {
         return ({
             dialog1: false,
-
+            order_today: [],
         })
     },
+    async created() {
+        await this.getOrder()
+    },
+    methods: {
+        async getOrder() {
+            var order = await Product.getViewOrder()
+            let today = moment().startOf("day").format()
+            let endtoday = moment().startOf("day").add(1, 'day').format()
+            for (let index = 0; index < order.length; index++) {
+                if (order[index].create_at >= today && order[index].create_at <= endtoday) {
+                    this.order_today.push(order[index])
+                }
+            }
+        },
+    }
 }
 </script>
 

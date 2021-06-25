@@ -64,7 +64,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5">89277</p>
+                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5"> {{count_order}}</p>
                         </div>
                         <div class="border-t-2 "></div>
                         <br>
@@ -90,7 +90,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5 ">246560</p>
+                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5 "> {{summery_order}}</p>
                         </div>
                     </div>
                     <div class="mt-8">
@@ -117,7 +117,7 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 44638</p>
+                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> {{count_member}}</p>
                             </div>
                             <div class="border-t-2 "></div>
                             <br>
@@ -143,7 +143,7 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 44639</p>
+                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> {{count_anon}}</p>
                             </div>
                         </div>
                     </div>
@@ -156,21 +156,9 @@
                     <div class="w-full">
                         <Chart-LiechartYears />
                     </div>
-                    <div class="w-full ">
-                        <Chart-BarchartYears />
-                    </div>
+
                 </div>
-                <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
-                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
-                        <p class="font-bold text-md p-4 text-black dark:text-white">
-                            Table Order
-                            <span class="text-sm text-gray-500 dark:text-gray-300 dark:text-white ml-2">
-                                (You can see bill detail)
-                            </span>
-                            <TableSumYears />
-                        </p>
-                    </div>
-                </div>
+               
             </div>
         </div>
         <!-- <---Summary of Today ---->
@@ -179,11 +167,41 @@
 </template>
 
 <script>
+import moment from 'moment';
+import {
+    Product
+} from '~/vuexes/product'
 export default {
     watch: {},
     data: () => ({
         items: ['2021', '2022'],
+        count_order: 0,
+        summery_order: 0,
+        count_member: 0,
+        count_anon: 0,
     }),
+    async created(){
+        await this.getOrder()
+    },
+    methods:{
+        async getOrder() {
+            var order = await Product.getViewOrder()
+            let thisyear = moment().startOf("year").format()
+            let endyear = moment().startOf("year").add(1, 'year').format()
+            for (let index = 0; index < order.length; index++) {
+                if (order[index].create_at >= thisyear && order[index].create_at <= endyear) {
+                    this.count_order += order[index].count
+                    this.summery_order += order[index].total_price
+                    if (order[index].member == 1) {
+                        this.count_anon += order[index].count
+                    } else {
+                        this.count_member += order[index].count
+                    }
+                }
+            }
+        },
+        
+    }
 }
 </script>
 

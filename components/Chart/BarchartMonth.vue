@@ -13,85 +13,108 @@
         </div>
     </div>
     <div class="p-4 flex-auto">
-        <div class="relative h-350-px" style="position: relative; height:350px; width:140vh">
-            <canvas id="bar-chartMonth"></canvas>
+        <div v-if="response">
+            <apexchart width="800" height="300" type="donut" :options="chartOptions" :series="series"></apexchart>
+        
         </div>
     </div>
 </div>
 </template>
 
 <script>
+import VueApexCharts from 'vue-apexcharts'
 import Chart from "chart.js";
+import {
+    Product
+} from '~/vuexes/product';
+import moment from 'moment';
 export default {
-    mounted: function () {
-        this.$nextTick(function () {
-            let config = {
-                type: "bar",
-                data: {
-                    labels: [
-                        "Cofee",
-                        "Tea",
-                        "Milk",
-                        "Smoothies",
-                        "ItalianSoda",
-                        "Dessert",
-                    ],
-                    datasets: [{
-                        label: new Date().getMonth(),
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 205, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(201, 203, 207, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(255, 159, 64)',
-                            'rgb(255, 205, 86)',
-                            'rgb(75, 192, 192)',
-                            'rgb(54, 162, 235)',
-                            'rgb(153, 102, 255)',
-                            'rgb(201, 203, 207)'
-                        ],
-                        borderWidth: 1,
-                        data: [60, 78, 56, 34, 100, 45, 13],
-                        fill: false,
-                        barThickness: 8,
-                    }, ],
-                },
-                options: {
-                    maintainAspectRatio:false,
-                    responsive: true,
-                    scales: {
-                        xAxes: [{
-                            stacked: true
-                            },
-                         ],
-                        yAxes: [{
-                            stacked: true,
-                            scaleLabel: {
-                                display: false,
-                                labelString: "Value",
-                            },
-                            gridLines: {
-                                borderDash: [2],
-                                drawBorder: false,
-                                borderDashOffset: [2],
-                                color: "rgba(33, 37, 41, 0.2)",
-                                zeroLineColor: "rgba(33, 37, 41, 0.15)",
-                                zeroLineBorderDash: [2],
-                                zeroLineBorderDashOffset: [2],
-                            },
-                        }, ],
-                    },
-                },
-            };
-            var ctx = document.getElementById("bar-chartMonth").getContext("2d");
-            window.myBar = new Chart(ctx, config);
-        });
+    components: {
+        apexchart: VueApexCharts,
     },
-};
+    props: {
+
+        month: {
+            default: 'month'
+        },
+
+
+    },
+    data: () => ({
+        count_coffee: 0,
+        count_tea: 0,
+        count_milk: 0,
+        count_soda: 0,
+        count_smoothie: 0,
+        count_dessert: 0,
+        count_time: 0,
+        allcount:{},
+        response: false,
+        dialog1: false,
+        product_type: [],
+        series: [10,20],
+        chartOptions: {
+            labels: []
+        }
+    }),
+    async created() {
+        await this.getType()
+        await this.getOrder()
+        console.log(this.month)
+        this.response = true
+    },
+    methods: {
+        async getType() {
+            let type = await Product.getProducttype()
+            
+            for (let index = 0; index < type.length; index++) {
+                this.product_type.push(type[index].name)
+            }
+            
+            this.chartOptions.labels = this.product_type
+
+        },
+        async getOrder(){
+            let order = await Product.getViewOrder()
+            let month = moment().format('YYYY/MM')
+            for(let index = 0; index < order.length; index++){
+                let checkmonth = moment(order[index].create_at).format("YYYY/MM")
+                if(checkmonth == month){
+                    if (order[index].product.type_id == 1) {
+                        this.count_coffee += order[index].count
+                    } 
+                    else if (order[index].product.type_id == 2) {
+                        this.count_tea += order[index].count
+                    } 
+                    else if (order[index].product.type_id == 3) {
+                        this.count_milk += order[index].count
+                    } 
+                    else if (order[index].product.type_id == 4) {
+                        this.count_soda += order[index].count
+                    } 
+                    else if (order[index].product.type_id == 5) {
+                        this.count_smoothie += order[index].count
+                    } 
+                    else if (order[index].product.type_id == 6) {
+                        this.count_dessert += order[index].count
+                    } 
+                    else if (order[index].product.type_id == 7) {
+                        this.count_time += order[index].count
+                    }
+                }
+            }
+            this.allcount = [
+                this.count_coffee,
+                this.count_tea,
+                this.count_milk,
+                this.count_soda,
+                this.count_smoothie,
+                this.count_dessert,
+                this.count_time
+            ]
+            this.series = this.allcount
+
+        },
+    }
+}
 </script>

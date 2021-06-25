@@ -84,6 +84,7 @@ export default {
             console.log(this.order)
             for (let index = 0; index < this.order.length; index++) {
                 if (this.order[index].create_at >= today && this.order[index].create_at <= endtoday) {
+                    this.order_today.push(this.order[0])
                     if (this.order[index].product.type_id == 1) {
                         this.price_coffee += this.order[index].total_price
                     } 
@@ -99,10 +100,10 @@ export default {
                     else if (this.order[index].product.type_id == 5) {
                         this.price_smoothie += this.order[index].total_price
                     } 
-                    else if (this.order[index].product.type_id == 7) {
+                    else if (this.order[index].product.type_id == 6) {
                         this.price_dessert += this.order[index].total_price
                     } 
-                    else if (this.order[index].product.type_id == 8) {
+                    else if (this.order[index].product.type_id == 7) {
                         this.price_time += this.order[index].total_price
                     }
 
