@@ -42,9 +42,8 @@ export default {
         price_dessert: 0,
         price_time: 0,
         order: [],
-        price: [],
         test: {
-            name: "total_price",
+            name: "ToTal Price In Today",
             data: null
         },
 

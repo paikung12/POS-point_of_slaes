@@ -13,9 +13,9 @@
         </div>
     </div>
     <div class="p-4 flex-auto">
-        <div v-if="response">
-            <apexchart width="800" height="300" type="donut" :options="chartOptions" :series="series"></apexchart>
-        
+        <div v-if="response" class="relative h-350-px" style="position: relative; height:350px; width:140vh">
+            <apexchart width="1320px" height="360px" type="bar" :options="options" :series="series"></apexchart>
+
         </div>
     </div>
 </div>
@@ -38,9 +38,10 @@ export default {
             default: 'month'
         },
 
-
     },
     data: () => ({
+        selectMonth:1,
+        year:null,
         count_coffee: 0,
         count_tea: 0,
         count_milk: 0,
@@ -48,62 +49,71 @@ export default {
         count_smoothie: 0,
         count_dessert: 0,
         count_time: 0,
-        allcount:{},
+        allcount: {
+            name: 'Total Order In Month',
+            data: []
+        },
         response: false,
         dialog1: false,
         product_type: [],
-        series: [10,20],
-        chartOptions: {
-            labels: []
-        }
+        options: {
+            chart: {
+                id: 'vuechart-example',
+            },
+            xaxis: {
+                categories: []
+            }
+        },
+        series: [{
+            name: '',
+            data: []
+        }]
     }),
     async created() {
+        // this.selectMonth = moment().month(this.month).format("M")
+        // this.year = moment().format("YYYY")
+
         await this.getType()
         await this.getOrder()
-        console.log(this.month)
         this.response = true
     },
     methods: {
         async getType() {
             let type = await Product.getProducttype()
-            
+
             for (let index = 0; index < type.length; index++) {
                 this.product_type.push(type[index].name)
             }
-            
-            this.chartOptions.labels = this.product_type
+
+            this.options.xaxis.categories = this.product_type
 
         },
-        async getOrder(){
+        async getOrder() {
+            let eiei = await Product.getOrderViewByDate(6, 2021)
+            console.log(eiei)
             let order = await Product.getViewOrder()
             let month = moment().format('YYYY/MM')
-            for(let index = 0; index < order.length; index++){
+            for (let index = 0; index < order.length; index++) {
                 let checkmonth = moment(order[index].create_at).format("YYYY/MM")
-                if(checkmonth == month){
+                if (checkmonth == month) {
                     if (order[index].product.type_id == 1) {
                         this.count_coffee += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 2) {
+                    } else if (order[index].product.type_id == 2) {
                         this.count_tea += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 3) {
+                    } else if (order[index].product.type_id == 3) {
                         this.count_milk += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 4) {
+                    } else if (order[index].product.type_id == 4) {
                         this.count_soda += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 5) {
+                    } else if (order[index].product.type_id == 5) {
                         this.count_smoothie += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 6) {
+                    } else if (order[index].product.type_id == 6) {
                         this.count_dessert += order[index].count
-                    } 
-                    else if (order[index].product.type_id == 7) {
+                    } else if (order[index].product.type_id == 7) {
                         this.count_time += order[index].count
                     }
                 }
             }
-            this.allcount = [
+            this.allcount.data = [
                 this.count_coffee,
                 this.count_tea,
                 this.count_milk,
@@ -112,7 +122,7 @@ export default {
                 this.count_dessert,
                 this.count_time
             ]
-            this.series = this.allcount
+            this.series[0] = this.allcount
 
         },
     }

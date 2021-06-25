@@ -33,7 +33,7 @@
             </div>
         </div>
         <v-col cols="2" sm="2">
-            <v-select v-model="year" dark :items="items" label="Standard" outlined></v-select>
+            <!-- <v-select @change="changeYear()" dark :items="items" v-model="year" label="Standard" outlined></v-select> -->
         </v-col>
     </div>
     <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
@@ -154,11 +154,18 @@
             <div class="w-full sm:w-1/2 xl:w-4/5 pl-8">
                 <div class="flex flex-wrap">
                     <div class="w-full">
-                        <Chart-LiechartYears :month="year"/>
+                        <Chart-LiechartYears  />
                     </div>
 
                 </div>
-               
+                <div class="flex flex-wrap">
+                    <div class="w-full">
+                        <Chart-BarchartYears />
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
         <!-- <---Summary of Today ---->
@@ -171,20 +178,28 @@ import moment from 'moment';
 import {
     Product
 } from '~/vuexes/product'
+import {
+    rearg
+} from 'lodash';
+const now = new Date().getUTCFullYear();
+const years = Array(now - (now - 3)).fill('').map((v, idx) => now - idx);
 export default {
     watch: {},
     data: () => ({
-        items: ['2021', '2022'],
-        year:null,
+        response: false,
+        items: years,
+        year: null,
         count_order: 0,
         summery_order: 0,
         count_member: 0,
         count_anon: 0,
     }),
-    async created(){
+    async created() {
+        this.year = moment().format("YYYY")
         await this.getOrder()
+        this.response = true
     },
-    methods:{
+    methods: {
         async getOrder() {
             var order = await Product.getViewOrder()
             let thisyear = moment().startOf("year").format()
@@ -201,7 +216,15 @@ export default {
                 }
             }
         },
-        
+        async changeYear() {
+            console.log(this.year)
+            this.response = false;
+            setInterval(() => {
+                this.response = true;
+            }, 500);
+
+        }
+
     }
 }
 </script>
