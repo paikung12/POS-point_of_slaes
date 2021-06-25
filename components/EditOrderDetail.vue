@@ -3,18 +3,18 @@
     <v-btn @click="dialog = true" color="blue" outlined small class="mr-2" fab>
         <v-icon>mdi-pencil</v-icon>
     </v-btn>
-    <v-dialog v-model="dialog" rounded width="500px" persistent>
+    <v-dialog v-if="dialog" v-model="dialog" rounded width="500px" persistent>
         <div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
             <v-toolbar color="transparent" flat>
                 <h2 class="mt-5 text-3xl font-bold text-blue-400">
                     Edit Order Detail
                 </h2>
                 <v-spacer></v-spacer>
-                <v-btn outlined @click="dialog = false" fab color="error">
+                <v-btn small outlined @click="dialog = false" fab color="error">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </v-toolbar>
-            <v-container fluid>
+<v-container fluid>
                 <form @submit.prevent="store()">
                     <p class="text-gray-800 font-medium text-blue-500">Order Detail</p>
                     <div class="">
@@ -68,7 +68,7 @@ export default {
             files: [],
             orderdetail: [],
             editorderdetail: [],
-            product_types: [],
+            producttypes: [],
             checkbox: [],
             editForm: {
                 name: null,
@@ -91,7 +91,7 @@ export default {
         },
         async store() {
             var data = await Product.putOrderdetail(this.editForm, this.id)
-            // location.reload();
+         
             await this.run();
             this.dialog = false;
             this.$emit('updated')

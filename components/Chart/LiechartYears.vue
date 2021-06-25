@@ -31,11 +31,7 @@ import {
 import _ from 'lodash'
 
 export default {
-    props: {
-        year: {
-            default: "January"
-        }
-    },
+    
     components: {
         apexchart: VueApexCharts,
     },
@@ -80,7 +76,6 @@ export default {
         response: false
     }),
      async created() {
-         console.log(this.month)
         this.year = moment().format("YYYY")
         await this.getOrder()
         this.response = true;
@@ -89,7 +84,6 @@ export default {
 
         async getOrder() {
             this.order = await Product.getOrderByDate('', this.year)
-            console.log(this.order)
             for (let index = 0; index < this.order.length; index++) {
                 this.order[index].date = moment(this.order[index].create_at).format("MM")
             }
@@ -105,7 +99,6 @@ export default {
                 }))
                 .value() //_().groupBy(this.order, function (b) {return b.date})
 
-            console.log(test, _.map(test, 'date'))
 
             this.chartOptions.xaxis.categories = _.map(test, 'date')
             this.series[0].data = _.map(test, 'priceAll')

@@ -1,12 +1,12 @@
 <template>
 <div>
     <div class="bg-white py-4 px-4 shadow-xl rounded-2xl my-4 mx-4">
-        <v-form @submit.prevent="saveproduct()">
+        <v-form @submit.prevent="saveproduct()" ref="form1">
             <div class="flex justify-between px-4 items-center">
                 <div class="text-lg font-semibold">
                     <p class="text-blue-600 ">Product </p>
                     <div class="flex flex-row">
-
+                        <input type="file" @change="previewFiles" accept="img/*" multiple>
                         <v-col cols="2">
                             <v-subheader>Name:</v-subheader>
                         </v-col>
@@ -91,6 +91,7 @@ import {
 } from '~/vuexes/product'
 export default {
     data: () => ({
+        selesctedFile: null,
         product_types: [],
         heat_levels: [],
         heat: {},
@@ -116,9 +117,17 @@ export default {
 
     },
     methods: {
+        previewFiles(event) {
+            this.form1.img = event.target.files[0]
+            console.log(this.form1.img)
+        },
 
         async saveproduct() {
-            var product = await Product.postProduct(this.form1)
+            var formData = new FormData();
+            formData.append("name", this.form1.name)
+            formData.append("img", this.form1.img)
+            formData.append("type", this.form1.type)
+            var product = await Product.postProduct(formData)
             console.log(product)
             this.form2.product = product.id
 
@@ -128,6 +137,7 @@ export default {
                 this.form2.time = this.prices[i].time
                 var productprice = await Product.postProductPrice(this.form2)
             }
+            this.$refs.form1.reset()
 
         },
         async addPrice(id, p, t) {

@@ -61,22 +61,9 @@
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
                                                 <div>
-                                                    <v-dialog v-model="dialog" rounded width="500px">
-                                                        <template v-slot:activator="{ on, attrs }">
-                                                            <v-btn v-bind="attrs" v-on="on" depressed fab icon outlined small color="blue">
-                                                                <v-icon>mdi-border-color</v-icon>
-                                                            </v-btn>
-                                                        </template>
-                                                        <div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
-                                                            <div class="text-center">
-                                                                <h2 class="mt-5 text-3xl font-bold text-blue-400">
-                                                                    Edit Product
-                                                                </h2>
-                                                                <p class="mt-2 text-sm text-gray-400">The product you can edit text.</p>
-                                                            </div>
-                                                            <EditProduct :id="item.id" />
-                                                        </div>
-                                                    </v-dialog>
+
+                                                    <EditProduct @updated="run()" :id="item.id" />
+
                                                 </div>
                                                 <div class="ml-2">
                                                     <v-btn @click="deleteProduct(item.id)" depressed fab icon outlined small color="red">
@@ -122,11 +109,10 @@
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
                                                 <div>
-                                                        
-                                                       <EditOrderDetail @updated="run()" :id="order.id" />
+                                                    <EditOrderDetail @updated="run()" :id="order.id" />
                                                 </div>
                                                 <div class="ml-2">
-                                                    <v-btn @click="deleteOrderdetail(order.id)" depressed fab icon outlined small color="red">
+                                                    <v-btn depressed fab icon outlined small color="red">
                                                         <v-icon>mdi-close</v-icon>
                                                     </v-btn>
                                                 </div>
@@ -185,6 +171,7 @@ import _ from 'lodash'
 export default {
     data: () => {
         return ({
+            dialogProduct: false,
             dialog1: false,
             dialog2: false,
             producttype: [],
@@ -196,13 +183,11 @@ export default {
         await this.run();
     },
     methods: {
-
-        async run(){
-        this.products = await Product.getProductview();
-        this.producttype = await Createmenu.getProducttype();
-        this.orderdetail = await Createmenu.getOrderdetailview();
+        async run() {
+            this.products = await Product.getProductview();
+            this.producttype = await Createmenu.getProducttype();
+            this.orderdetail = await Createmenu.getOrderdetailview();
         },
-
         async deleteProduct(pk: number) {
             var test = await Product.deleteProductById(pk)
             Swal.fire({
