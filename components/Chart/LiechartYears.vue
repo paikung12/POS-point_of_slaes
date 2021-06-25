@@ -15,7 +15,6 @@
     <div class="p-4 flex-auto">
         <div class="relative h-350-px" style="position: relative; height:350px; width:140vh">
             <div id="chart" v-if="response">
-
                 <apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
             </div>
         </div>
