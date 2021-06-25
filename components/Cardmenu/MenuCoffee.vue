@@ -26,19 +26,13 @@
                                         <span class="font-semibold text-2xl">Select Topping</span>
                                     </p>
                                 </div>
-                                <div class="flex justify-end">
-                                    <p class="text-sm text-gray-500 mt-1">
-                                        <span class="font-semibold text-2xl">Total</span>
-                                        <span class="font-bold text-2xl text-yellow-400">$ 45</span>
-                                    </p>
-                                </div>
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-card-text style="height: 300px;">
                                 <p v-if="heat.length > 0" class="text-l pt-2">Select Hot & Cold</p>
                                 <v-row>
-                                    <div v-for="(data,i) in heat" :key="i">
-                                        <v-checkbox class="pl-5" v-model="form.heat" :label="data.heat_named" :value="data">
+                                    <div v-for="(data,i) in heat" :key="i" >
+                                        <v-checkbox  class="pl-5" v-model="form.heat" :label="data.heat_named" :value="data">
                                         </v-checkbox>
                                         <pre>{{price.checkbox}}</pre>
                                     </div>
@@ -51,7 +45,7 @@
                                         <pre>{{sweet.checkbox}}</pre>
                                     </div>
                                 </v-row>
-                                <p class="text-l pt-2">Whipcream Milk foam & Honey </p>
+                                <p class="text-l pt-2">Select Topping </p>
                                 <v-row>
                                     <div v-for="(detail,i) in orderdetail" :key="i">
                                         <v-checkbox class="pl-5" v-model="form.detail" :label="detail.name" :value="detail">
@@ -63,7 +57,7 @@
                             <v-divider></v-divider>
                             <v-card-actions>
                                 <v-col cols="4">
-                                    <v-text-field label="Voucher" v-model="form.number"></v-text-field>
+                                    <v-text-field label="Voucher" outlined v-model="form.number"></v-text-field>
                                 </v-col>
 
                                 <div class="flex justify-end">
@@ -154,7 +148,6 @@ export default {
             this.menu.counter = 1
             console.log(this.menu)
             await Menu.setMenu(this.menu, this.detail)
-
             this.dialog = false;
         },
         async getDetailPrice() {

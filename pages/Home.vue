@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="flex justify-end mr-1 mt-1">
-        <v-btn depressed text color="white"  @click="$router.push('')"> log out</v-btn>
+        <v-btn depressed text color="white"  @click="$router.push('/')"> log out</v-btn>
     </div>
     <svg height="100%" width="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150 -mt-20">
         <defs>

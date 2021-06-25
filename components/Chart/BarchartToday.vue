@@ -14,9 +14,7 @@
     </div>
     <div class="p-4 flex-auto">
         <div v-if="response" class="relative h-350-px" style="position: relative; height:350px; width:140vh">
-            <div>
-                <apexchart width="500" type="bar" :options="options" :series="series"></apexchart>
-            </div>
+            <apexchart   width="1320px" height="360px"  type="bar" :options="options" :series="series"></apexchart>
         </div>
     </div>
 </div>
@@ -51,10 +49,9 @@ export default {
         },
 
         response: false,
-
         options: {
             chart: {
-                id: 'vuechart-example'
+                id: 'vuechart-example',
             },
             xaxis: {
                 categories: []
@@ -84,6 +81,7 @@ export default {
             this.order = await Product.getViewOrder()
             let today = moment().startOf("day").format()
             let endtoday = moment().startOf("day").add(1, 'day').format()
+            console.log(this.order)
             for (let index = 0; index < this.order.length; index++) {
                 if (this.order[index].create_at >= today && this.order[index].create_at <= endtoday) {
                     this.order_today.push(this.order[0])
@@ -122,6 +120,7 @@ export default {
             ]
 
             this.series[0] = this.test
+            console.log(this.series[0])
         },
     },
 

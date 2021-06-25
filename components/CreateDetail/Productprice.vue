@@ -34,7 +34,6 @@
                         <v-col cols="12" sm="6">
                             <v-subheader v-text="'You can add Product Price.'"></v-subheader>
                         </v-col>
-
                         <div class="flex justify-between px-4 items-center">
                             <div class="text-lg font-semibold">
                                 <p class="text-blue-600 ">Product Price</p>
@@ -73,7 +72,7 @@
                         <button class="my-5 w-full  flex justify-center bg-blue-500  p-4 
                          rounded-lg  font-semibold  focus:outline-none focus:shadow-outline
                           hover:bg-blue-400 ">
-                            <span class="text-white">Add Order Detail</span>
+                            <span class="text-white">Add Product</span>
                         </button>
                     </div>
                 </div>
@@ -84,9 +83,7 @@
 </template>
 
 <script>
-import {
-    Product
-} from '~/vuexes/product'
+import { Product } from '~/vuexes/product'
 export default {
     data: () => ({
         product_types: [],
@@ -116,8 +113,6 @@ export default {
     methods: {
 
         async saveproduct() {
-
-
             var product = await Product.postProduct(this.form1)
             console.log(product)
             this.form2.product = product.id
@@ -130,7 +125,6 @@ export default {
             }
 
         },
-
         async addPrice(id, p, t) {
             var data = await Product.getHeatlevelByID(id)
             this.prices.push({

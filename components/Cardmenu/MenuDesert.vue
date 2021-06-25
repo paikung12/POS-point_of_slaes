@@ -2,10 +2,10 @@
 <div>
     <v-hover v-slot="{ hover }">
         <v-card class="mx-auto" color="grey lighten-4" width="450">
-            <v-img :aspect-ratio="16/9" src="https://dcassetcdn.com/design_img/90084/13574/13574_1442679_90084_image.jpg">
+            <v-img :aspect-ratio="16/9" src="https://image.freepik.com/free-vector/dessert-minimalist-logo-design-inspiration_199619-114.jpg">
                 <v-expand-transition>
                     <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-10 pl-8 " style="height: 100%;">
-                        $  30-35 .Bath
+                        $ 25 - 40 .Bath
                     </div>
                 </v-expand-transition>
             </v-img>
@@ -40,15 +40,15 @@
                                 <p class="text-l pt-2">Choose Sweetness</p>
                                 <v-row>
                                     <div v-for="(sweet,i) in sweetlevel " :key="i">
-                                        <v-checkbox class="pl-5" v-model="form.sweet" :label="sweet.name" :value="sweet">
+                                        <v-checkbox class="pl-5" disabled v-if="sweet.id == 5" v-model="form.sweet" :label="sweet.name" :value="sweet">
                                         </v-checkbox>
                                         <pre>{{sweet.checkbox}}</pre>
                                     </div>
                                 </v-row>
-                                <p class="text-l pt-2">Select Topping </p>
+                                <p class="text-l pt-2">Select Topping</p>
                                 <v-row>
                                     <div v-for="(detail,i) in orderdetail" :key="i">
-                                        <v-checkbox class="pl-5" v-model="form.detail" :label="detail.name" :value="detail">
+                                        <v-checkbox class="pl-5"  v-model="form.detail" :label="detail.name" :value="detail">
                                         </v-checkbox>
                                         <pre>{{detail.checkbox}}</pre>
                                     </div>
@@ -120,7 +120,7 @@ export default {
             form: {
                 number: 0,
                 heat: null,
-                sweet: null,
+                sweet: [],
                 detail: [],
             },
             dialog: false,
@@ -138,6 +138,7 @@ export default {
         this.orderdetail = await Product.getOrderdetail(this.menu.type)
         this.heatlevel = await Product.getHeatlevel()
         this.sweetlevel = await Product.getSweetlevel()
+        this.form.sweet = _.filter(this.sweetlevel,{id:5})
     },
     methods: {
         async callbackMenu() {

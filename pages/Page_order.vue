@@ -32,12 +32,12 @@
                             <div class="grid grid-cols-3 gap-4 px-5 mt-5  h-3/4 w-full" style=" ">
                                 <div v-for="(menu,i) in getMenu(val.id)" :key="i">
                                     <Cardmenu-MenuCoffee v-if="val.id == 1" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuCoffee v-if="val.id == 2" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuCoffee v-if="val.id == 3" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuCoffee v-if="val.id == 4" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuCoffee v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuCoffee v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
-                                    <Cardmenu-MenuCoffee v-if="val.id == 7" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuTeas v-if="val.id == 2" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuMilk v-if="val.id == 3" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuItaliansoda v-if="val.id == 4" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuSmoothie v-if="val.id == 5" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuDesert v-if="val.id == 6" @callback="MenuVal" :menu='menu' />
+                                    <Cardmenu-MenuTime v-if="val.id == 7 " @callback="MenuVal" :menu='menu' />
                                 </div>
                             </div>
                         </v-tab-item>
@@ -51,6 +51,7 @@
             <!-- header -->
             <div class="flex flex-row items-center justify-center px-5 mt-5">
                 <div class="font-bold text-5xl text-yellow-400">Main Order</div>
+                <div></div>
             </div>
             <br>
             <!-- end header -->
@@ -77,23 +78,22 @@
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                 </div>
+
             </div>
             <div class="px-">
-                <div class="py-4 rounded-md shadow-lg mt-72">
+                <div class="py-4 rounded-2xl  mt-72 bg-whtie text-white ">
                     <div class=" px-4 flex justify-between ">
-                        <span class="font-semibold text-sm">Subtotal Hour</span>
-                        <span class="font-bold"> {{SumHr}} hr</span>
+
                     </div>
-                    <div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
-                        <span class="font-semibold text-2xl">Total</span>
+                    <div class=" mt-3 py-2 px-4 flex items-center justify-between">
+                        <span class="font-semibold  text-yellow-500 text-2xl">Total</span>
                         <span class="font-bold text-2xl text-yellow-400">$ {{Sumtotal}}</span>
                     </div>
-
                 </div>
                 <!-- end cash -->
                 <!-- button pay-->
                 <div class="px-5 mt-5">
-                    <button @click.prevent="storeData()" class="px-4 py-4 rounded-md shadow-lg text-center bg-yellow-500 text-white font-semibold">
+                    <button @click.prevent="storeData()" class="w-full px-6 py-5 mt-3 text-xl text-white font-semibold transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-yellow-500 hover:bg-yellow-400 hover:shadow-lg focus:outline-none">
                         Pay With Cashless Credit
                     </button>
                 </div>
@@ -140,6 +140,7 @@ export default {
             time: null,
 
         });
+
     },
     async created() {
         let getsessionid = this.$route.query.session
@@ -192,6 +193,7 @@ export default {
                     "sweetlevel": this.menuchooses[index].data.sweet.id,
                     "detail": this.menuchooses[index].detailId
                 }
+                console.log(formOrder.voucher)
                 let save = await Core.postHttp(`/backend/order/`, formOrder)
                 if (save.id) {
                     order.push(save.id)
@@ -252,7 +254,6 @@ export default {
 
         },
         getTimenow() {
-
             let gettime = moment().format();
             this.time = gettime
         },
@@ -271,16 +272,6 @@ export default {
                 sum += e.price * e.counter
             })
             return sum
-        },
-        SumHr: function () {
-            var sumHr = 0
-            this.menuchooses.forEach((e: {
-                hr: number,
-                counter: number
-            }) => {
-                sumHr += e.hr * e.counter
-            })
-            return sumHr
         },
     }
 }

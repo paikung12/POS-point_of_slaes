@@ -17,12 +17,15 @@
                                 <div>
                                     <h2 class="flex-auto text-lg font-medium">{{item.member.name}}</h2>                          
                                 </div>
-                                <div v-for="order,i in item.order" :key="i">
-                                    <h2>{{order.product.product_named}}</h2>
-                                    <h2>{{order.product.heat_named}}</h2>
+                            </div>
+                            <div class="grid grid-cols-3 lg:grid-cols-3 gap-5 w-full ">
+                                <div  class="flex" v-for="order,i in item.order" :key="i">
+                                    <div class="mt-2">
+                                        <v-icon color="orange">mdi-coffee</v-icon>: {{order.product.product_named}}
+                                    </div>
                                 </div>
                             </div>
-                            <p class="mt-13"></p>
+                            <p class=""></p>
                             <div class="flex p-4 pb-2 border-t border-gray-200 "></div>
                             <div class="flex space-x-3 text-sm font-medium">
                                 <div class="flex-auto flex space-x-3">
@@ -62,6 +65,7 @@ import {
     Session
 } from '../vuexes/session'
 import moment from 'moment'
+import Swal from 'sweetalert2'
 
 export default {
 
@@ -88,9 +92,12 @@ export default {
         async changeStatus(pk: number) {
             this.form.close_at = moment().format()
             let save = await Session.updateSession(pk, this.form)
-            alert(0)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Session Closed!',
+            })
         },
-       
-    },
+    }
 }
 </script>
