@@ -33,7 +33,7 @@ import _ from 'lodash'
 
 export default {
     props: {
-        month: {
+        year: {
             default: "January"
         }
     },
@@ -92,7 +92,7 @@ export default {
             this.order = await Product.getOrderByDate('', this.year)
             console.log(this.order)
             for (let index = 0; index < this.order.length; index++) {
-                this.order[index].date = moment(this.order[index].create_at).format("YYYY")
+                this.order[index].date = moment(this.order[index].create_at).format("MM")
             }
             var test = _.chain(this.order)
                 // Group the elements of Array based on `color` property
