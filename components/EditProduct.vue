@@ -3,13 +3,13 @@
     <form @submit.prevent="store()">
         <p class="text-gray-800 font-medium text-blue-500">Product</p>
         <div class="">
+            <img src="editForm1.img" class=" t-h-32 t-w-64" ref="image" alt="" style="height: 300px;"/>
+        </div>
+        <div class="-mt-4">
             <v-text-field label="filled" placeholder="filled" v-model="editForm1.name" outlined dense>{{product.name}}</v-text-field>
         </div>
         <div class="-mt-4">
-            
-        </div>
-        <div class="-mt-4">
-            <v-select v-model="editForm1.type" :items="product_types"  item-text="name" item-value="id" outlined dense></v-select>
+            <v-select v-model="editForm1.type" :items="product_types" item-text="name" item-value="id" outlined dense></v-select>
         </div>
         <p class="mt-4 text-gray-800 font-medium text-blue-500">Product Price</p>
         <div v-for="(item,i) in product_price" :key="i">
@@ -63,6 +63,7 @@ export default {
             product_price: [],
             editForm1: {
                 name: null,
+                img:null,
                 type: null,
             },
             editForm2: {
@@ -92,10 +93,9 @@ export default {
                 var productprice = await Product.putProductprice(this.editForm2, this.product_price[i].id)
                 console.log(productprice)
             }
-            
+
             console.log(this.editForm2)
         },
-        
 
     }
 

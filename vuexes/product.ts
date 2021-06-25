@@ -103,7 +103,7 @@ class ProductModule extends VuexModule{
         return await Core.getHttp(`/backend/producttype/${pk}/`)
     }
     public async putOrderdetail(params:any, pk:number){
-        return await Core.putHttp(`/backend/orderdetail/${pk}` ,params)
+        return await Core.putHttp(`/backend/orderdetail/${pk}/` ,params)
     }
 
     
