@@ -45,7 +45,7 @@
                                         <pre>{{sweet.checkbox}}</pre>
                                     </div>
                                 </v-row>
-                                <p class="text-l pt-2">Whipcream Milk foam & Honey </p>
+                                <p class="text-l pt-2">Select Topping </p>
                                 <v-row>
                                     <div v-for="(detail,i) in orderdetail" :key="i">
                                         <v-checkbox class="pl-5" v-model="form.detail" :label="detail.name" :value="detail">
@@ -57,7 +57,7 @@
                             <v-divider></v-divider>
                             <v-card-actions>
                                 <v-col cols="4">
-                                    <v-text-field label="Voucher" v-model="form.number"></v-text-field>
+                                    <v-text-field label="Voucher" outlined v-model="form.number"></v-text-field>
                                 </v-col>
 
                                 <div class="flex justify-end">

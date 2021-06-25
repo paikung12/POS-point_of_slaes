@@ -17,14 +17,12 @@
                                 <div>
                                     <h2 class="flex-auto text-lg font-medium">{{item.member.name}}</h2>                          
                                 </div>
-                                <div v-for="order,i in item.order" :key="i">
-                                    <h2>{{order.product.product_named}}</h2>
-                                    <h2>{{order.product.heat_named}}</h2>
-                                </div>
                             </div>
                             <div class="grid grid-cols-3 lg:grid-cols-3 gap-5 w-full ">
                                 <div  class="flex" v-for="order,i in item.order" :key="i">
-                                    <h2>{{order.product.product_named}}</h2>
+                                    <div class="mt-2">
+                                        <v-icon color="orange">mdi-coffee</v-icon>: {{order.product.product_named}}
+                                    </div>
                                 </div>
                             </div>
                             <p class=""></p>
@@ -60,7 +58,6 @@
 </template>
 
 <script lang="ts">
-import sweetalert2 from 'sweetalert2'
 import {
     Time
 } from '../vuexes/time'

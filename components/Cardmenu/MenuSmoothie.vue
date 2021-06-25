@@ -2,23 +2,79 @@
 <div>
     <v-hover v-slot="{ hover }">
         <v-card class="mx-auto" color="grey lighten-4" width="450">
-            <v-img :aspect-ratio="16/9" src="https://www.krcfujisupply.biz/image/catalog/content/20.1.jpg">
+            <v-img :aspect-ratio="16/9" src="https://i.pinimg.com/originals/98/98/01/989801095b10b418263f03ff53337eff.jpg">
                 <v-expand-transition>
-                    <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-8" style="height: 100%;">
-                        $ 30. Bath
+                    <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-10 pl-8 " style="height: 100%;">
+                        $ 30-35 .Bath
                     </div>
                 </v-expand-transition>
             </v-img>
             <v-card-text class="pt-6" style="position: relative;">
-                <v-btn absolute color="orange" class="white--text" fab large right top @click="callbackMenu()">
-                    <v-icon>mdi-cart</v-icon>
-                </v-btn>
-                <div v-for="(data,i) in heat" :key="i">
+                <v-form>
+                    <!-- <---Dialog --->
+                    <v-dialog v-model="dialog" scrollable max-width="600">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn absolute color="orange" class="white--text" fab large right top v-bind="attrs" v-on="on">
+                                <v-icon>mdi-cart</v-icon>
+                            </v-btn>
+                        </template>
+                        <!-- <---Card Dialog --->
+                        <v-card rounded="xl" height="600">
+                            <v-card-title>
+                                <div class="flex justify-start">
+                                    <p class="text-sm text-gray-800 mt-1">
+                                        <span class="font-semibold text-2xl">Select Topping</span>
+                                    </p>
+                                </div>
+                            </v-card-title>
+                            <v-divider></v-divider>
+                            <v-card-text style="height: 300px;">
+                                <p v-if="heat.length > 0" class="text-l pt-2">Select Hot & Cold</p>
+                                <v-row>
+                                    <div v-for="(data,i) in heat" :key="i" >
                                         <v-checkbox  class="pl-5" v-model="form.heat" :label="data.heat_named" :value="data">
                                         </v-checkbox>
                                         <pre>{{price.checkbox}}</pre>
                                     </div>
-                <h3 class="display-1 font-weight-light orange--text mb-2">
+                                </v-row>
+                                <p class="text-l pt-2">Choose Sweetness</p>
+                                <v-row>
+                                    <div v-for="(sweet,i) in sweetlevel " :key="i">
+                                        <v-checkbox class="pl-5" v-model="form.sweet" :label="sweet.name" :value="sweet">
+                                        </v-checkbox>
+                                        <pre>{{sweet.checkbox}}</pre>
+                                    </div>
+                                </v-row>
+                                <p class="text-l pt-2">Select Topping </p>
+                                <v-row>
+                                    <div v-for="(detail,i) in orderdetail" :key="i">
+                                        <v-checkbox class="pl-5" v-model="form.detail" :label="detail.name" :value="detail">
+                                        </v-checkbox>
+                                        <pre>{{detail.checkbox}}</pre>
+                                    </div>
+                                </v-row>
+                            </v-card-text>
+                            <v-divider></v-divider>
+                            <v-card-actions>
+                                <v-col cols="4">
+                                    <v-text-field label="Voucher" outlined v-model="form.number"></v-text-field>
+                                </v-col>
+
+                                <div class="flex justify-end">
+                                    <v-btn color="green darken-1" text @click="callbackMenu()">
+                                        Submit
+                                    </v-btn>
+                                    <v-btn color="blue darken-1 " text @click="dialog = false">
+                                        Close
+                                    </v-btn>
+                                </div>
+                            </v-card-actions>
+                        </v-card>
+                        <!-- <---Card Dialog  End--->
+                    </v-dialog>
+                    <!-- <---Dialog End --->
+                </v-form>
+                <h3 class="display-1 font-weight-light orange--text mb-2 ">
                     {{menu.name}}
                 </h3>
             </v-card-text>
@@ -30,18 +86,23 @@
 <script lang="ts">
 import {
     Menu
-} from "~/vuexes/menu"
-import { Product } from '~/vuexes/product'
+} from '~/vuexes/menu'
+import {
+    Product
+} from '~/vuexes/product'
+import _ from 'lodash'
 export default {
     props: {
         menu: {
             default: {
                 name: 'Time',
                 prices: 0,
-                counter: 1,
+                counter: null,
                 type: [],
                 data: {},
                 price: 0,
+                detailId:[]
+
             }
         },
         detail: {
@@ -50,16 +111,16 @@ export default {
                 prices: 0,
                 product: [],
                 heat: [],
-
+                
             }
         }
     },
     data() {
         return {
             form: {
-                number: null,
+                number: 0,
                 heat: null,
-                sweet: [],
+                sweet: null,
                 detail: [],
             },
             dialog: false,
@@ -72,7 +133,7 @@ export default {
             productdetail: [],
         }
     },
-     async created() {
+    async created() {
         this.heat = await Product.getProductpricess(this.menu.id, this.detail.product)
         this.orderdetail = await Product.getOrderdetail(this.menu.type)
         this.heatlevel = await Product.getHeatlevel()
@@ -81,26 +142,18 @@ export default {
     methods: {
         async callbackMenu() {
             let detailPrice = await this.getDetailPrice();
-            this.menu.counter = 1
             this.menu.data = this.form
-            this.menu.price = this.form.heat.price + detailPrice
+            this.menu.price = this.form.heat.price + detailPrice - this.form.number
             this.menu.detailId = _.map(this.form.detail, 'id');
+            this.menu.counter = 1
             console.log(this.menu)
-            await Menu.setTime(this.menu)
-
+            await Menu.setMenu(this.menu, this.detail)
             this.dialog = false;
-            var data = await Product.saveOrder(this.form)
         },
         async getDetailPrice() {
-            return _.sumBy(this.form.detail, function (o: any) {
-                return o.price;
-            });
+                return _.sumBy(this.form.detail, function(o:any) { return o.price; });      
         }
 
     },
 }
 </script>
-
-<style>
-
-</style>

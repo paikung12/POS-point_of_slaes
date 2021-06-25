@@ -12,6 +12,9 @@ class ProductModule extends VuexModule{
     public async getProductByID(pk:number){
         return await Core.getHttp(`/backend/viewproduct/${pk}/`)
     }
+    public async getOrderdetailByID(pk:number){
+        return await Core.getHttp(`/backend/vieworderdetail/${pk}/`)
+    }
     public async getProductview(){
         return await Core.getHttp('/backend/viewproduct/')
     }
@@ -77,6 +80,21 @@ class ProductModule extends VuexModule{
     }
     public async deleteOrderdetailById(pk:number){
         return await Core.deleteHttp(`/backend/orderdetail/${pk}/`)
+    }
+    public async putProduct(params:any){
+        return await Core.putHttp('/backend/product/' ,params)
+    }
+    public async putProductprice(params:any){
+        return await Core.putHttp('/backend/productprice/' ,params)
+    }
+    public async getProducttypesByID(pk:number){
+        return await Core.getHttp(`/backend/producttype/${pk}/`)
+    }
+    public async getProductpriceByID(pk:number){
+        return await Core.getHttp(`/backend/producttype/${pk}/`)
+    }
+    public async putOrderdetail(params:any){
+        return await Core.putHttp('/backend/orderdetail/' ,params)
     }
 
     

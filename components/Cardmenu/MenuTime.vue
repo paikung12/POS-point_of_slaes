@@ -2,10 +2,10 @@
 <div>
     <v-hover v-slot="{ hover }">
         <v-card class="mx-auto" color="grey lighten-4" width="450">
-            <v-img :aspect-ratio="16/9" src="https://site.listsothebysrealty.in.th/wp-content/uploads/2020/02/01-Espresso-1.jpg">
+            <v-img :aspect-ratio="16/9" src="https://live-production.wcms.abc-cdn.net.au/be9de5950c0881a8e5d32575b7dabf6f?impolicy=wcms_crop_resize&cropH=2813&cropW=5000&xPos=0&yPos=231&width=862&height=485">
                 <v-expand-transition>
                     <div v-if="hover" class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text pt-10 pl-8 " style="height: 100%;">
-                        $ 25 & 30 .Bath
+                        $ 109 & 20 .Bath
                     </div>
                 </v-expand-transition>
             </v-img>
@@ -48,7 +48,7 @@
                             <v-divider></v-divider>
                             <v-card-actions>
                                 <v-col cols="4">
-                                    <v-text-field label="Voucher" value=" " prefix="$" outlined dense v-model="form.number"></v-text-field>
+                                    <v-text-field label="Voucher" value=" "  prefix="$" outlined dense v-model="form.number"></v-text-field>
                                 </v-col>
 
                                 <div class="flex justify-end">
@@ -108,7 +108,7 @@ export default {
     data() {
         return {
             form: {
-                number: null,
+                number: 0,
                 heat: null,
                 sweet:[],
                 detail: [],
@@ -136,7 +136,7 @@ export default {
             let detailPrice = await this.getDetailPrice();
             this.menu.counter = 1
             this.menu.data = this.form
-            this.menu.price = this.form.heat.price + detailPrice
+            this.menu.price = this.form.heat.price 
             this.menu.detailId = _.map(this.form.detail, 'id');
             console.log(this.menu)
             await Menu.setMenu(this.menu)

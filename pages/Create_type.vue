@@ -61,7 +61,7 @@
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
                                                 <div>
-                                                    <v-dialog v-model="dialog1" rounded width="500px">
+                                                    <v-dialog v-model="dialog" rounded width="500px">
                                                         <template v-slot:activator="{ on, attrs }">
                                                             <v-btn v-bind="attrs" v-on="on" depressed fab icon outlined small color="blue">
                                                                 <v-icon>mdi-border-color</v-icon>
@@ -74,7 +74,7 @@
                                                                 </h2>
                                                                 <p class="mt-2 text-sm text-gray-400">The product you can edit text.</p>
                                                             </div>
-                                                            <EditProduct />
+                                                            <EditProduct :id="item.id" />
                                                         </div>
                                                     </v-dialog>
                                                 </div>
@@ -123,7 +123,7 @@
                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div class="flex items-center">
                                                 <div>
-                                                    <v-dialog v-model="dialog2" rounded width="500px">
+                                                    <v-dialog v-model="dialog" rounded width="500px">
                                                         <template v-slot:activator="{ on, attrs }">
                                                             <v-btn v-bind="attrs" v-on="on" depressed fab icon outlined small color="blue">
                                                                 <v-icon>mdi-border-color</v-icon>
@@ -136,7 +136,7 @@
                                                                 </h2>
                                                                 <p class="mt-2 text-sm text-gray-400">The order you can ed text.</p>
                                                             </div>
-                                                            <EditOrderDetail />
+                                                            <EditOrderDetail :id="order.id"/>
                                                         </div>
                                                     </v-dialog>
                                                 </div>
@@ -160,7 +160,7 @@
             <!-- Task Summaries -->
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 gap-4 text-black dark:text-white ">
                 <div class="md:col-span-2 xl:col-span-3 ">
-                    <h3 class="text-lg font-semibold  text-center text-xl text-blue-400">Task Product and Order Detail.</h3>
+                    <h3 class="text-lg font-semibold  text-center text-xl text-blue-400">Manage Product and Order Detail.</h3>
                 </div>
             </div>
             <div class="grid grid-cols-12 gap-6">
@@ -192,6 +192,7 @@
 </template>
 
 <script lang="ts">
+import Swal from 'sweetalert2'
 import {
     Createmenu
 } from '~/vuexes/createmenu'
@@ -217,9 +218,19 @@ export default {
     methods: {
         async deleteProduct(pk:number) {
             var test = await Product.deleteProductById(pk)
+             Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Delete Product!',
+            })
         },
         async deleteOrderdetail(pk:number) {
             await Product.deleteOrderdetailById(pk)
+             Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Delete OrderDetail!',
+            })
         }
     },
 }
