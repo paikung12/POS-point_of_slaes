@@ -63,15 +63,21 @@ class ProductModule extends VuexModule{
     public async postOrderdetail(params :any){
         return await Core.postHttp('/backend/orderdetail/', params)
     }
-    public async saveOrder(form: any){ 
-    //    return await Core.postHttp('/backend/order' ,form)
-    }
+
     public async getOrder(){
         return await Core.getHttp('/backend/order/')
     }
+    public async getOrderByDate(month:number, year:number){
+        return await Core.getHttp(`/backend/order/?m=${month}&y=${year}`)
+    }
+    public async getOrderViewByDate(month:number, year:number){
+        return await Core.getHttp(`/backend/vieworder/?m=${month}&y=${year}`)
+    }
+
     public async getViewOrder(){
         return await Core.getHttp('/backend/vieworder/')
     }
+
     public async deleteProductById(pk:number){
         return await Core.deleteHttp(`/backend/product/${pk}/`)
     }

@@ -33,7 +33,7 @@
             </div>
         </div>
         <v-col cols="2" sm="2">
-            <v-select dark :items="items" label="Standard" outlined></v-select>
+            <v-select @change="changeMonth()" dark :items="items" v-model="month" label="Standard" outlined></v-select>
         </v-col>
     </div>
     <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
@@ -64,7 +64,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5"> 150</p>
+                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5">{{count_order}} </p>
                         </div>
                         <div class="border-t-2 "></div>
                         <br>
@@ -90,7 +90,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5 "> 64</p>
+                            <p class=" font-bold text-4xl text-black dark:text-white -ml-16 pr-5 "> {{summery_order}}</p>
                         </div>
                     </div>
                     <div class="mt-8">
@@ -117,7 +117,7 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 150</p>
+                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> {{count_member}}</p>
                             </div>
                             <div class="border-t-2 "></div>
                             <br>
@@ -143,7 +143,7 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> 64</p>
+                                <p class=" font-bold text-4xl text-black dark:text-white ml-2 pr-5"> {{count_anon}}</p>
                             </div>
                         </div>
                     </div>
@@ -153,24 +153,14 @@
             <!-- <---Table Sum ---->
             <div class="w-full sm:w-1/2 xl:w-4/5 pl-8">
                 <div class="flex flex-wrap">
-                    <div class="w-full">
-                        <Chart-LiechartMonth />
-                    </div>
+                    <div class="w-full" v-if="response">
+                        <Chart-LiechartMonth :month="month" />
+                    </div> 
                     <div class="w-full ">
-                        <Chart-BarchartMonth />
+                        <Chart-BarchartMonth :month="month"  />
                     </div>
                 </div>
-                <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
-                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
-                        <p class="font-bold text-md p-4 text-black dark:text-white">
-                            Table Order
-                            <span class="text-sm text-gray-500 dark:text-gray-300 dark:text-white ml-2">
-                                (You can see bill detail)
-                            </span>
-                            <TableSumMonth />
-                        </p>
-                    </div>
-                </div>
+        
             </div>
         </div>
         <!-- <---Summary of Today ---->
@@ -179,15 +169,57 @@
 </template>
 
 <script>
+import moment from 'moment';
+import {
+    Product
+} from '~/vuexes/product'
+const months = Array.from({length: 12}, (e, i) => {
+   return new Date(null, i + 1, null).toLocaleDateString("en", {month: "long"});
+})
 export default {
     watch: {},
     data: () => ({
-        items: ['January', 'February', 'March',
-            'April', 'May', 'June', 'July',
-            'August', 'September', 'October',
-            'November', 'December'
-        ],
+        month:null,
+        year:null,
+        count_order: 0,
+        summery_order: 0,
+        count_member: 0,
+        count_anon: 0,
+        items: months,
+        response:false
     }),
+    async created() { 
+        this.year = moment().format("YYYY") 
+        await this.getOrder()
+        
+        this.month = moment().format("MMMM") 
+        this.response = true;
+       
+    },
+    methods: {
+        async getOrder() {
+            var order = await Product.getViewOrder(this.items, this.year)
+            let thismonth = moment().startOf("month").format()
+            let endmonth = moment().startOf("month").add(1, 'month').format()
+            for (let index = 0; index < order.length; index++) {
+                if (order[index].create_at >= thismonth && order[index].create_at <= endmonth) {
+                    this.count_order += order[index].count
+                    this.summery_order += order[index].total_price
+                    if (order[index].member == 1) {
+                        this.count_anon += order[index].count
+                    } else {
+                        this.count_member += order[index].count
+                    }
+                }
+            }
+        },
+        async changeMonth(){
+             this.response = false;
+               setInterval( ()=>{   this.response = true; }, 500);
+
+            
+        }
+    }
 }
 </script>
 

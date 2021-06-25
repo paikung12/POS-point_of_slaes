@@ -94,11 +94,9 @@ export default {
             let endtoday = moment().startOf("day").add(1, 'day').format()
             for (let index = 0; index < order.length; index++) {
                 if (order[index].create_at >= today && order[index].create_at <= endtoday) {
-                    order[index].create_at = moment(order[0].create_at).format("YYYY/MM/DD HH:mm")
                     this.order_today.push(order[index])
                 }
             }
-            console.log(this.order_today)
         },
     }
 }

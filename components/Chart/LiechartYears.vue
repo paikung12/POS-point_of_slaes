@@ -14,50 +14,103 @@
     </div>
     <div class="p-4 flex-auto">
         <div class="relative h-350-px" style="position: relative; height:350px; width:140vh">
-            <canvas id="lie-chartYears"></canvas>
+            <div id="chart" v-if="response">
+
+                <apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
+            </div>
         </div>
     </div>
 </div>
 </template>
 
 <script>
-import Chart from "chart.js";
+import VueApexCharts from 'vue-apexcharts'
+import moment from 'moment'
+import {
+    Product
+} from '~/vuexes/product';
+import _ from 'lodash'
+
 export default {
-    mounted: function () {
-        this.$nextTick(function () {
-            let config = {
-                type: "line",
-                data: {
-                    labels: [
-                        'January', 'February', 'March',
-                        'April', 'May', 'June', 'July',
-                        'August', 'September', 'October',
-                        'November', 'December'
-                    ],
-                    datasets: [{
-                        label: 'My First Dataset',
-                        data: [65, 59, 80, 81, 56, 55, 40, 30],
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    }, ],
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    responsive: true,
-                    scales: {
-                        xAxes: [{
-                            stacked: true
-                        }, ],
-                        yAxes: [{
-                            stacked: true
-                        }, ],
-                    },
-                },
-            };
-            var ctx = document.getElementById("lie-chartYears").getContext("2d");
-            window.myBar = new Chart(ctx, config);
-        });
+    props: {
+        month: {
+            default: "January"
+        }
     },
+    components: {
+        apexchart: VueApexCharts,
+    },
+    data: () => ({
+        series: [{
+            name: "Desktops",
+            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+        }],
+        chartOptions: {
+            chart: {
+                height: 350,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'straight'
+            },
+            title: {
+                text: 'Product Trends by Month',
+                align: 'left'
+            },
+            grid: {
+                row: {
+                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                    opacity: 0.5
+                },
+            },
+            xaxis: {
+                categories: [],
+            }
+        },
+        selectMonth: "",
+        year: null,
+        date: [],
+        order: [],
+        dayinmonth: [],
+        response: false
+    }),
+     async created() {
+        this.year = moment().format("YYYY")
+        await this.getOrder()
+        this.response = true;
+    },
+    methods: {
+
+        async getOrder() {
+            this.order = await Product.getOrderByDate('', this.year)
+            console.log(this.order)
+            for (let index = 0; index < this.order.length; index++) {
+                this.order[index].date = moment(this.order[index].create_at).format("DD/MM/YY")
+            }
+            var test = _.chain(this.order)
+                // Group the elements of Array based on `color` property
+                .groupBy("date")
+                .map((value, key) => ({
+                    date: key,
+                    order: value,
+                    priceAll: _.sumBy(value, (r) => {
+                        return r.total_price
+                    })
+                }))
+                .value() //_().groupBy(this.order, function (b) {return b.date})
+
+            console.log(test, _.map(test, 'date'))
+
+            this.chartOptions.xaxis.categories = _.map(test, 'date')
+            this.series[0].data = _.map(test, 'priceAll')
+
+        }
+    }
 };
 </script>

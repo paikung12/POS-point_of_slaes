@@ -180,30 +180,31 @@ export default {
         summery_order: 0,
         count_member: 0,
         count_anon: 0,
-        
+
     }),
     async created() {
-        await this.getOrder()        
+        await this.getOrder()
 
     },
     methods: {
-        async getOrder(){
+        async getOrder() {
             let order = await Product.getOrder()
-            let today = moment().startOf("day").format() 
-            let endtoday = moment().startOf("day").add(1 , 'day').format()
-            for(let index = 0; index < order.length; index++  ){
-                if(order[index].create_at >= today && order[index].create_at <= endtoday){
+            let today = moment().startOf("day").format()
+            let endtoday = moment().startOf("day").add(1, 'day').format()
+            for (let index = 0; index < order.length; index++) {
+                if (order[index].create_at >= today && order[index].create_at <= endtoday) {
                     this.count_order += order[index].count
                     this.summery_order += order[index].total_price
+                    if (order[index].member == 1) {
+                        this.count_anon += order[index].count
+                    } else {
+                        this.count_member += order[index].count
+                    }
                 }
-                if(order[index].member == 1){
-                    this.count_anon += order[index].count
-                }else{
-                    this.count_member += order[index].count
-                }
+
             }
-        } 
-       
+        }
+
     },
 }
 </script>
