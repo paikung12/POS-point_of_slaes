@@ -60,7 +60,7 @@ export default {
                 curve: 'straight'
             },
             title: {
-                text: 'Product Trends by Month',
+                text: 'Product Trends by Year',
                 align: 'left'
             },
             grid: {
@@ -81,6 +81,7 @@ export default {
         response: false
     }),
      async created() {
+         console.log(this.month)
         this.year = moment().format("YYYY")
         await this.getOrder()
         this.response = true;
@@ -91,7 +92,7 @@ export default {
             this.order = await Product.getOrderByDate('', this.year)
             console.log(this.order)
             for (let index = 0; index < this.order.length; index++) {
-                this.order[index].date = moment(this.order[index].create_at).format("DD/MM/YY")
+                this.order[index].date = moment(this.order[index].create_at).format("YYYY")
             }
             var test = _.chain(this.order)
                 // Group the elements of Array based on `color` property
