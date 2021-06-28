@@ -1,4 +1,9 @@
 # PointOfSales
+![image](https://user-images.githubusercontent.com/37680262/123628707-9a675500-d83d-11eb-8a4d-f3a8c8b4e9d6.png)
+![image](https://user-images.githubusercontent.com/37680262/123628728-9dfadc00-d83d-11eb-96d0-c5dcbf7242b3.png)
+![image](https://user-images.githubusercontent.com/37680262/123628741-a4895380-d83d-11eb-9af8-1b528ea6c0a3.png)
+![image](https://user-images.githubusercontent.com/37680262/123628764-a9e69e00-d83d-11eb-84bc-0470440bd9c1.png)
+
 
 ## Build Setup
 
