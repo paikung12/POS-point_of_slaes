@@ -17,7 +17,7 @@
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
                             <div class="flex items-center">
                                 <div>
-                                    <div class="text-sm leading-5 text-gray-800">{{i}}</div>
+                                    <div class="text-sm leading-5 text-gray-800">{{i+1}}</div>
                                 </div>
                             </div>
                         </td>
@@ -75,25 +75,34 @@ import {
     Product
 } from '~/vuexes/product';
 export default {
+    props: {
+        date: {
+            default: "1"
+        },
+
+    },
     data: () => {
         return ({
             dialog1: false,
+            selectDay: "",
+            selectMonth: "",
+            selectYear: "",
             order_today: [],
+            response: false,
         })
     },
     async created() {
+        this.selectDay = moment(this.date).format("D")
+        this.selectMonth = moment(this.date).format("M")
+        this.selectYear = moment(this.date).format("YYYY")
         await this.getOrder()
+        this.response = true
+
     },
     methods: {
         async getOrder() {
-            var order = await Product.getViewOrder()
-            let today = moment().startOf("day").format()
-            let endtoday = moment().startOf("day").add(1, 'day').format()
-            for (let index = 0; index < order.length; index++) {
-                if (order[index].create_at >= today && order[index].create_at <= endtoday) {
-                    this.order_today.push(order[index])
-                }
-            }
+            this.order_today = await Product.getOrderViewByDate(this.selectDay, this.selectMonth, this.selectYear)
+
         },
     }
 }

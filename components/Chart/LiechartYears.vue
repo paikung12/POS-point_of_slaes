@@ -31,6 +31,13 @@ import {
 import _ from 'lodash'
 
 export default {
+    props: {
+
+        year: {
+            default:  "2021"
+        },
+
+    },
     
     components: {
         apexchart: VueApexCharts,
@@ -68,24 +75,24 @@ export default {
                 categories: [],
             }
         },
-        selectMonth: "",
-        year: null,
+        Selectyear: null,
         date: [],
         order: [],
         dayinmonth: [],
         response: false
     }),
      async created() {
-        this.year = moment().format("YYYY")
+        
         await this.getOrder()
         this.response = true;
     },
     methods: {
 
         async getOrder() {
-            this.order = await Product.getOrderByDate('', this.year)
+            this.Selectyear = moment().year(this.year).format("YYYY")
+            this.order = await Product.getOrderByDate('','', this.Selectyear)
             for (let index = 0; index < this.order.length; index++) {
-                this.order[index].date = moment(this.order[index].create_at).format("MM")
+                this.order[index].date = moment(this.order[index].create_at).format("MMMM")
             }
             var test = _.chain(this.order)
                 // Group the elements of Array based on `color` property

@@ -73,11 +73,11 @@ class ProductModule extends VuexModule{
     public async getOrder(){
         return await Core.getHttp('/backend/order/')
     }
-    public async getOrderByDate(month:number, year:number){
-        return await Core.getHttp(`/backend/order/?m=${month}&y=${year}`)
+    public async getOrderByDate(day:number, month:number, year:number){
+        return await Core.getHttp(`/backend/order/?d=${day}&m=${month}&y=${year}`)
     }
-    public async getOrderViewByDate(month:number, year:number){
-        return await Core.getHttp(`/backend/vieworder/?m=${month}&y=${year}`)
+    public async getOrderViewByDate(day:number, month:number, year:number){
+        return await Core.getHttp(`/backend/vieworder/?d=${day}&m=${month}&y=${year}`)
     }
 
     public async getViewOrder(){

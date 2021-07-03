@@ -30,6 +30,13 @@ import {
 } from '~/vuexes/product';
 import moment from 'moment';
 export default {
+    props: {
+
+        year: {
+            default: "2021"
+        },
+
+    },
     components: {
         apexchart: VueApexCharts,
     },
@@ -79,27 +86,25 @@ export default {
 
         },
         async getOrder() {
-            let order = await Product.getViewOrder()
-            let year = moment().format('YYYY')
+            var order = await Product.getOrderViewByDate("", "", this.year)
             for (let index = 0; index < order.length; index++) {
-                let checkyear = moment(order[index].create_at).format("YYYY")
-                if (checkyear == year) {
-                    if (order[index].product.type_id == 1) {
-                        this.count_coffee += order[index].count
-                    } else if (order[index].product.type_id == 2) {
-                        this.count_tea += order[index].count
-                    } else if (order[index].product.type_id == 3) {
-                        this.count_milk += order[index].count
-                    } else if (order[index].product.type_id == 4) {
-                        this.count_soda += order[index].count
-                    } else if (order[index].product.type_id == 5) {
-                        this.count_smoothie += order[index].count
-                    } else if (order[index].product.type_id == 6) {
-                        this.count_dessert += order[index].count
-                    } else if (order[index].product.type_id == 7) {
-                        this.count_time += order[index].count
-                    }
+
+                if (order[index].product.type_id == 1) {
+                    this.count_coffee += order[index].count
+                } else if (order[index].product.type_id == 2) {
+                    this.count_tea += order[index].count
+                } else if (order[index].product.type_id == 3) {
+                    this.count_milk += order[index].count
+                } else if (order[index].product.type_id == 4) {
+                    this.count_soda += order[index].count
+                } else if (order[index].product.type_id == 5) {
+                    this.count_smoothie += order[index].count
+                } else if (order[index].product.type_id == 6) {
+                    this.count_dessert += order[index].count
+                } else if (order[index].product.type_id == 7) {
+                    this.count_time += order[index].count
                 }
+
             }
             this.allcount.data = [
                 this.count_coffee,
@@ -110,7 +115,6 @@ export default {
                 this.count_dessert,
                 this.count_time
             ]
-            console.log(this.allcount)
             this.series[0] = this.allcount
 
         },
