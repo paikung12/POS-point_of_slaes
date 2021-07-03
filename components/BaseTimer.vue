@@ -139,11 +139,12 @@ export default {
     methods: {
         timegg() {
             var today = moment().startOf('day').format()
+            var maxtime = moment().set("hour", "22").set("minute", "00").format("HH.mm")
+            var overtime = moment().set("YYYY/MM/DD", today).set("HH:mm" , maxtime).format()
+            console.log(overtime)
             if (this.end_time > today) {
                 var now = parseFloat(moment().format("HH.mm"));
                 var end = parseFloat(moment(this.end_time).format("HH.mm "));
-                console.log(now, end)
-                console.log(end - now)
                 this.TIME_LIMIT = (end - now) * 3600
 
             } else {

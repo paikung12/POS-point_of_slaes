@@ -33,7 +33,10 @@ export default {
     props: {
         month: {
             default: "January"
-        }
+        },
+        year: {
+            default: "2021"
+        },
     },
     components: {
         apexchart: VueApexCharts,
@@ -71,40 +74,43 @@ export default {
                 categories: [],
             }
         },
-        selectMonth: 1,
-        year: null,
+        selectMonth: null,
+        selectYear:'',
+        day: "",
         date: [],
         order: [],
         dayinmonth: [],
-        response:false
+        response: false
     }),
     async created() {
         this.selectMonth = moment().month(this.month).format("M")
-        this.year = moment().format("YYYY")
+        this.selectYear = moment().year(this.year).format("YYYY")
         await this.getOrder()
         this.response = true;
     },
     methods: {
-        
+
         async getOrder() {
-            this.order = await Product.getOrderByDate(this.selectMonth, this.year)
+            this.order = await Product.getOrderByDate(this.day, this.selectMonth, this.selectYear)
             for (let index = 0; index < this.order.length; index++) {
                 this.order[index].date = moment(this.order[index].create_at).format("DD/MM/YY")
             }
             var test = _.chain(this.order)
                 // Group the elements of Array based on `color` property
-                .groupBy("date") 
+                .groupBy("date")
                 .map((value, key) => ({
                     date: key,
                     order: value,
-                    priceAll: _.sumBy(value,(r)=>{return r.total_price})
+                    priceAll: _.sumBy(value, (r) => {
+                        return r.total_price
+                    })
                 }))
                 .value() //_().groupBy(this.order, function (b) {return b.date})
 
-            console.log(test,_.map(test,'date'))
+            // console.log(test,_.map(test,'date'))
 
-             this.chartOptions.xaxis.categories  =  _.map(test,'date')
-             this.series[0].data =  _.map(test,'priceAll')
+            this.chartOptions.xaxis.categories = _.map(test, 'date')
+            this.series[0].data = _.map(test, 'priceAll')
 
         }
     }

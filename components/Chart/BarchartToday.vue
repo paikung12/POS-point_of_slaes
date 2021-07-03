@@ -14,7 +14,7 @@
     </div>
     <div class="p-4 flex-auto">
         <div v-if="response" class="relative h-350-px" style="position: relative; height:350px; width:140vh">
-            <apexchart   width="1320px" height="360px"  type="bar" :options="options" :series="series"></apexchart>
+            <apexchart width="1320px" height="360px" type="bar" :options="options" :series="series"></apexchart>
         </div>
     </div>
 </div>
@@ -27,13 +27,20 @@ import {
     Product
 } from '~/vuexes/product';
 export default {
+    props: {
+        date: {
+            default: "1"
+        },
+
+    },
     components: {
         apexchart: VueApexCharts,
     },
     data: () => ({
-        product_type: [],
         typename: [],
-        order_today: [],
+        selectDay: "",
+        selectMonth: "",
+        selectYear: "",
         price_coffee: 0,
         price_tea: 0,
         price_milk: 0,
@@ -63,50 +70,49 @@ export default {
     }),
 
     async created() {
+        this.selectDay = moment(this.date).format("D")
+        this.selectMonth = moment(this.date).format("M")
+        this.selectYear = moment(this.date).format("YYYY")
         await this.getData()
         await this.getAllPrice()
         this.response = true
     },
     methods: {
         async getData() {
-            this.product_type = await Product.getProducttype()
-            for (let index = 0; index < this.product_type.length; index++) {
-                this.typename.push(this.product_type[index].name)
+            let product_type = await Product.getProducttype()
+            for (let index = 0; index < product_type.length; index++) {
+                this.typename.push(product_type[index].name)
             }
             this.options.xaxis.categories = this.typename
 
         },
         async getAllPrice() {
-            this.order = await Product.getViewOrder()
-            let today = moment().startOf("day").format()
-            let endtoday = moment().startOf("day").add(1, 'day').format()
-            console.log(this.order)
-            for (let index = 0; index < this.order.length; index++) {
-                if (this.order[index].create_at >= today && this.order[index].create_at <= endtoday) {
-                    this.order_today.push(this.order[0])
-                    if (this.order[index].product.type_id == 1) {
-                        this.price_coffee += this.order[index].total_price
-                    } 
-                    else if (this.order[index].product.type_id == 2) {
-                        this.price_tea += this.order[index].total_price
-                    } 
-                    else if (this.order[index].product.type_id == 3) {
-                        this.price_milk += this.order[index].total_price
-                    } 
-                    else if (this.order[index].product.type_id == 4) {
-                        this.price_soda += this.order[index].total_price
-                    } 
-                    else if (this.order[index].product.type_id == 5) {
-                        this.price_smoothie += this.order[index].total_price
-                    } 
-                    else if (this.order[index].product.type_id == 6) {
-                        this.price_dessert += this.order[index].total_price
-                    } 
-                    else if (this.order[index].product.type_id == 7) {
-                        this.price_time += this.order[index].total_price
-                    }
+            var order = await Product.getOrderViewByDate(this.selectDay, this.selectMonth, this.selectYear)
 
+            for (let index = 0; index < order.length; index++) {
+
+                if (order[index].product.type_id == 1) {
+                    this.price_coffee += order[index].total_price
                 }
+                 else if (order[index].product.type_id == 2) {
+                    this.price_tea += order[index].total_price
+                } 
+                else if (order[index].product.type_id == 3) {
+                    this.price_milk += order[index].total_price
+                } 
+                else if (order[index].product.type_id == 4) {
+                    this.price_soda += order[index].total_price
+                } 
+                else if (order[index].product.type_id == 5) {
+                    this.price_smoothie += order[index].total_price
+                } 
+                else if (order[index].product.type_id == 6) {
+                    this.price_dessert += order[index].total_price
+                } 
+                else if (order[index].product.type_id == 7) {
+                    this.price_time += order[index].total_price
+                }
+
             }
             this.test.data = [
                 this.price_coffee,
@@ -119,7 +125,6 @@ export default {
             ]
 
             this.series[0] = this.test
-            console.log(this.series[0])
         },
     },
 

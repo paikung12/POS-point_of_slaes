@@ -4,7 +4,7 @@
         <div class="flex flex-wrap items-center">
             <div class="relative w-full max-w-full flex-grow flex-1">
                 <h6 class="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
-                    Performance
+                    Performance {{selectMonth}} {{month}}
                 </h6>
                 <h2 class="text-blueGray-700 text-xl font-semibold">
                     Total Type Orders
@@ -35,13 +35,17 @@ export default {
     props: {
 
         month: {
-            default: 'month'
+            default:  "month"
+        },
+        year: {
+            default: "2021"
         },
 
     },
     data: () => ({
         selectMonth:1,
-        year:null,
+        selectYear:'',
+        day:"",
         count_coffee: 0,
         count_tea: 0,
         count_milk: 0,
@@ -70,9 +74,8 @@ export default {
         }]
     }),
     async created() {
-        // this.selectMonth = moment().month(this.month).format("M")
-        // this.year = moment().format("YYYY")
-
+        this.selectMonth = moment().month(this.month).format("M")
+        this.selectYear = moment().year(this.year).format("YYYY")
         await this.getType()
         await this.getOrder()
         this.response = true
@@ -89,13 +92,9 @@ export default {
 
         },
         async getOrder() {
-            let eiei = await Product.getOrderViewByDate(6, 2021)
-            console.log(eiei)
-            let order = await Product.getViewOrder()
-            let month = moment().format('YYYY/MM')
+            var order = await Product.getOrderViewByDate(this.day, this.selectMonth, this.selectYear)
             for (let index = 0; index < order.length; index++) {
-                let checkmonth = moment(order[index].create_at).format("YYYY/MM")
-                if (checkmonth == month) {
+                
                     if (order[index].product.type_id == 1) {
                         this.count_coffee += order[index].count
                     } else if (order[index].product.type_id == 2) {
@@ -111,7 +110,7 @@ export default {
                     } else if (order[index].product.type_id == 7) {
                         this.count_time += order[index].count
                     }
-                }
+                
             }
             this.allcount.data = [
                 this.count_coffee,
