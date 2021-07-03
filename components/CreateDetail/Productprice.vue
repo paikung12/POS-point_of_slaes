@@ -64,7 +64,7 @@
                     </v-row>
                     <div class="grid grid-cols-3 lg:grid-cols-3 gap-5 w-full ">
                         <div v-for="(item, i) in prices" :key="i">
-                            <span class="text-blue-400 ml-8">{{item.name}} : {{item.price}}</span>
+                            <span class="text-blue-400 ml-8">{{item.name}} : {{item.price}} B. : {{item.time}} Hr.</span> 
                         </div>
                     </div>
                     <br>
