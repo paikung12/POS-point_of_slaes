@@ -36,12 +36,22 @@
             <!-- <---Summary of Product ---->
             <div class="flex flex-col flex-wrap sm:flex-row ">
                 <div class="w-full sm:w-1/2 xl:w-1/4" v-if="response">
-                    <v-date-picker @change="changeDate()" v-model="picker"></v-date-picker>
-
-                    <Chart-SumDay :date="picker" />
-
+                    <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full ">
+                        <div class="flex items-center justify-between mb-4 space-x-12">
+                            <span class="px-2 py-1 flex items-center font-semibold text-xl text-blue-400 rounded-md text-gray-800 bg-blue-50">
+                                Manage Day or Month <div class="ml-3">
+                                    <v-icon color="orange">mdi-calendar-range</v-icon>
+                                </div>
+                            </span>
+                            <span class="px-26 py-1 flex items-center font-semibold text-xs rounded-md text-white border border-white  bg-white"></span>
+                        </div>
+                        <v-date-picker class="mt-4" @change="changeDate()" v-model="picker" landscape="landscape" width="270" color="#8ed1fcff">
+                        </v-date-picker>
+                    </div>
+                    <div class="mt-6">
+                        <Chart-SumDay :date="picker" />
+                    </div>
                 </div>
-
                 <!-- <---Table Sum ---->
                 <div class="w-full sm:w-1/2 xl:w-3/4 pl-8" v-if="response">
                     <Chart-BarchartToday :date="picker" />
@@ -69,10 +79,13 @@ import moment from 'moment'
 import {
     Product
 } from '~/vuexes/product'
-import { pick } from 'lodash'
+import {
+    pick
+} from 'lodash'
 
 export default {
     data: () => ({
+
         picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         response: false,
 
@@ -82,7 +95,7 @@ export default {
 
     },
     methods: {
-        
+
         async changeDate() {
             this.response = false;
             setInterval(() => {
